@@ -22,6 +22,7 @@
           <element id="library" level="project" name="Maven: com.github.marcosemiao.log4jdbc:log4jdbc-api:0.1.2" />
           <element id="library" level="project" name="Maven: com.github.marcosemiao.log4jdbc:log4jdbc-utils:0.1.2" />
           <element id="library" level="project" name="Maven: com.oracle:ojdbc6:11.2.0" />
+          <element id="library" level="project" name="Maven: log4j:log4j:1.2.12" />
         </element>
       </element>
       <element id="directory" name="META-INF">
