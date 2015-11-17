@@ -1,4 +1,4 @@
-package com.mkhldvdv.logiweb;
+package com.mkhldvdv.logiweb.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -7,23 +7,23 @@ import java.io.Serializable;
  * Created by mkhldvdv on 17.11.2015.
  */
 @Entity
-@Table(name = "ORDER_STATUSES")
-public class OrderStatuses implements Serializable {
+@Table(name = "DRIVER_STATUSES")
+public class DriverStatuses implements Serializable {
     @Id
-    @Column(name = "ORDER_STATUS_ID")
+    @Column(name = "DRIVER_STATUS_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
-            valueColumnName = "SEQ_VALUE", pkColumnValue = "order_statuses_seq")
+            valueColumnName = "SEQ_VALUE", pkColumnValue = "driver_statuses_seq")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id = 0;
 
-    @Column(name = "ORDER_STATUS_NAME")
-    private String orderStatusName = "";
+    @Column(name = "DRIVER_STATUS_NAME")
+    private String driverStatusName = "";
 
-    public OrderStatuses() {
+    public DriverStatuses() {
     }
 
-    public OrderStatuses(String orderStatusName) {
-        this.orderStatusName = orderStatusName;
+    public DriverStatuses(String driverStatusName) {
+        this.driverStatusName = driverStatusName;
     }
 
     public long getId() {
@@ -34,12 +34,12 @@ public class OrderStatuses implements Serializable {
         this.id = id;
     }
 
-    public String getOrderStatusName() {
-        return orderStatusName;
+    public String getDriverStatusName() {
+        return driverStatusName;
     }
 
-    public void setOrderStatusName(String orderStatusName) {
-        this.orderStatusName = orderStatusName;
+    public void setDriverStatusName(String driverStatusName) {
+        this.driverStatusName = driverStatusName;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class OrderStatuses implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        OrderStatuses that = (OrderStatuses) o;
+        DriverStatuses that = (DriverStatuses) o;
 
         return id == that.id;
 
@@ -60,9 +60,9 @@ public class OrderStatuses implements Serializable {
 
     @Override
     public String toString() {
-        return "OrderStatuses{" +
+        return "DriverStatuses{" +
                 "id=" + id +
-                ", orderStatusName='" + orderStatusName + '\'' +
+                ", driverStatusName='" + driverStatusName + '\'' +
                 '}';
     }
 }

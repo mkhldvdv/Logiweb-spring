@@ -1,4 +1,4 @@
-package com.mkhldvdv.logiweb;
+package com.mkhldvdv.logiweb.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -7,23 +7,23 @@ import java.io.Serializable;
  * Created by mkhldvdv on 17.11.2015.
  */
 @Entity
-@Table(name = "TRUCK_STATUSES")
-public class TruckStatuses implements Serializable {
+@Table(name = "ROLES")
+public class Roles implements Serializable {
     @Id
-    @Column(name = "TRUCK_STATUS_ID")
+    @Column(name = "ROLE_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
-            valueColumnName = "SEQ_VALUE", pkColumnValue = "truck_statuses_seq")
+            valueColumnName = "SEQ_VALUE", pkColumnValue = "roles_seq")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id = 0;
 
-    @Column(name = "TRUCK_STATUS_NAME")
-    private String truckStatusName = "";
+    @Column(name = "ROLE_NAME")
+    private String roleName = "";
 
-    public TruckStatuses() {
+    public Roles() {
     }
 
-    public TruckStatuses(String truckStatusName) {
-        this.truckStatusName = truckStatusName;
+    public Roles(String roleName) {
+        this.roleName = roleName;
     }
 
     public long getId() {
@@ -34,12 +34,12 @@ public class TruckStatuses implements Serializable {
         this.id = id;
     }
 
-    public String getTruckStatusName() {
-        return truckStatusName;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setTruckStatusName(String truckStatusName) {
-        this.truckStatusName = truckStatusName;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     @Override
@@ -47,9 +47,9 @@ public class TruckStatuses implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TruckStatuses that = (TruckStatuses) o;
+        Roles roles = (Roles) o;
 
-        return id == that.id;
+        return id == roles.id;
 
     }
 
@@ -60,9 +60,9 @@ public class TruckStatuses implements Serializable {
 
     @Override
     public String toString() {
-        return "TruckStatuses{" +
+        return "Roles{" +
                 "id=" + id +
-                ", truckStatusName='" + truckStatusName + '\'' +
+                ", roleName='" + roleName + '\'' +
                 '}';
     }
 }

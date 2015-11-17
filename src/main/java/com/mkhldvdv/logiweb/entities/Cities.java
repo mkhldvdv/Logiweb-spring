@@ -1,4 +1,4 @@
-package com.mkhldvdv.logiweb;
+package com.mkhldvdv.logiweb.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -7,23 +7,23 @@ import java.io.Serializable;
  * Created by mkhldvdv on 17.11.2015.
  */
 @Entity
-@Table(name = "CARGO_STATUSES")
-public class CargoStatuses implements Serializable {
+@Table(name = "CITIES")
+public class Cities implements Serializable {
     @Id
-    @Column(name = "CARGO_STATUS_ID")
+    @Column(name = "CITY_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
-            valueColumnName = "SEQ_VALUE", pkColumnValue = "cargo_statuses_seq")
+            valueColumnName = "SEQ_VALUE", pkColumnValue = "cities_seq")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id = 0;
 
-    @Column(name = "CARGO_STATUS_NAME")
-    private String cargoStatusName = "";
+    @Column(name = "CITY_NAME")
+    private String cityName = "";
 
-    public CargoStatuses() {
+    public Cities() {
     }
 
-    public CargoStatuses(String cargoStatusName) {
-        this.cargoStatusName = cargoStatusName;
+    public Cities(String cityName) {
+        this.cityName = cityName;
     }
 
     public long getId() {
@@ -34,12 +34,12 @@ public class CargoStatuses implements Serializable {
         this.id = id;
     }
 
-    public String getCargoStatusName() {
-        return cargoStatusName;
+    public String getCityName() {
+        return cityName;
     }
 
-    public void setCargoStatusName(String cargoStatusName) {
-        this.cargoStatusName = cargoStatusName;
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
     @Override
@@ -47,9 +47,9 @@ public class CargoStatuses implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CargoStatuses that = (CargoStatuses) o;
+        Cities cities = (Cities) o;
 
-        return id == that.id;
+        return id == cities.id;
 
     }
 
@@ -60,9 +60,9 @@ public class CargoStatuses implements Serializable {
 
     @Override
     public String toString() {
-        return "CargoStatuses{" +
+        return "Cities{" +
                 "id=" + id +
-                ", cargoStatusName='" + cargoStatusName + '\'' +
+                ", cityName='" + cityName + '\'' +
                 '}';
     }
 }

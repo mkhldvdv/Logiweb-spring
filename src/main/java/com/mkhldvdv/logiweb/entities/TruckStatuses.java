@@ -1,4 +1,4 @@
-package com.mkhldvdv.logiweb;
+package com.mkhldvdv.logiweb.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -7,23 +7,23 @@ import java.io.Serializable;
  * Created by mkhldvdv on 17.11.2015.
  */
 @Entity
-@Table(name = "CARGO_TYPES")
-public class CargoTypes implements Serializable {
+@Table(name = "TRUCK_STATUSES")
+public class TruckStatuses implements Serializable {
     @Id
-    @Column(name = "CARGO_TYPE_ID")
+    @Column(name = "TRUCK_STATUS_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
-            valueColumnName = "SEQ_VALUE", pkColumnValue = "cargo_types_seq")
+            valueColumnName = "SEQ_VALUE", pkColumnValue = "truck_statuses_seq")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id = 0;
 
-    @Column(name = "CARGO_TYPE_NAME")
-    private String cargoTypeName = "";
+    @Column(name = "TRUCK_STATUS_NAME")
+    private String truckStatusName = "";
 
-    public CargoTypes() {
+    public TruckStatuses() {
     }
 
-    public CargoTypes(String cargoTypeName) {
-        this.cargoTypeName = cargoTypeName;
+    public TruckStatuses(String truckStatusName) {
+        this.truckStatusName = truckStatusName;
     }
 
     public long getId() {
@@ -34,12 +34,12 @@ public class CargoTypes implements Serializable {
         this.id = id;
     }
 
-    public String getCargoTypeName() {
-        return cargoTypeName;
+    public String getTruckStatusName() {
+        return truckStatusName;
     }
 
-    public void setCargoTypeName(String cargoTypeName) {
-        this.cargoTypeName = cargoTypeName;
+    public void setTruckStatusName(String truckStatusName) {
+        this.truckStatusName = truckStatusName;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class CargoTypes implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CargoTypes that = (CargoTypes) o;
+        TruckStatuses that = (TruckStatuses) o;
 
         return id == that.id;
 
@@ -60,9 +60,9 @@ public class CargoTypes implements Serializable {
 
     @Override
     public String toString() {
-        return "CargoTypes{" +
+        return "TruckStatuses{" +
                 "id=" + id +
-                ", cargoTypeName='" + cargoTypeName + '\'' +
+                ", truckStatusName='" + truckStatusName + '\'' +
                 '}';
     }
 }
