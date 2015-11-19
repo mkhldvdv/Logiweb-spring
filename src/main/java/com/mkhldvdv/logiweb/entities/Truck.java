@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "TRUCKS")
-public class Trucks implements Serializable {
+public class Truck implements Serializable {
     @Id
     @Column(name = "TRUCK_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
@@ -27,16 +27,16 @@ public class Trucks implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TRUCK_STATUS_ID")
-    private TruckStatuses truckStatus;
+    private TruckStatus truckStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CITY_ID")
-    private Cities city;
+    private City city;
 
-    public Trucks() {
+    public Truck() {
     }
 
-    public Trucks(String regNum, byte driverCount, byte capacity, TruckStatuses truckStatus, Cities city) {
+    public Truck(String regNum, byte driverCount, byte capacity, TruckStatus truckStatus, City city) {
         this.regNum = regNum;
         this.driverCount = driverCount;
         this.capacity = capacity;
@@ -76,19 +76,19 @@ public class Trucks implements Serializable {
         this.capacity = capacity;
     }
 
-    public TruckStatuses getTruckStatus() {
+    public TruckStatus getTruckStatus() {
         return truckStatus;
     }
 
-    public void setTruckStatus(TruckStatuses truckStatus) {
+    public void setTruckStatus(TruckStatus truckStatus) {
         this.truckStatus = truckStatus;
     }
 
-    public Cities getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(Cities city) {
+    public void setCity(City city) {
         this.city = city;
     }
 
@@ -97,7 +97,7 @@ public class Trucks implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Trucks trucks = (Trucks) o;
+        Truck trucks = (Truck) o;
 
         return id == trucks.id;
 
@@ -110,7 +110,7 @@ public class Trucks implements Serializable {
 
     @Override
     public String toString() {
-        return "Trucks{" +
+        return "Truck{" +
                 "id=" + id +
                 ", regNum='" + regNum + '\'' +
                 ", driverCount=" + driverCount +

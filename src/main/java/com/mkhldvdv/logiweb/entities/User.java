@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "USERS")
-public class Users implements Serializable {
+public class User implements Serializable {
     @Id
     @Column(name = "USER_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
@@ -24,15 +24,15 @@ public class Users implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ROLE_ID")
-    private Roles role;
+    private Role role;
 
     @Column(name = "PASSWORD")
     private String password = "";
 
-    public Users() {
+    public User() {
     }
 
-    public Users(String fisrtName, String lastName, Roles role, String password) {
+    public User(String fisrtName, String lastName, Role role, String password) {
         this.fisrtName = fisrtName;
         this.lastName = lastName;
         this.role = role;
@@ -63,11 +63,11 @@ public class Users implements Serializable {
         this.lastName = lastName;
     }
 
-    public Roles getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(Roles role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -84,7 +84,7 @@ public class Users implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Users users = (Users) o;
+        User users = (User) o;
 
         return id == users.id;
 
@@ -97,7 +97,7 @@ public class Users implements Serializable {
 
     @Override
     public String toString() {
-        return "Users{" +
+        return "User{" +
                 "id=" + id +
                 ", fisrtName='" + fisrtName + '\'' +
                 ", lastName='" + lastName + '\'' +

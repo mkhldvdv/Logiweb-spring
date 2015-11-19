@@ -18,16 +18,16 @@ public class OrderDriver implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ORDER_ID")
-    private Orders order;
+    private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DRIVER_ID")
-    private Drivers driver;
+    private Driver driver;
 
     public OrderDriver() {
     }
 
-    public OrderDriver(Orders order, Drivers driver) {
+    public OrderDriver(Order order, Driver driver) {
         this.order = order;
         this.driver = driver;
     }
@@ -40,19 +40,19 @@ public class OrderDriver implements Serializable {
         this.id = id;
     }
 
-    public Orders getOrder() {
+    public Order getOrder() {
         return order;
     }
 
-    public void setOrder(Orders order) {
+    public void setOrder(Order order) {
         this.order = order;
     }
 
-    public Drivers getDriver() {
+    public Driver getDriver() {
         return driver;
     }
 
-    public void setDriver(Drivers driver) {
+    public void setDriver(Driver driver) {
         this.driver = driver;
     }
 

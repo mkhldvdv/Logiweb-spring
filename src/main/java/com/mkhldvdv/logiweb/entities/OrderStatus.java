@@ -7,23 +7,23 @@ import java.io.Serializable;
  * Created by mkhldvdv on 17.11.2015.
  */
 @Entity
-@Table(name = "CITIES")
-public class Cities implements Serializable {
+@Table(name = "ORDER_STATUSES")
+public class OrderStatus implements Serializable {
     @Id
-    @Column(name = "CITY_ID")
+    @Column(name = "ORDER_STATUS_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
-            valueColumnName = "SEQ_VALUE", pkColumnValue = "cities_seq")
+            valueColumnName = "SEQ_VALUE", pkColumnValue = "order_statuses_seq")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id = 0;
 
-    @Column(name = "CITY_NAME")
-    private String cityName = "";
+    @Column(name = "ORDER_STATUS_NAME")
+    private String orderStatusName = "";
 
-    public Cities() {
+    public OrderStatus() {
     }
 
-    public Cities(String cityName) {
-        this.cityName = cityName;
+    public OrderStatus(String orderStatusName) {
+        this.orderStatusName = orderStatusName;
     }
 
     public long getId() {
@@ -34,12 +34,12 @@ public class Cities implements Serializable {
         this.id = id;
     }
 
-    public String getCityName() {
-        return cityName;
+    public String getOrderStatusName() {
+        return orderStatusName;
     }
 
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
+    public void setOrderStatusName(String orderStatusName) {
+        this.orderStatusName = orderStatusName;
     }
 
     @Override
@@ -47,9 +47,9 @@ public class Cities implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Cities cities = (Cities) o;
+        OrderStatus that = (OrderStatus) o;
 
-        return id == cities.id;
+        return id == that.id;
 
     }
 
@@ -60,9 +60,9 @@ public class Cities implements Serializable {
 
     @Override
     public String toString() {
-        return "Cities{" +
+        return "OrderStatus{" +
                 "id=" + id +
-                ", cityName='" + cityName + '\'' +
+                ", orderStatusName='" + orderStatusName + '\'' +
                 '}';
     }
 }

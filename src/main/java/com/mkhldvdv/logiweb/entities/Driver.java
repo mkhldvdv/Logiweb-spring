@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "DRIVERS")
-public class Drivers implements Serializable {
+public class Driver implements Serializable {
     @Id
     @Column(name = "DRIVER_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
@@ -21,24 +21,24 @@ public class Drivers implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DRIVER_STATUS_ID")
-    private DriverStatuses driverStatus;
+    private DriverStatus driverStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CITY_ID")
-    private Cities city;
+    private City city;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TRUCK_ID")
-    private Trucks truck;
+    private Truck truck;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID")
-    private Users user;
+    private User user;
 
-    public Drivers() {
+    public Driver() {
     }
 
-    public Drivers(short hours, DriverStatuses driverStatus, Cities city, Trucks truck, Users user) {
+    public Driver(short hours, DriverStatus driverStatus, City city, Truck truck, User user) {
         this.hours = hours;
         this.driverStatus = driverStatus;
         this.city = city;
@@ -62,35 +62,35 @@ public class Drivers implements Serializable {
         this.hours = hours;
     }
 
-    public DriverStatuses getDriverStatus() {
+    public DriverStatus getDriverStatus() {
         return driverStatus;
     }
 
-    public void setDriverStatus(DriverStatuses driverStatus) {
+    public void setDriverStatus(DriverStatus driverStatus) {
         this.driverStatus = driverStatus;
     }
 
-    public Cities getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(Cities city) {
+    public void setCity(City city) {
         this.city = city;
     }
 
-    public Trucks getTruck() {
+    public Truck getTruck() {
         return truck;
     }
 
-    public void setTruck(Trucks truck) {
+    public void setTruck(Truck truck) {
         this.truck = truck;
     }
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -99,7 +99,7 @@ public class Drivers implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Drivers drivers = (Drivers) o;
+        Driver drivers = (Driver) o;
 
         return id == drivers.id;
 
@@ -112,7 +112,7 @@ public class Drivers implements Serializable {
 
     @Override
     public String toString() {
-        return "Drivers{" +
+        return "Driver{" +
                 "id=" + id +
                 ", hours=" + hours +
                 ", driverStatus=" + driverStatus +

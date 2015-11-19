@@ -18,11 +18,11 @@ public class CityMap implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CITY_ID1")
-    private Cities city1;
+    private City city1;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CITY_ID2")
-    private Cities city2;
+    private City city2;
 
     @Column(name = "DISTANCE")
     private int distance = 0;
@@ -30,7 +30,7 @@ public class CityMap implements Serializable {
     public CityMap() {
     }
 
-    public CityMap(Cities city1, Cities city2, int distance) {
+    public CityMap(City city1, City city2, int distance) {
         this.city1 = city1;
         this.city2 = city2;
         this.distance = distance;
@@ -44,19 +44,19 @@ public class CityMap implements Serializable {
         this.id = id;
     }
 
-    public Cities getCity1() {
+    public City getCity1() {
         return city1;
     }
 
-    public void setCity1(Cities city1) {
+    public void setCity1(City city1) {
         this.city1 = city1;
     }
 
-    public Cities getCity2() {
+    public City getCity2() {
         return city2;
     }
 
-    public void setCity2(Cities city2) {
+    public void setCity2(City city2) {
         this.city2 = city2;
     }
 

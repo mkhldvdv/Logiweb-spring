@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "CARGOS")
-public class Cargos implements Serializable {
+public class Cargo implements Serializable {
     @Id
     @Column(name = "CARGO_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
@@ -24,12 +24,12 @@ public class Cargos implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CARGO_STATUS_ID")
-    private CargoStatuses cargoStatus;
+    private CargoStatus cargoStatus;
 
-    public Cargos() {
+    public Cargo() {
     }
 
-    public Cargos(String cargoName, int weight, CargoStatuses cargoStatus) {
+    public Cargo(String cargoName, int weight, CargoStatus cargoStatus) {
         this.cargoName = cargoName;
         this.weight = weight;
         this.cargoStatus = cargoStatus;
@@ -59,11 +59,11 @@ public class Cargos implements Serializable {
         this.weight = weight;
     }
 
-    public CargoStatuses getCargoStatus() {
+    public CargoStatus getCargoStatus() {
         return cargoStatus;
     }
 
-    public void setCargoStatus(CargoStatuses cargoStatus) {
+    public void setCargoStatus(CargoStatus cargoStatus) {
         this.cargoStatus = cargoStatus;
     }
 
@@ -72,7 +72,7 @@ public class Cargos implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Cargos cargos = (Cargos) o;
+        Cargo cargos = (Cargo) o;
 
         return id == cargos.id;
 
@@ -85,7 +85,7 @@ public class Cargos implements Serializable {
 
     @Override
     public String toString() {
-        return "Cargos{" +
+        return "Cargo{" +
                 "id=" + id +
                 ", cargoName='" + cargoName + '\'' +
                 ", weight=" + weight +

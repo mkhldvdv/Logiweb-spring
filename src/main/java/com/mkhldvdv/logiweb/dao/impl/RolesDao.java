@@ -1,21 +1,21 @@
 package com.mkhldvdv.logiweb.dao.impl;
 
-import com.mkhldvdv.logiweb.entities.Roles;
+import com.mkhldvdv.logiweb.entities.Role;
 import com.mkhldvdv.logiweb.dao.GenericDaoImpl;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
-public class RolesDao extends GenericDaoImpl<Roles> {
+public class RolesDao extends GenericDaoImpl<Role> {
 
     /**
-     *This method search the Roles entity by the name of this entity.
+     *This method search the Role entity by the name of this entity.
      * @param authority the authority that system user have
      *                  @return Role entity
      */
-    public Roles getByDescription(String authority) {
-        return em.createQuery("select r from Roles r where r.roleName = :role", Roles.class)
+    public Role getByDescription(String authority) {
+        return em.createQuery("select r from Role r where r.roleName = :role", Role.class)
                 .setParameter("role", authority)
                 .getSingleResult();
     }
@@ -27,17 +27,19 @@ public class RolesDao extends GenericDaoImpl<Roles> {
         roleDao.em = emf.createEntityManager();
 
         roleDao.em.getTransaction().begin();
-        roleDao.em.persist(new Roles("administrator"));
+        roleDao.em.persist(new Role("administrator"));
+        roleDao.em.persist(new Role("operator"));
+        roleDao.em.persist(new Role("driver"));
         roleDao.em.flush();
         roleDao.em.getTransaction().commit();
 
-        List<Roles> roles = roleDao.getAll();
+        List<Role> roles = roleDao.getAll();
 
-        for (Roles role : roles) System.out.println(role);
+        for (Role role : roles) System.out.println(role);
 
         roleDao.em.close();
         emf.close();
 
-        System.out.println("close");
+//        System.out.println("close");
     }
 }

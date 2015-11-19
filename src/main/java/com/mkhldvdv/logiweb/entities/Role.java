@@ -8,21 +8,21 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "ROLES")
-public class Roles implements Serializable {
+public class Role implements Serializable {
     @Id
     @Column(name = "ROLE_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
             valueColumnName = "SEQ_VALUE", pkColumnValue = "roles_seq")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
-    private long id;
+    private Long id;
 
     @Column(name = "ROLE_NAME")
     private String roleName = "";
 
-    public Roles() {
+    public Role() {
     }
 
-    public Roles(String roleName) {
+    public Role(String roleName) {
         this.roleName = roleName;
     }
 
@@ -47,20 +47,23 @@ public class Roles implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Roles roles = (Roles) o;
+        Role roles = (Role) o;
 
-        return id == roles.id;
+        if (id != roles.id) return false;
+        return !(roleName != null ? !roleName.equals(roles.roleName) : roles.roleName != null);
 
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (roleName != null ? roleName.hashCode() : 0);
+        return result;
     }
 
     @Override
     public String toString() {
-        return "Roles{" +
+        return "Role{" +
                 "id=" + id +
                 ", roleName='" + roleName + '\'' +
                 '}';

@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "ORDERS")
-public class Orders implements Serializable {
+public class Order implements Serializable {
     @Id
     @Column(name = "ORDER_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
@@ -18,16 +18,16 @@ public class Orders implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ORDER_STATUS_ID")
-    private OrderStatuses orderStatus;
+    private OrderStatus orderStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TRUCK_ID")
-    private Trucks truck;
+    private Truck truck;
 
-    public Orders() {
+    public Order() {
     }
 
-    public Orders(OrderStatuses orderStatus, Trucks truck) {
+    public Order(OrderStatus orderStatus, Truck truck) {
         this.orderStatus = orderStatus;
         this.truck = truck;
     }
@@ -40,19 +40,19 @@ public class Orders implements Serializable {
         this.id = id;
     }
 
-    public OrderStatuses getOrderStatus() {
+    public OrderStatus getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(OrderStatuses orderStatus) {
+    public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
     }
 
-    public Trucks getTruck() {
+    public Truck getTruck() {
         return truck;
     }
 
-    public void setTruck(Trucks truck) {
+    public void setTruck(Truck truck) {
         this.truck = truck;
     }
 
@@ -61,7 +61,7 @@ public class Orders implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Orders orders = (Orders) o;
+        Order orders = (Order) o;
 
         return id == orders.id;
 
@@ -74,7 +74,7 @@ public class Orders implements Serializable {
 
     @Override
     public String toString() {
-        return "Orders{" +
+        return "Order{" +
                 "id=" + id +
                 ", orderStatus=" + orderStatus +
                 ", truck=" + truck +

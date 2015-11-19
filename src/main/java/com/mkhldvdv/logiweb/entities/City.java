@@ -7,23 +7,23 @@ import java.io.Serializable;
  * Created by mkhldvdv on 17.11.2015.
  */
 @Entity
-@Table(name = "CARGO_TYPES")
-public class CargoTypes implements Serializable {
+@Table(name = "CITIES")
+public class City implements Serializable {
     @Id
-    @Column(name = "CARGO_TYPE_ID")
+    @Column(name = "CITY_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
-            valueColumnName = "SEQ_VALUE", pkColumnValue = "cargo_types_seq")
+            valueColumnName = "SEQ_VALUE", pkColumnValue = "cities_seq")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id = 0;
 
-    @Column(name = "CARGO_TYPE_NAME")
-    private String cargoTypeName = "";
+    @Column(name = "CITY_NAME")
+    private String cityName = "";
 
-    public CargoTypes() {
+    public City() {
     }
 
-    public CargoTypes(String cargoTypeName) {
-        this.cargoTypeName = cargoTypeName;
+    public City(String cityName) {
+        this.cityName = cityName;
     }
 
     public long getId() {
@@ -34,12 +34,12 @@ public class CargoTypes implements Serializable {
         this.id = id;
     }
 
-    public String getCargoTypeName() {
-        return cargoTypeName;
+    public String getCityName() {
+        return cityName;
     }
 
-    public void setCargoTypeName(String cargoTypeName) {
-        this.cargoTypeName = cargoTypeName;
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
     @Override
@@ -47,9 +47,9 @@ public class CargoTypes implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CargoTypes that = (CargoTypes) o;
+        City cities = (City) o;
 
-        return id == that.id;
+        return id == cities.id;
 
     }
 
@@ -60,9 +60,9 @@ public class CargoTypes implements Serializable {
 
     @Override
     public String toString() {
-        return "CargoTypes{" +
+        return "City{" +
                 "id=" + id +
-                ", cargoTypeName='" + cargoTypeName + '\'' +
+                ", cityName='" + cityName + '\'' +
                 '}';
     }
 }

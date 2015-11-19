@@ -1,6 +1,6 @@
 package com.mkhldvdv.logiweb.dao.impl;
 
-import com.mkhldvdv.logiweb.entities.Roles;
+import com.mkhldvdv.logiweb.entities.Role;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -22,9 +22,9 @@ public class CheckRoles {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Logiweb");
         checkRoles.em = emf.createEntityManager();
 
-        Roles role = new Roles("administrator");
+        Role role = new Role("administrator");
         System.out.println(role);
-        Roles role2 = new Roles("operator");
+        Role role2 = new Role("operator");
         System.out.println(role2);
 
         checkRoles.em.getTransaction().begin();
@@ -34,9 +34,9 @@ public class CheckRoles {
         checkRoles.em.getTransaction().commit();
 
         RolesDao rolesDao = new RolesDao();
-        List<Roles> listRoles = rolesDao.getAll();
+        List<Role> listRoles = rolesDao.getAll();
 
-        for (Roles listRole : listRoles) {
+        for (Role listRole : listRoles) {
             System.out.println(listRole);
         }
     }

@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "TRUCK_STATUSES")
-public class TruckStatuses implements Serializable {
+public class TruckStatus implements Serializable {
     @Id
     @Column(name = "TRUCK_STATUS_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
@@ -19,10 +19,10 @@ public class TruckStatuses implements Serializable {
     @Column(name = "TRUCK_STATUS_NAME")
     private String truckStatusName = "";
 
-    public TruckStatuses() {
+    public TruckStatus() {
     }
 
-    public TruckStatuses(String truckStatusName) {
+    public TruckStatus(String truckStatusName) {
         this.truckStatusName = truckStatusName;
     }
 
@@ -47,7 +47,7 @@ public class TruckStatuses implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        TruckStatuses that = (TruckStatuses) o;
+        TruckStatus that = (TruckStatus) o;
 
         return id == that.id;
 
@@ -60,7 +60,7 @@ public class TruckStatuses implements Serializable {
 
     @Override
     public String toString() {
-        return "TruckStatuses{" +
+        return "TruckStatus{" +
                 "id=" + id +
                 ", truckStatusName='" + truckStatusName + '\'' +
                 '}';

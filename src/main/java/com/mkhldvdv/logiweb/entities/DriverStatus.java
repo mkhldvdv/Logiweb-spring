@@ -7,23 +7,23 @@ import java.io.Serializable;
  * Created by mkhldvdv on 17.11.2015.
  */
 @Entity
-@Table(name = "CARGO_STATUSES")
-public class CargoStatuses implements Serializable {
+@Table(name = "DRIVER_STATUSES")
+public class DriverStatus implements Serializable {
     @Id
-    @Column(name = "CARGO_STATUS_ID")
+    @Column(name = "DRIVER_STATUS_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
-            valueColumnName = "SEQ_VALUE", pkColumnValue = "cargo_statuses_seq")
+            valueColumnName = "SEQ_VALUE", pkColumnValue = "driver_statuses_seq")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id = 0;
 
-    @Column(name = "CARGO_STATUS_NAME")
-    private String cargoStatusName = "";
+    @Column(name = "DRIVER_STATUS_NAME")
+    private String driverStatusName = "";
 
-    public CargoStatuses() {
+    public DriverStatus() {
     }
 
-    public CargoStatuses(String cargoStatusName) {
-        this.cargoStatusName = cargoStatusName;
+    public DriverStatus(String driverStatusName) {
+        this.driverStatusName = driverStatusName;
     }
 
     public long getId() {
@@ -34,12 +34,12 @@ public class CargoStatuses implements Serializable {
         this.id = id;
     }
 
-    public String getCargoStatusName() {
-        return cargoStatusName;
+    public String getDriverStatusName() {
+        return driverStatusName;
     }
 
-    public void setCargoStatusName(String cargoStatusName) {
-        this.cargoStatusName = cargoStatusName;
+    public void setDriverStatusName(String driverStatusName) {
+        this.driverStatusName = driverStatusName;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class CargoStatuses implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CargoStatuses that = (CargoStatuses) o;
+        DriverStatus that = (DriverStatus) o;
 
         return id == that.id;
 
@@ -60,9 +60,9 @@ public class CargoStatuses implements Serializable {
 
     @Override
     public String toString() {
-        return "CargoStatuses{" +
+        return "DriverStatus{" +
                 "id=" + id +
-                ", cargoStatusName='" + cargoStatusName + '\'' +
+                ", driverStatusName='" + driverStatusName + '\'' +
                 '}';
     }
 }

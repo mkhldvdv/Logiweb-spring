@@ -7,23 +7,23 @@ import java.io.Serializable;
  * Created by mkhldvdv on 17.11.2015.
  */
 @Entity
-@Table(name = "DRIVER_STATUSES")
-public class DriverStatuses implements Serializable {
+@Table(name = "CARGO_STATUSES")
+public class CargoStatus implements Serializable {
     @Id
-    @Column(name = "DRIVER_STATUS_ID")
+    @Column(name = "CARGO_STATUS_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
-            valueColumnName = "SEQ_VALUE", pkColumnValue = "driver_statuses_seq")
+            valueColumnName = "SEQ_VALUE", pkColumnValue = "cargo_statuses_seq")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id = 0;
 
-    @Column(name = "DRIVER_STATUS_NAME")
-    private String driverStatusName = "";
+    @Column(name = "CARGO_STATUS_NAME")
+    private String cargoStatusName = "";
 
-    public DriverStatuses() {
+    public CargoStatus() {
     }
 
-    public DriverStatuses(String driverStatusName) {
-        this.driverStatusName = driverStatusName;
+    public CargoStatus(String cargoStatusName) {
+        this.cargoStatusName = cargoStatusName;
     }
 
     public long getId() {
@@ -34,12 +34,12 @@ public class DriverStatuses implements Serializable {
         this.id = id;
     }
 
-    public String getDriverStatusName() {
-        return driverStatusName;
+    public String getCargoStatusName() {
+        return cargoStatusName;
     }
 
-    public void setDriverStatusName(String driverStatusName) {
-        this.driverStatusName = driverStatusName;
+    public void setCargoStatusName(String cargoStatusName) {
+        this.cargoStatusName = cargoStatusName;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class DriverStatuses implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        DriverStatuses that = (DriverStatuses) o;
+        CargoStatus that = (CargoStatus) o;
 
         return id == that.id;
 
@@ -60,9 +60,9 @@ public class DriverStatuses implements Serializable {
 
     @Override
     public String toString() {
-        return "DriverStatuses{" +
+        return "CargoStatus{" +
                 "id=" + id +
-                ", driverStatusName='" + driverStatusName + '\'' +
+                ", cargoStatusName='" + cargoStatusName + '\'' +
                 '}';
     }
 }

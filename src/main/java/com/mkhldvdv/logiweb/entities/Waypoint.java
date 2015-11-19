@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "WAYPOINTS")
-public class Waypoints implements Serializable {
+public class Waypoint implements Serializable {
     @Id
     @Column(name = "WAYPOINT_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
@@ -18,24 +18,24 @@ public class Waypoints implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ORDER_ID")
-    private Orders order;
+    private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CITY_ID")
-    private Cities city;
+    private City city;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CARGO_ID")
-    private Cargos cargos;
+    private Cargo cargos;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CARGO_TYPE_ID")
-    private CargoTypes cargoType;
+    private CargoType cargoType;
 
-    public Waypoints() {
+    public Waypoint() {
     }
 
-    public Waypoints(Orders order, Cities city, Cargos cargos, CargoTypes cargoType) {
+    public Waypoint(Order order, City city, Cargo cargos, CargoType cargoType) {
         this.order = order;
         this.city = city;
         this.cargos = cargos;
@@ -50,35 +50,35 @@ public class Waypoints implements Serializable {
         this.id = id;
     }
 
-    public Orders getOrder() {
+    public Order getOrder() {
         return order;
     }
 
-    public void setOrder(Orders order) {
+    public void setOrder(Order order) {
         this.order = order;
     }
 
-    public Cities getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(Cities city) {
+    public void setCity(City city) {
         this.city = city;
     }
 
-    public Cargos getCargos() {
+    public Cargo getCargos() {
         return cargos;
     }
 
-    public void setCargos(Cargos cargos) {
+    public void setCargos(Cargo cargos) {
         this.cargos = cargos;
     }
 
-    public CargoTypes getCargoType() {
+    public CargoType getCargoType() {
         return cargoType;
     }
 
-    public void setCargoType(CargoTypes cargoType) {
+    public void setCargoType(CargoType cargoType) {
         this.cargoType = cargoType;
     }
 
@@ -87,7 +87,7 @@ public class Waypoints implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Waypoints waypoints = (Waypoints) o;
+        Waypoint waypoints = (Waypoint) o;
 
         return id == waypoints.id;
 
@@ -100,7 +100,7 @@ public class Waypoints implements Serializable {
 
     @Override
     public String toString() {
-        return "Waypoints{" +
+        return "Waypoint{" +
                 "id=" + id +
                 ", order=" + order +
                 ", city=" + city +
