@@ -14,7 +14,7 @@ public class Roles implements Serializable {
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
             valueColumnName = "SEQ_VALUE", pkColumnValue = "roles_seq")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
-    private long id = 0;
+    private long id;
 
     @Column(name = "ROLE_NAME")
     private String roleName = "";
