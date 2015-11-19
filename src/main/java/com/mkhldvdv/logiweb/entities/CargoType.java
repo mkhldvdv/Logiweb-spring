@@ -14,10 +14,10 @@ public class CargoType implements Serializable {
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
             valueColumnName = "SEQ_VALUE", pkColumnValue = "cargo_types_seq")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
-    private long id = 0;
+    private long id;
 
     @Column(name = "CARGO_TYPE_NAME")
-    private String cargoTypeName = "";
+    private String cargoTypeName;
 
     public CargoType() {
     }
@@ -47,15 +47,18 @@ public class CargoType implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        CargoType that = (CargoType) o;
+        CargoType cargoType = (CargoType) o;
 
-        return id == that.id;
+        if (id != cargoType.id) return false;
+        return !(cargoTypeName != null ? !cargoTypeName.equals(cargoType.cargoTypeName) : cargoType.cargoTypeName != null);
 
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (cargoTypeName != null ? cargoTypeName.hashCode() : 0);
+        return result;
     }
 
     @Override

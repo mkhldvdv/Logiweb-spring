@@ -14,10 +14,10 @@ public class Role implements Serializable {
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
             valueColumnName = "SEQ_VALUE", pkColumnValue = "roles_seq")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
-    private Long id;
+    private long id;
 
     @Column(name = "ROLE_NAME")
-    private String roleName = "";
+    private String roleName;
 
     public Role() {
     }
@@ -47,10 +47,10 @@ public class Role implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Role roles = (Role) o;
+        Role role = (Role) o;
 
-        if (id != roles.id) return false;
-        return !(roleName != null ? !roleName.equals(roles.roleName) : roles.roleName != null);
+        if (id != role.id) return false;
+        return !(roleName != null ? !roleName.equals(role.roleName) : role.roleName != null);
 
     }
 

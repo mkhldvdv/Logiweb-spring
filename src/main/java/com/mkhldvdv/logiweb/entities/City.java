@@ -14,10 +14,10 @@ public class City implements Serializable {
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
             valueColumnName = "SEQ_VALUE", pkColumnValue = "cities_seq")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
-    private long id = 0;
+    private long id;
 
     @Column(name = "CITY_NAME")
-    private String cityName = "";
+    private String cityName;
 
     public City() {
     }
@@ -47,15 +47,18 @@ public class City implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        City cities = (City) o;
+        City city = (City) o;
 
-        return id == cities.id;
+        if (id != city.id) return false;
+        return !(cityName != null ? !cityName.equals(city.cityName) : city.cityName != null);
 
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (cityName != null ? cityName.hashCode() : 0);
+        return result;
     }
 
     @Override

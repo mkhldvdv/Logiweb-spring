@@ -14,7 +14,7 @@ public class CityMap implements Serializable {
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
             valueColumnName = "SEQ_VALUE", pkColumnValue = "map_seq")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
-    private long id = 0;
+    private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CITY_ID1")
@@ -25,7 +25,7 @@ public class CityMap implements Serializable {
     private City city2;
 
     @Column(name = "DISTANCE")
-    private int distance = 0;
+    private int distance;
 
     public CityMap() {
     }
@@ -75,13 +75,16 @@ public class CityMap implements Serializable {
 
         CityMap cityMap = (CityMap) o;
 
-        return id == cityMap.id;
+        if (id != cityMap.id) return false;
+        return distance == cityMap.distance;
 
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + distance;
+        return result;
     }
 
     @Override

@@ -14,10 +14,10 @@ public class CargoStatus implements Serializable {
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
             valueColumnName = "SEQ_VALUE", pkColumnValue = "cargo_statuses_seq")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
-    private long id = 0;
+    private long id;
 
     @Column(name = "CARGO_STATUS_NAME")
-    private String cargoStatusName = "";
+    private String cargoStatusName;
 
     public CargoStatus() {
     }
@@ -49,13 +49,16 @@ public class CargoStatus implements Serializable {
 
         CargoStatus that = (CargoStatus) o;
 
-        return id == that.id;
+        if (id != that.id) return false;
+        return !(cargoStatusName != null ? !cargoStatusName.equals(that.cargoStatusName) : that.cargoStatusName != null);
 
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (cargoStatusName != null ? cargoStatusName.hashCode() : 0);
+        return result;
     }
 
     @Override

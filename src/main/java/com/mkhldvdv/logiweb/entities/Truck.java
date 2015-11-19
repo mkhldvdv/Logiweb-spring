@@ -14,7 +14,7 @@ public class Truck implements Serializable {
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
             valueColumnName = "SEQ_VALUE", pkColumnValue = "trucks_seq")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
-    private long id = 0;
+    private long id;
 
     @Column(name = "REG_NUM")
     private String regNum;
@@ -97,15 +97,22 @@ public class Truck implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Truck trucks = (Truck) o;
+        Truck truck = (Truck) o;
 
-        return id == trucks.id;
+        if (id != truck.id) return false;
+        if (driverCount != truck.driverCount) return false;
+        if (capacity != truck.capacity) return false;
+        return !(regNum != null ? !regNum.equals(truck.regNum) : truck.regNum != null);
 
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (regNum != null ? regNum.hashCode() : 0);
+        result = 31 * result + (int) driverCount;
+        result = 31 * result + (int) capacity;
+        return result;
     }
 
     @Override

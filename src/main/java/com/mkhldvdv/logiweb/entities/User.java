@@ -14,20 +14,20 @@ public class User implements Serializable {
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
             valueColumnName = "SEQ_VALUE", pkColumnValue = "users_seq")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
-    private long id = 0;
+    private long id;
 
     @Column(name = "FIRST_NAME")
-    private String fisrtName = "";
+    private String fisrtName;
 
     @Column(name = "LAST_NAME")
-    private String lastName = "";
+    private String lastName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ROLE_ID")
     private Role role;
 
     @Column(name = "PASSWORD")
-    private String password = "";
+    private String password;
 
     public User() {
     }
@@ -84,15 +84,22 @@ public class User implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        User users = (User) o;
+        User user = (User) o;
 
-        return id == users.id;
+        if (id != user.id) return false;
+        if (fisrtName != null ? !fisrtName.equals(user.fisrtName) : user.fisrtName != null) return false;
+        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
+        return !(password != null ? !password.equals(user.password) : user.password != null);
 
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (fisrtName != null ? fisrtName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        return result;
     }
 
     @Override

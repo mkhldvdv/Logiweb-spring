@@ -14,7 +14,7 @@ public class Waypoint implements Serializable {
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
             valueColumnName = "SEQ_VALUE", pkColumnValue = "waypoints_seq")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
-    private long id = 0;
+    private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ORDER_ID")
@@ -87,9 +87,9 @@ public class Waypoint implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Waypoint waypoints = (Waypoint) o;
+        Waypoint waypoint = (Waypoint) o;
 
-        return id == waypoints.id;
+        return id == waypoint.id;
 
     }
 

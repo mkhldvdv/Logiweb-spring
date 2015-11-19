@@ -14,10 +14,10 @@ public class Driver implements Serializable {
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
             valueColumnName = "SEQ_VALUE", pkColumnValue = "drivers_seq")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
-    private long id = 0;
+    private long id;
 
     @Column(name = "HOURS")
-    private short hours = 0;
+    private short hours;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DRIVER_STATUS_ID")
@@ -99,15 +99,18 @@ public class Driver implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Driver drivers = (Driver) o;
+        Driver driver = (Driver) o;
 
-        return id == drivers.id;
+        if (id != driver.id) return false;
+        return hours == driver.hours;
 
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (int) hours;
+        return result;
     }
 
     @Override

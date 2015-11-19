@@ -14,13 +14,13 @@ public class Cargo implements Serializable {
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
             valueColumnName = "SEQ_VALUE", pkColumnValue = "cargo_seq")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
-    private long id = 0;
+    private long id;
 
     @Column(name = "CARGO_NAME")
-    String cargoName = "";
+    private String cargoName;
 
     @Column(name = "WEIGHT")
-    int weight = 0;
+    private int weight;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CARGO_STATUS_ID")
@@ -72,15 +72,20 @@ public class Cargo implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Cargo cargos = (Cargo) o;
+        Cargo cargo = (Cargo) o;
 
-        return id == cargos.id;
+        if (id != cargo.id) return false;
+        if (weight != cargo.weight) return false;
+        return !(cargoName != null ? !cargoName.equals(cargo.cargoName) : cargo.cargoName != null);
 
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (cargoName != null ? cargoName.hashCode() : 0);
+        result = 31 * result + weight;
+        return result;
     }
 
     @Override

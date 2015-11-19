@@ -14,10 +14,10 @@ public class DriverStatus implements Serializable {
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
             valueColumnName = "SEQ_VALUE", pkColumnValue = "driver_statuses_seq")
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
-    private long id = 0;
+    private long id;
 
     @Column(name = "DRIVER_STATUS_NAME")
-    private String driverStatusName = "";
+    private String driverStatusName;
 
     public DriverStatus() {
     }
@@ -49,13 +49,16 @@ public class DriverStatus implements Serializable {
 
         DriverStatus that = (DriverStatus) o;
 
-        return id == that.id;
+        if (id != that.id) return false;
+        return !(driverStatusName != null ? !driverStatusName.equals(that.driverStatusName) : that.driverStatusName != null);
 
     }
 
     @Override
     public int hashCode() {
-        return (int) (id ^ (id >>> 32));
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (driverStatusName != null ? driverStatusName.hashCode() : 0);
+        return result;
     }
 
     @Override
