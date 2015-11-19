@@ -12,7 +12,7 @@ public class DriverStatus implements Serializable {
     @Id
     @Column(name = "DRIVER_STATUS_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
-            valueColumnName = "SEQ_VALUE", pkColumnValue = "driver_statuses_seq")
+            valueColumnName = "SEQ_VALUE", pkColumnValue = "driver_statuses_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id;
 

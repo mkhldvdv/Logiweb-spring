@@ -12,7 +12,7 @@ public class User implements Serializable {
     @Id
     @Column(name = "USER_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
-            valueColumnName = "SEQ_VALUE", pkColumnValue = "users_seq")
+            valueColumnName = "SEQ_VALUE", pkColumnValue = "users_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id;
 
@@ -28,6 +28,9 @@ public class User implements Serializable {
 
     @Column(name = "PASSWORD")
     private String password;
+
+    @Column(name = "LOGIN")
+    private String login;
 
     public User() {
     }

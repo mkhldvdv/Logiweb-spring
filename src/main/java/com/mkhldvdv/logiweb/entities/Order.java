@@ -12,7 +12,7 @@ public class Order implements Serializable {
     @Id
     @Column(name = "ORDER_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
-            valueColumnName = "SEQ_VALUE", pkColumnValue = "orders_seq")
+            valueColumnName = "SEQ_VALUE", pkColumnValue = "orders_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id;
 

@@ -12,7 +12,7 @@ public class Cargo implements Serializable {
     @Id
     @Column(name = "CARGO_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
-            valueColumnName = "SEQ_VALUE", pkColumnValue = "cargo_seq")
+            valueColumnName = "SEQ_VALUE", pkColumnValue = "cargo_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id;
 

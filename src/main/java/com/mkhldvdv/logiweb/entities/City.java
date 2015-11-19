@@ -12,7 +12,7 @@ public class City implements Serializable {
     @Id
     @Column(name = "CITY_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
-            valueColumnName = "SEQ_VALUE", pkColumnValue = "cities_seq")
+            valueColumnName = "SEQ_VALUE", pkColumnValue = "cities_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id;
 
