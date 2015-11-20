@@ -1,0 +1,16 @@
+#page-content h1 {
+    margin: 0 0 10px;
+}
+.form-element {
+    margin: 10px 0;
+}
+.form-element label {
+    float: left;
+    width: 90px;
+}
+input[type="submit"] {
+    background: #1F8E94;
+    color: #ffffff;
+    border: 1px solid #cccccc;
+    padding: 5px 10px;
+}
