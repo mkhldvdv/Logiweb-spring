@@ -19,7 +19,7 @@ public class TruckStatus implements Serializable {
     @Column(name = "TRUCK_STATUS_NAME")
     private String truckStatusName;
 
-    public TruckStatus() {
+    protected TruckStatus() {
     }
 
     public TruckStatus(String truckStatusName) {

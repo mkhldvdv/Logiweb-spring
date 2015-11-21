@@ -22,7 +22,7 @@ public class User implements Serializable {
     @Column(name = "LAST_NAME")
     private String lastName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ROLE_ID")
     private Role role;
 
@@ -32,7 +32,7 @@ public class User implements Serializable {
     @Column(name = "LOGIN")
     private String login;
 
-    public User() {
+    protected User() {
     }
 
     public User(String fisrtName, String lastName, Role role, String password) {

@@ -19,7 +19,7 @@ public class Role implements Serializable {
     @Column(name = "ROLE_NAME")
     private String roleName;
 
-    public Role() {
+    protected Role() {
     }
 
     public Role(String roleName) {

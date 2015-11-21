@@ -16,18 +16,18 @@ public class CityMap implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CITY_ID1")
     private City city1;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CITY_ID2")
     private City city2;
 
     @Column(name = "DISTANCE")
     private int distance;
 
-    public CityMap() {
+    protected CityMap() {
     }
 
     public CityMap(City city1, City city2, int distance) {

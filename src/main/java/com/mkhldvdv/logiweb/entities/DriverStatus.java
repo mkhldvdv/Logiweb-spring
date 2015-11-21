@@ -19,7 +19,7 @@ public class DriverStatus implements Serializable {
     @Column(name = "DRIVER_STATUS_NAME")
     private String driverStatusName;
 
-    public DriverStatus() {
+    protected DriverStatus() {
     }
 
     public DriverStatus(String driverStatusName) {

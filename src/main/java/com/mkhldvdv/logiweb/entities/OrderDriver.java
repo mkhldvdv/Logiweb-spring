@@ -24,7 +24,7 @@ public class OrderDriver implements Serializable {
     @JoinColumn(name = "DRIVER_ID")
     private Driver driver;
 
-    public OrderDriver() {
+    protected OrderDriver() {
     }
 
     public OrderDriver(Order order, Driver driver) {

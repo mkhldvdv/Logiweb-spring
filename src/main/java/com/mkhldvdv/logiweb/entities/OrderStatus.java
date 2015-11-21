@@ -19,7 +19,7 @@ public class OrderStatus implements Serializable {
     @Column(name = "ORDER_STATUS_NAME")
     private String orderStatusName;
 
-    public OrderStatus() {
+    protected OrderStatus() {
     }
 
     public OrderStatus(String orderStatusName) {

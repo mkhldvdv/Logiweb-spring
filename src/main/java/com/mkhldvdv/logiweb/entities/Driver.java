@@ -19,23 +19,23 @@ public class Driver implements Serializable {
     @Column(name = "HOURS")
     private short hours;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "DRIVER_STATUS_ID")
     private DriverStatus driverStatus;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CITY_ID")
     private City city;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "TRUCK_ID")
     private Truck truck;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
     private User user;
 
-    public Driver() {
+    protected Driver() {
     }
 
     public Driver(short hours, DriverStatus driverStatus, City city, Truck truck, User user) {

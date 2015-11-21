@@ -9,19 +9,38 @@
 <section id="page content">
     <div class="content-wrap">
         <h1>Login Form</h1>
-        <form name="formName" action="action.html">
+        <!--<form name="formName" action="action.html" onsubmit=validation()>-->
+        <form name="formName" action="LoginForm.html" onsubmit="validation(); return false;">
             <div class="form-element">
-                <label for="username">Username:</label>
+                <label id="username">Username:</label>
                 <input type="text" name="username"/>
             </div>
             <div class="form-element">
-                <label for="password">Password:</label>
+                <label id="password">Password:</label>
                 <input type="password" name="password"/>
             </div>
             <div class="form-element">
                 <input type="submit" value="Log in"/>
             </div>
         </form>
+        <script>
+            function validation(){
+                var inputLogin = document.getElementsByName("username");
+                var passInput = document.getElementsByName("password");
+
+                var loginMatch = /^[A-Za-z0-9]{5,10}$/;
+                if (!inputLogin[0].value.match(loginMatch)) {
+                    alert("Login name is incorrect");
+                    return false;
+                }
+
+                var passMatch = /^[A-Za-z0-9].$/;
+                if (!passInput[0].value.match(passMatch)) {
+                    alert("Password is incorrect");
+                    return false;
+                }
+            }
+        </script>
     </div>
 </section>
 </body>

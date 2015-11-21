@@ -19,7 +19,7 @@ public class CargoStatus implements Serializable {
     @Column(name = "CARGO_STATUS_NAME")
     private String cargoStatusName;
 
-    public CargoStatus() {
+    protected CargoStatus() {
     }
 
     public CargoStatus(String cargoStatusName) {

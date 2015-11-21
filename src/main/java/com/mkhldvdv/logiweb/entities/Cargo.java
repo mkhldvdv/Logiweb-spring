@@ -22,11 +22,11 @@ public class Cargo implements Serializable {
     @Column(name = "WEIGHT")
     private int weight;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CARGO_STATUS_ID")
     private CargoStatus cargoStatus;
 
-    public Cargo() {
+    protected Cargo() {
     }
 
     public Cargo(String cargoName, int weight, CargoStatus cargoStatus) {

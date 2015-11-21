@@ -25,15 +25,15 @@ public class Truck implements Serializable {
     @Column(name = "CAPACITY")
     private byte capacity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "TRUCK_STATUS_ID")
     private TruckStatus truckStatus;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CITY_ID")
     private City city;
 
-    public Truck() {
+    protected Truck() {
     }
 
     public Truck(String regNum, byte driverCount, byte capacity, TruckStatus truckStatus, City city) {

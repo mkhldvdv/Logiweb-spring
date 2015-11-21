@@ -16,15 +16,15 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ORDER_STATUS_ID")
     private OrderStatus orderStatus;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "TRUCK_ID")
     private Truck truck;
 
-    public Order() {
+    protected Order() {
     }
 
     public Order(OrderStatus orderStatus, Truck truck) {

@@ -19,7 +19,7 @@ public class City implements Serializable {
     @Column(name = "CITY_NAME")
     private String cityName;
 
-    public City() {
+    protected City() {
     }
 
     public City(String cityName) {
