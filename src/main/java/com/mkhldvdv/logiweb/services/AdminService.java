@@ -31,13 +31,13 @@ public interface AdminService {
 
     /**
      * deletes the specified truck
-     * @param id truck to delete
+     * @param truck truck to delete
      */
     public void deleteTruck(Truck truck);
 
     /**
      * updates the specified truck
-     * @param id truck to update
+     * @param truck truck to update
      * @return  updated truck
      */
     public Truck updateTruck(Truck truck);
@@ -51,22 +51,22 @@ public interface AdminService {
     /**
      * adds new driver
      * @param driver    driver to add
-     * @return id of the new truck
+     * @return new driver
      */
-    public long addDriver(Driver driver);
+    public Driver addDriver(Driver driver);
 
     /**
      * delete the specified driver
-     * @param id    driver to delete
+     * @param driver    driver to delete
      */
-    public void deleteDriver(long id);
+    public void deleteDriver(Driver driver);
 
     /**
      * updates the specified driver
-     * @param id    driver to update
+     * @param driver    driver to update
      * @return  updated driver
      */
-    public Driver updateDriver(long id);
+    public Driver updateDriver(Driver driver);
 
     /**
      * gets all orders
@@ -76,17 +76,17 @@ public interface AdminService {
 
     /**
      * updates the specified order
-     * @param id order to update
+     * @param order order to update
      * @return  updated order
      */
-    public Order updateOrder(long id);
+    public Order updateOrder(Order order);
 
     /**
      * gets the specified order
-     * @param id order to view
+     * @param order order to view
      * @return  specified order
      */
-    public Order getOrder(long id);
+    public Order getOrder(Order order);
 
     /**
      * gets all cargos
@@ -96,22 +96,22 @@ public interface AdminService {
 
     /**
      * updates the specified cargo
-     * @param id    cargo to update
+     * @param cargo    cargo to update
      * @return  updated cargo
      */
-    public Cargo updateCargo(long id);
+    public Cargo updateCargo(Cargo cargo);
 
     /**
      * gets the specified cargo
-     * @param id    cargo to view
+     * @param cargo    cargo to view
      * @return  specified cargo
      */
-    public Cargo getCargo(long id);
+    public Cargo getCargo(Cargo cargo);
 
     /**
      * assign drivers according to shift number, driver status and time limit
      * @param truck id of the truck
      * @return list of assigned drivers
      */
-    public List<Driver> assignDrivers(long truck);
+    public List<Driver> assignDrivers(Truck truck);
 }
