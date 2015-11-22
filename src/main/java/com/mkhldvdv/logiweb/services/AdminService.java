@@ -1,6 +1,7 @@
 package com.mkhldvdv.logiweb.services;
 
 import com.mkhldvdv.logiweb.entities.*;
+import com.mkhldvdv.logiweb.exceptions.WrongSpecifiedCargo;
 
 import java.util.List;
 
@@ -68,12 +69,14 @@ public interface AdminService {
     public List<Order> getOrderList();
 
     /**
-     * add new order with the check of all cargos should be
-     * somewhere loaded and somwhere unloaded
-     * @param   order to add
-     * @return  added Order
+     * adds new order
+     * @param order             order to add
+     * @param waypointLoad      waypoint to load the order
+     * @param waypointUnload    waypoint to unload the order
+     * @param orderDrivers      list of drivers for the order
+     * @return
      */
-    public Order addNewOrder(Order order);
+    public Order addNewOrder(Order order, Waypoint waypointLoad, Waypoint waypointUnload, OrderDriver ... orderDrivers) throws WrongSpecifiedCargo;
 
     /**
      * get the specified order

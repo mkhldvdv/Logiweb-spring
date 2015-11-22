@@ -2,6 +2,7 @@ package com.mkhldvdv.logiweb.services.impl;
 
 import com.mkhldvdv.logiweb.dao.impl.*;
 import com.mkhldvdv.logiweb.entities.*;
+import com.mkhldvdv.logiweb.exceptions.WrongSpecifiedCargo;
 import com.mkhldvdv.logiweb.services.AdminService;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class AdminServiceImpl implements AdminService {
     private OrderDao orderDao;
     private CargoDao cargoDao;
     private WaypointDao waypointDao;
+    private OrderDriverDao orderDriverDao;
 
     /**
      * get all trucks list
@@ -113,7 +115,7 @@ public class AdminServiceImpl implements AdminService {
         // updates Driver first
         Driver driver = driverDao.getByUserId(user.getId());
         driver = driverDao.update(driver);
-        // and then user
+        // and then updates user
         user = userDao.update(user);
         return user;
     }
@@ -129,15 +131,38 @@ public class AdminServiceImpl implements AdminService {
     }
 
     /**
-     * add new order with the check of all cargos should be
-     * somewhere loaded and somwhere unloaded
-     * @param order to add
-     * @return added Order
+     * adds new order
+     *
+     * @param order          order to add
+     * @param waypointLoad   waypoint to load the order
+     * @param waypointUnload waypoint to unload the order
+     * @param orderDrivers   list of drivers for the order
+     * @return
      */
     @Override
-    public Order addNewOrder(Order order) {
-        // toDo: logic for order according to cargo types
-        return orderDao.create(order);
+    public Order addNewOrder(Order order, Waypoint waypointLoad, Waypoint waypointUnload,
+                             OrderDriver... orderDrivers) throws WrongSpecifiedCargo {
+        // check the had load and unload waypoints
+        if (waypointLoad == null || waypointUnload == null) {
+            throw new WrongSpecifiedCargo("Cargo should be somewhere loaded and somewhere unloaded");
+        }
+        // adding order
+        Order newOrder = orderDao.create(order);
+        // set the added order to waypoints
+        waypointLoad.setOrder(newOrder);
+        waypointUnload.setOrder(newOrder);
+        // adding waypoints
+        Waypoint newWaypointLoad = waypointDao.create(waypointLoad);
+        Waypoint newWaypointUnload = waypointDao.create(waypointUnload);
+
+        // adding drivers for the order
+        for (OrderDriver orderDriver : orderDrivers) {
+            // set the added order to orderDriver entity
+            orderDriver.setOrder(newOrder);
+            OrderDriver newOrderDriver = orderDriverDao.create(orderDriver);
+        }
+
+        return newOrder;
     }
 
     /**
@@ -186,7 +211,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<Driver> getDriversShiftForTruck(Truck truck) {
         List<Driver> driverList = driverDao.getAvailableDriversCity(truck);
-        // toDo: filter drivers accosrding hours in current month and the time for delivery
+        // toDo: filter drivers according hours in current month and the time for delivery
         return driverList;
     }
 }
