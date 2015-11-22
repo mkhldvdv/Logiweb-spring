@@ -8,4 +8,14 @@ import com.mkhldvdv.logiweb.entities.Order;
  */
 public class OrderDao extends GenericDaoImpl<Order> {
 
+    /**
+     * get the order by truck id
+     * @param truck id of the truck
+     * @return  order
+     */
+    public Order getOrderByTruckId(long truck) {
+        return em.createQuery("select o from Order o where o.truck.id = :truck", Order.class)
+                .setParameter("truck", truck)
+                .getSingleResult();
+    }
 }

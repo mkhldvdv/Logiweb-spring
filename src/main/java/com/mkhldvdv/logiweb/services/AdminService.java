@@ -1,39 +1,51 @@
 package com.mkhldvdv.logiweb.services;
 
-/**
- * Created by mkhldvdv on 21.11.2015.
- */
-
-import com.mkhldvdv.logiweb.entities.Cargo;
-import com.mkhldvdv.logiweb.entities.Driver;
-import com.mkhldvdv.logiweb.entities.Order;
-import com.mkhldvdv.logiweb.entities.Truck;
+import com.mkhldvdv.logiweb.entities.*;
 
 import java.util.List;
 
 /**
- * interface contains admin business logic for work such as add/remove/update entities
+ * Created by mkhldvdv on 22.11.2015.
  */
 public interface AdminService {
 
     /**
-     * gets all trucks
-     * @return  the list of all trucks
+     * get all trucks list
+     * @return  the list of all available Trucks
      */
-    public List<Truck> getAllTrucks();
+    public List<Truck> getTruckList();
 
     /**
-     * adds new truck
+     * get all drivers list
+     * @return  the list of all available Drivers
+     */
+    public List<Driver> getDriverList();
+
+    /**
+     * adds new Truck
      * @param truck truck to add
-     * @return id of the new truck
+     * @return  added truck
      */
-    public Truck addTruck(Truck truck);
+    public Truck addNewTruck(Truck truck);
 
     /**
-     * deletes the specified truck
-     * @param truck truck to delete
+     * adds new user. If it's driver then adds the Driver as well
+     * @param user user to add
+     * @return  the added User
      */
-    public void deleteTruck(Truck truck);
+    public User addNewUser(User user);
+
+    /**
+     * removes the specified truck
+     * @param truck truck to remove
+     */
+    public void removeTruck(Truck truck);
+
+    /**
+     * removes the user and the driver if he exists
+     * @param user user to remove
+     */
+    public void removeUser(User user);
 
     /**
      * updates the specified truck
@@ -43,75 +55,53 @@ public interface AdminService {
     public Truck updateTruck(Truck truck);
 
     /**
-     * gets all drivers
-     * @return  the list of drivers
+     * updates the specified user, the driver as well
+     * @param user  user to update
+     * @return  updated user
      */
-    public List<Driver> getAllDrivers();
+    public User updateUser(User user);
 
     /**
-     * adds new driver
-     * @param driver    driver to add
-     * @return new driver
-     */
-    public Driver addDriver(Driver driver);
-
-    /**
-     * delete the specified driver
-     * @param driver    driver to delete
-     */
-    public void deleteDriver(Driver driver);
-
-    /**
-     * updates the specified driver
-     * @param driver    driver to update
-     * @return  updated driver
-     */
-    public Driver updateDriver(Driver driver);
-
-    /**
-     * gets all orders
+     * get all orders list
      * @return  the list of orders
      */
-    public List<Order> getAllOrders();
+    public List<Order> getOrderList();
 
     /**
-     * updates the specified order
-     * @param order order to update
-     * @return  updated order
+     * add new order with the check of all cargos should be
+     * somewhere loaded and somwhere unloaded
+     * @param   order to add
+     * @return  added Order
      */
-    public Order updateOrder(Order order);
+    public Order addNewOrder(Order order);
 
     /**
-     * gets the specified order
-     * @param order order to view
+     * get the specified order
+     * @param order id of the order
      * @return  specified order
      */
-    public Order getOrder(Order order);
+    public Order getOrder(long order);
 
     /**
-     * gets all cargos
-     * @return  the list of cargos
-     */
-    public List<Cargo> getAllCargos();
-
-    /**
-     * updates the specified cargo
-     * @param cargo    cargo to update
-     * @return  updated cargo
-     */
-    public Cargo updateCargo(Cargo cargo);
-
-    /**
-     * gets the specified cargo
-     * @param cargo    cargo to view
+     * get the specified cargo
+     * @param cargo if of the cargo
      * @return  specified cargo
      */
-    public Cargo getCargo(Cargo cargo);
+    public Cargo getCargo(long cargo);
 
     /**
-     * assign drivers according to shift number, driver status and time limit
-     * @param truck id of the truck
-     * @return list of assigned drivers
+     * get all the Trucks available for the order
+     * @return  the list of Trucks
      */
-    public List<Driver> assignDrivers(Truck truck);
+    public List<Truck> getTruckListAvailable();
+
+    /**
+     * search for drivers for the truck
+     * 1. no overtimes (176 hours a month)
+     * 2. no current active orders
+     * 3. driver and truck in the same city
+     * @param truck truck for the shift searching
+     * @return  list of Drivers available for the truck
+     */
+    public List<Driver> getDriversShiftForTruck(Truck truck);
 }

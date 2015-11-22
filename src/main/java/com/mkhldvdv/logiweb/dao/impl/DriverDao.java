@@ -26,6 +26,18 @@ public class DriverDao extends GenericDaoImpl<Driver> {
     }
 
     /**
+     * searching for drivers assigned to the truck
+     *
+     * @param truck truck id
+     * @return  list of drivers
+     */
+    public List<Driver> getByTruckId(long truck) {
+        return em.createQuery("select d from Driver d where d.truck.id = :truck", Driver.class)
+                .setParameter("truck", truck)
+                .getResultList();
+    }
+
+    /**
      * searching for available drivers in the city where the truck is
      *
      * @param truck searching the drivers for this truck
