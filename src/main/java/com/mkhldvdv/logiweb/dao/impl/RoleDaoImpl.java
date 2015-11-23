@@ -7,7 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
-public class RoleDao extends GenericDaoImpl<Role> {
+public class RoleDaoImpl extends GenericDaoImpl<Role> {
 
     /**
      * This method search the Role entity by the name of this entity.
@@ -23,28 +23,28 @@ public class RoleDao extends GenericDaoImpl<Role> {
 
     // check
     public static void main(String[] args) {
-        RoleDao roleDao = new RoleDao();
+        RoleDaoImpl roleDaoImpl = new RoleDaoImpl();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Logiweb");
         try {
-            roleDao.em = emf.createEntityManager();
+            roleDaoImpl.em = emf.createEntityManager();
 
-            roleDao.em.getTransaction().begin();
-            roleDao.create(new Role("testrole"));
-//            roleDao.em.persist(new Role("administrator"));
-//            roleDao.em.persist(new Role("operator"));
-//            roleDao.em.persist(new Role("driver"));
-            roleDao.em.flush();
-            roleDao.em.getTransaction().commit();
+            roleDaoImpl.em.getTransaction().begin();
+            roleDaoImpl.create(new Role("testrole"));
+//            roleDaoImpl.em.persist(new Role("administrator"));
+//            roleDaoImpl.em.persist(new Role("operator"));
+//            roleDaoImpl.em.persist(new Role("driver"));
+            roleDaoImpl.em.flush();
+            roleDaoImpl.em.getTransaction().commit();
 
-            List<Role> roles = roleDao.getAll();
+            List<Role> roles = roleDaoImpl.getAll();
 
             for (Role role : roles) System.out.println(role);
 
         } catch (Exception e) {
-            roleDao.em.getTransaction().rollback();
+            roleDaoImpl.em.getTransaction().rollback();
             e.printStackTrace();
         } finally {
-            roleDao.em.close();
+            roleDaoImpl.em.close();
             emf.close();
         }
     }

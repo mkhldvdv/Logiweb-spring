@@ -6,7 +6,7 @@ import com.mkhldvdv.logiweb.entities.DriverStatus;
 /**
  * Created by mkhldvdv on 19.11.2015.
  */
-public class DriverStatusDao extends GenericDaoImpl<DriverStatus> {
+public class DriverStatusDaoImpl extends GenericDaoImpl<DriverStatus> {
 
     /**
      * This method search the DriverStatus entity by the name of this entity.

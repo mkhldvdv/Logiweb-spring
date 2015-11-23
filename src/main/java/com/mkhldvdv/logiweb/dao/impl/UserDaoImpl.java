@@ -6,7 +6,7 @@ import com.mkhldvdv.logiweb.entities.User;
 /**
  * Created by mkhldvdv on 19.11.2015.
  */
-public class UserDao extends GenericDaoImpl<User> {
+public class UserDaoImpl extends GenericDaoImpl<User> {
 
     /**
      * searching for unique user by provided login and pass

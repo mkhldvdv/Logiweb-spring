@@ -2,10 +2,12 @@ package com.mkhldvdv.logiweb.services.impl;
 
 import com.mkhldvdv.logiweb.dao.impl.*;
 import com.mkhldvdv.logiweb.entities.*;
+import com.mkhldvdv.logiweb.exceptions.RegNumNotMatchException;
 import com.mkhldvdv.logiweb.exceptions.WrongSpecifiedCargo;
 import com.mkhldvdv.logiweb.services.AdminService;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * Created by mkhldvdv on 22.11.2015.
@@ -13,13 +15,13 @@ import java.util.List;
 public class AdminServiceImpl implements AdminService {
 
     public static final String DRIVER = "driver";
-    private TruckDao truckDao;
-    private DriverDao driverDao;
-    private UserDao userDao;
-    private OrderDao orderDao;
-    private CargoDao cargoDao;
-    private WaypointDao waypointDao;
-    private OrderDriverDao orderDriverDao;
+    private TruckDaoImpl truckDaoImpl;
+    private DriverDaoImpl driverDaoImpl;
+    private UserDaoImpl userDaoImpl;
+    private OrderDaoImpl orderDaoImpl;
+    private CargoDaoImpl cargoDaoImpl;
+    private WaypointDaoImpl waypointDaoImpl;
+    private OrderDriverDaoImpl orderDriverDaoImpl;
 
     /**
      * get all trucks list
@@ -28,7 +30,7 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public List<Truck> getTruckList() {
-        return truckDao.getAll();
+        return truckDaoImpl.getAll();
     }
 
     /**
@@ -38,7 +40,7 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public List<Driver> getDriverList() {
-        return driverDao.getAll();
+        return driverDaoImpl.getAll();
     }
 
     /**
@@ -48,8 +50,14 @@ public class AdminServiceImpl implements AdminService {
      * @return added truck
      */
     @Override
-    public Truck addNewTruck(Truck truck) {
-        return truckDao.create(truck);
+    public Truck addNewTruck(Truck truck) throws RegNumNotMatchException {
+
+        // regNum validation
+        if (!Pattern.matches("[a-zA-Z]{2}[0-9]{5}]", truck.getRegNum())) {
+            throw new RegNumNotMatchException("regNum should be 2 latin letters followed by 5 digits");
+        }
+
+        return truckDaoImpl.create(truck);
     }
 
     /**
@@ -60,11 +68,11 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public User addNewUser(User user) {
-        User newUser = userDao.create(user);
+        User newUser = userDaoImpl.create(user);
         // if it's a driver then add the driver as well
         if (DRIVER.equals(newUser.getRole().getRoleName())) {
-            Driver driver = driverDao.getByUserId(user.getId());
-            driver = driverDao.create(driver);
+            Driver driver = driverDaoImpl.getByUserId(user.getId());
+            driver = driverDaoImpl.create(driver);
         }
         return newUser;
     }
@@ -76,7 +84,7 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public void removeTruck(Truck truck) {
-        truckDao.remove(truck);
+        truckDaoImpl.remove(truck);
     }
 
     /**
@@ -87,10 +95,10 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void removeUser(User user) {
         // removes driver first
-        Driver driver = driverDao.getByUserId(user.getId());
-        driverDao.remove(driver);
+        Driver driver = driverDaoImpl.getByUserId(user.getId());
+        driverDaoImpl.remove(driver);
         // and then removes user
-        userDao.remove(user);
+        userDaoImpl.remove(user);
     }
 
     /**
@@ -100,8 +108,14 @@ public class AdminServiceImpl implements AdminService {
      * @return updated truck
      */
     @Override
-    public Truck updateTruck(Truck truck) {
-        return truckDao.update(truck);
+    public Truck updateTruck(Truck truck) throws RegNumNotMatchException {
+
+        // regNum validation
+        if (!Pattern.matches("[a-zA-Z]{2}[0-9]{5}]", truck.getRegNum())) {
+            throw new RegNumNotMatchException("regNum should be 2 latin letters followed by 5 digits");
+        }
+
+        return truckDaoImpl.update(truck);
     }
 
     /**
@@ -113,10 +127,10 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public User updateUser(User user) {
         // updates Driver first
-        Driver driver = driverDao.getByUserId(user.getId());
-        driver = driverDao.update(driver);
+        Driver driver = driverDaoImpl.getByUserId(user.getId());
+        driver = driverDaoImpl.update(driver);
         // and then updates user
-        user = userDao.update(user);
+        user = userDaoImpl.update(user);
         return user;
     }
 
@@ -127,7 +141,7 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public List<Order> getOrderList() {
-        return orderDao.getAll();
+        return orderDaoImpl.getAll();
     }
 
     /**
@@ -147,19 +161,19 @@ public class AdminServiceImpl implements AdminService {
             throw new WrongSpecifiedCargo("Cargo should be somewhere loaded and somewhere unloaded");
         }
         // adding order
-        Order newOrder = orderDao.create(order);
+        Order newOrder = orderDaoImpl.create(order);
         // set the added order to waypoints
         waypointLoad.setOrder(newOrder);
         waypointUnload.setOrder(newOrder);
         // adding waypoints
-        Waypoint newWaypointLoad = waypointDao.create(waypointLoad);
-        Waypoint newWaypointUnload = waypointDao.create(waypointUnload);
+        Waypoint newWaypointLoad = waypointDaoImpl.create(waypointLoad);
+        Waypoint newWaypointUnload = waypointDaoImpl.create(waypointUnload);
 
         // adding drivers for the order
         for (OrderDriver orderDriver : orderDrivers) {
             // set the added order to orderDriver entity
             orderDriver.setOrder(newOrder);
-            OrderDriver newOrderDriver = orderDriverDao.create(orderDriver);
+            OrderDriver newOrderDriver = orderDriverDaoImpl.create(orderDriver);
         }
 
         return newOrder;
@@ -173,7 +187,7 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public Order getOrder(long order) {
-        return orderDao.getById(order);
+        return orderDaoImpl.getById(order);
     }
 
     /**
@@ -184,7 +198,7 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public Cargo getCargo(long cargo) {
-        return cargoDao.getById(cargo);
+        return cargoDaoImpl.getById(cargo);
     }
 
     /**
@@ -194,7 +208,7 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public List<Truck> getTruckListAvailable() {
-        List<Truck> truckList = truckDao.getTrucksByStatusWithoutOrder();
+        List<Truck> truckList = truckDaoImpl.getTrucksByStatusWithoutOrder();
         // toDo: filter trucks according to capacity and waypoints
         return truckList;
     }
@@ -210,7 +224,7 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public List<Driver> getDriversShiftForTruck(Truck truck) {
-        List<Driver> driverList = driverDao.getAvailableDriversCity(truck);
+        List<Driver> driverList = driverDaoImpl.getAvailableDriversCity(truck);
         // toDo: filter drivers according hours in current month and the time for delivery
         return driverList;
     }

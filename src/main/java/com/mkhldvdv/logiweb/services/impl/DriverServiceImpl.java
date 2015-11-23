@@ -1,9 +1,9 @@
 package com.mkhldvdv.logiweb.services.impl;
 
-import com.mkhldvdv.logiweb.dao.impl.DriverDao;
-import com.mkhldvdv.logiweb.dao.impl.OrderDao;
-import com.mkhldvdv.logiweb.dao.impl.TruckDao;
-import com.mkhldvdv.logiweb.dao.impl.WaypointDao;
+import com.mkhldvdv.logiweb.dao.impl.DriverDaoImpl;
+import com.mkhldvdv.logiweb.dao.impl.OrderDaoImpl;
+import com.mkhldvdv.logiweb.dao.impl.TruckDaoImpl;
+import com.mkhldvdv.logiweb.dao.impl.WaypointDaoImpl;
 import com.mkhldvdv.logiweb.entities.Driver;
 import com.mkhldvdv.logiweb.entities.Order;
 import com.mkhldvdv.logiweb.entities.Truck;
@@ -18,10 +18,10 @@ import java.util.List;
  */
 public class DriverServiceImpl implements DriverService {
 
-    private DriverDao driverDao;
-    private OrderDao orderDao;
-    private TruckDao truckDao;
-    private WaypointDao waypointDao;
+    private DriverDaoImpl driverDaoImpl;
+    private OrderDaoImpl orderDaoImpl;
+    private TruckDaoImpl truckDaoImpl;
+    private WaypointDaoImpl waypointDaoImpl;
 
     /**
      * get the info for the driver:
@@ -41,9 +41,9 @@ public class DriverServiceImpl implements DriverService {
         allInfo.add(Long.toString(user));
 
         // 2. ids of co-drivers
-        Driver driver = driverDao.getByUserId(user);
+        Driver driver = driverDaoImpl.getByUserId(user);
         Truck truck = driver.getTruck();
-        List<Driver> driverList = driverDao.getByTruckId(truck.getId());
+        List<Driver> driverList = driverDaoImpl.getByTruckId(truck.getId());
         // remove current driver from the list
         boolean isRemoved = driverList.remove(driver);
         StringBuilder sb = new StringBuilder();
@@ -57,12 +57,12 @@ public class DriverServiceImpl implements DriverService {
         allInfo.add(truck.getRegNum());
 
         // 4. order id
-        Order order = orderDao.getOrderByTruckId(truck.getId());
+        Order order = orderDaoImpl.getOrderByTruckId(truck.getId());
         allInfo.add(Long.toString(order.getId()));
 
         // 5. waypoints list
         sb = new StringBuilder();
-        List<Waypoint> waypointList = waypointDao.getWayPointsByOrderId(order.getId());
+        List<Waypoint> waypointList = waypointDaoImpl.getWayPointsByOrderId(order.getId());
         for (Waypoint waypoint : waypointList) {
             sb.append(waypoint.getCity().getCityName()).append(" ");
         }

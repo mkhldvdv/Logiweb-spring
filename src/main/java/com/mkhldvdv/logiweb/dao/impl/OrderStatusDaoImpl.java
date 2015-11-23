@@ -6,7 +6,7 @@ import com.mkhldvdv.logiweb.entities.OrderStatus;
 /**
  * Created by mkhldvdv on 19.11.2015.
  */
-public class OrderStatusDao extends GenericDaoImpl<OrderStatus> {
+public class OrderStatusDaoImpl extends GenericDaoImpl<OrderStatus> {
 
     /**
      * This method search the OrderStatus entity by the name of this entity.

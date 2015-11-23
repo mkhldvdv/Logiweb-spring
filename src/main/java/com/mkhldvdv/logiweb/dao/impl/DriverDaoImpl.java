@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by mkhldvdv on 19.11.2015.
  */
-public class DriverDao extends GenericDaoImpl<Driver> {
+public class DriverDaoImpl extends GenericDaoImpl<Driver> {
 
     /**
      * searching for the driver by its id number
@@ -56,30 +56,30 @@ public class DriverDao extends GenericDaoImpl<Driver> {
     }
 
     // check
-    public static void main(String[] args) {
-        DriverDao driver = new DriverDao();
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Logiweb");
-        try {
-            driver.em = emf.createEntityManager();
-            TruckDao truck = new TruckDao();
-            truck.em = emf.createEntityManager();
-
-//            List<Driver> driverList = driver.getAll();
-//            for (Driver driver1 : driverList) {
-//                System.out.println(driver1);
-//            }
-
-            Driver driver2 = driver.getByUserId(1);
-            System.out.println(driver2);
-
-            List<Driver> drivers = driver.getAvailableDriversCity(truck.getTruckByRegNum("aa12345"));
-            for (Driver driver1 : drivers) System.out.println(driver1);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            driver.em.close();
-            emf.close();
-        }
-    }
+//    public static void main(String[] args) {
+//        DriverDaoImpl driver = new DriverDaoImpl();
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Logiweb");
+//        try {
+//            driver.em = emf.createEntityManager();
+//            TruckDaoImpl truck = new TruckDaoImpl();
+//            truck.em = emf.createEntityManager();
+//
+////            List<Driver> driverList = driver.getAll();
+////            for (Driver driver1 : driverList) {
+////                System.out.println(driver1);
+////            }
+//
+//            Driver driver2 = driver.getByUserId(1);
+//            System.out.println(driver2);
+//
+//            List<Driver> drivers = driver.getAvailableDriversCity(truck.getTruckByRegNum("aa12345"));
+//            for (Driver driver1 : drivers) System.out.println(driver1);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            driver.em.close();
+//            emf.close();
+//        }
+//    }
 }

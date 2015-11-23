@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by mkhldvdv on 19.11.2015.
  */
-public class WaypointDao extends GenericDaoImpl<Waypoint> {
+public class WaypointDaoImpl extends GenericDaoImpl<Waypoint> {
 
     /**
      * returns waypoints list by cargo id

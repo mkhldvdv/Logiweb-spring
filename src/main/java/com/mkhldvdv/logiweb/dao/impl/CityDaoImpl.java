@@ -6,7 +6,7 @@ import com.mkhldvdv.logiweb.entities.City;
 /**
  * Created by mkhldvdv on 19.11.2015.
  */
-public class CityDao extends GenericDaoImpl<City> {
+public class CityDaoImpl extends GenericDaoImpl<City> {
 
     /**
      * This method search the City entity by the name of this entity.

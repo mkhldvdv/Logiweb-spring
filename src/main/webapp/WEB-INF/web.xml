@@ -4,4 +4,14 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+    <servlet-name>servlet</servlet-name>
+    <servlet-class>com.mkhldvdv.logiweb.servlets.Servlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>servlet</servlet-name>
+    <url-pattern>/servlet/Servlet</url-pattern>
+  </servlet-mapping>
+
+
 </web-app>

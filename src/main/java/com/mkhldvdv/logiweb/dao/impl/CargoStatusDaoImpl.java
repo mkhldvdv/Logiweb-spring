@@ -6,7 +6,7 @@ import com.mkhldvdv.logiweb.entities.CargoStatus;
 /**
  * Created by mkhldvdv on 19.11.2015.
  */
-public class CargoStatusDao extends GenericDaoImpl<CargoStatus> {
+public class CargoStatusDaoImpl extends GenericDaoImpl<CargoStatus> {
 
     /**
      * This method search the CargoStatus entity by the name of this entity.

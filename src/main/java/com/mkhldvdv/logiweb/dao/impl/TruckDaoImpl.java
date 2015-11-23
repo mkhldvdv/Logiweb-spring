@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by mkhldvdv on 19.11.2015.
  */
-public class TruckDao extends GenericDaoImpl<Truck> {
+public class TruckDaoImpl extends GenericDaoImpl<Truck> {
 
     /**
      * searching for truck by registration number
@@ -39,22 +39,22 @@ public class TruckDao extends GenericDaoImpl<Truck> {
 
     // check
     public static void main(String[] args) {
-        TruckDao truckDao = new TruckDao();
+        TruckDaoImpl truckDaoImpl = new TruckDaoImpl();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Logiweb");
         try {
-            truckDao.em = emf.createEntityManager();
-            List<Truck> trucks = truckDao.getTrucksByStatusWithoutOrder();
+            truckDaoImpl.em = emf.createEntityManager();
+            List<Truck> trucks = truckDaoImpl.getTrucksByStatusWithoutOrder();
             for (Truck truck : trucks) {
                 System.out.println(truck);
             }
 
-            Truck truck = truckDao.getTruckByRegNum("aa12345");
+            Truck truck = truckDaoImpl.getTruckByRegNum("aa12345");
             System.out.println(truck);
 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            truckDao.em.close();
+            truckDaoImpl.em.close();
             emf.close();
         }
     }

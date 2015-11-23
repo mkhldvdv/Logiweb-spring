@@ -6,7 +6,7 @@ import com.mkhldvdv.logiweb.entities.CargoType;
 /**
  * Created by mkhldvdv on 19.11.2015.
  */
-public class CargoTypeDao extends GenericDaoImpl<CargoType> {
+public class CargoTypeDaoImpl extends GenericDaoImpl<CargoType> {
 
     /**
      * This method search the CargoType entity by the name of this entity.

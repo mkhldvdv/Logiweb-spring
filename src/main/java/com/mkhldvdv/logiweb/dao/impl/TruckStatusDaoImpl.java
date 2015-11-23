@@ -6,7 +6,7 @@ import com.mkhldvdv.logiweb.entities.TruckStatus;
 /**
  * Created by mkhldvdv on 19.11.2015.
  */
-public class TruckStatusDao extends GenericDaoImpl<TruckStatus> {
+public class TruckStatusDaoImpl extends GenericDaoImpl<TruckStatus> {
 
     /**
      * This method search the TruckStatus entity by the name of this entity.

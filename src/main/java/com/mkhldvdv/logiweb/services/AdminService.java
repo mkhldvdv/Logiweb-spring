@@ -1,6 +1,7 @@
 package com.mkhldvdv.logiweb.services;
 
 import com.mkhldvdv.logiweb.entities.*;
+import com.mkhldvdv.logiweb.exceptions.RegNumNotMatchException;
 import com.mkhldvdv.logiweb.exceptions.WrongSpecifiedCargo;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public interface AdminService {
      * @param truck truck to add
      * @return  added truck
      */
-    public Truck addNewTruck(Truck truck);
+    public Truck addNewTruck(Truck truck) throws RegNumNotMatchException;
 
     /**
      * adds new user. If it's driver then adds the Driver as well
@@ -53,7 +54,7 @@ public interface AdminService {
      * @param truck truck to update
      * @return  updated truck
      */
-    public Truck updateTruck(Truck truck);
+    public Truck updateTruck(Truck truck) throws RegNumNotMatchException;
 
     /**
      * updates the specified user, the driver as well
