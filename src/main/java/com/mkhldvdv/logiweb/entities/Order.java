@@ -20,14 +20,14 @@ public class Order implements Serializable {
     @JoinColumn(name = "ORDER_STATUS_ID", table = "ORDER_STATUSES", referencedColumnName = "ORDER_STATUS_NAME")
     private String orderStatus;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Waypoint> waypoints;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "TRUCK_ID")
     private Truck truck;
 
-    @OneToMany(mappedBy = "order")
+    @ManyToMany(mappedBy = "orders")
     private List<User> drivers;
 
     protected Order() {

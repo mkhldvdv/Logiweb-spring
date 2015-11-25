@@ -2,6 +2,7 @@ package com.mkhldvdv.logiweb.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by mkhldvdv on 18.11.2015.
@@ -31,10 +32,17 @@ public class Truck implements Serializable {
     @JoinColumn(name = "CITY_ID", table = "CITIES", referencedColumnName = "CITY_NAME")
     private String city;
 
+    @OneToMany(mappedBy = "truck")
+    private List<User> drivers;
+
+    @OneToMany(mappedBy = "truck")
+    private List<Order> orders;
+
     protected Truck() {
     }
 
-    public Truck(String regNum, byte driverCount, byte capacity, String truckStatus, String city) {
+    public Truck(String regNum, byte driverCount, byte capacity,
+                 String truckStatus, String city) {
         this.regNum = regNum;
         this.driverCount = driverCount;
         this.capacity = capacity;
@@ -44,6 +52,10 @@ public class Truck implements Serializable {
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getRegNum() {
@@ -86,6 +98,22 @@ public class Truck implements Serializable {
         this.city = city;
     }
 
+    public List<User> getDrivers() {
+        return drivers;
+    }
+
+    public void setDrivers(List<User> drivers) {
+        this.drivers = drivers;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -118,6 +146,8 @@ public class Truck implements Serializable {
                 ", capacity=" + capacity +
                 ", truckStatus='" + truckStatus + '\'' +
                 ", city='" + city + '\'' +
+                ", drivers=" + drivers +
+                ", orders=" + orders +
                 '}';
     }
 }

@@ -3,9 +3,7 @@ package com.mkhldvdv.logiweb.dao;
 
 import com.mkhldvdv.logiweb.dao.GenericDao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 /*
@@ -19,7 +17,7 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
     protected Class entityClass;
     protected EntityManager em;
 
-    public GenericDaoImpl(EntityManager em){
+    public GenericDaoImpl(){
         ParameterizedType genericSuperclass = (ParameterizedType) getClass()
                 .getGenericSuperclass();
         this.entityClass = (Class) genericSuperclass

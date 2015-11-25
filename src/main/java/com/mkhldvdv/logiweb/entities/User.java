@@ -1,5 +1,7 @@
 package com.mkhldvdv.logiweb.entities;
 
+import com.sun.istack.internal.Nullable;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -33,27 +35,33 @@ public class User implements Serializable {
     @JoinColumn(name = "ROLE_ID", table = "ROLES", referencedColumnName = "ROLE_NAME")
     private String role;
 
+    @Nullable
     @Column(name = "HOURS")
     private short hours;
 
+    @Nullable
     @JoinColumn(name = "USER_STATUS_ID", table = "USER_STATUSES", referencedColumnName = "USER_STATUS_NAME")
     private String userStatus;
 
+    @Nullable
     @JoinColumn(name = "CITY_ID", table = "CITIES", referencedColumnName = "CITY_NAME")
     private String city;
 
+    @Nullable
     @ManyToOne
     @JoinColumn(name = "TRUCK_ID")
     private Truck truck;
 
-    @ManyToOne
-    @JoinTable(name = "ORDER_DRIVER")
-    private Order order;
+    @Nullable
+    @ManyToMany
+    @JoinTable(name = "ORDER_DRIVER", joinColumns = {@JoinColumn(name = "USER_ID")},
+    inverseJoinColumns = {@JoinColumn(name = "ORDER_ID")})
+    private List<Order> orders;
 
     protected User() {
     }
 
-    public User(String fisrtName, String lastName, String login, String password, String role, short hours, String userStatus, String city, Truck truck, Order order) {
+    public User(String fisrtName, String lastName, String login, String password, String role, short hours, String userStatus, String city, Truck truck, List<Order> orders) {
         this.fisrtName = fisrtName;
         this.lastName = lastName;
         this.login = login;
@@ -63,11 +71,15 @@ public class User implements Serializable {
         this.userStatus = userStatus;
         this.city = city;
         this.truck = truck;
-        this.order = order;
+        this.orders = orders;
     }
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFisrtName() {
@@ -142,12 +154,12 @@ public class User implements Serializable {
         this.truck = truck;
     }
 
-    public Order getOrder() {
-        return order;
+    public List<Order> getOrders() {
+        return orders;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     @Override
@@ -161,7 +173,8 @@ public class User implements Serializable {
         if (fisrtName != null ? !fisrtName.equals(user.fisrtName) : user.fisrtName != null) return false;
         if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
-        return !(password != null ? !password.equals(user.password) : user.password != null);
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        return !(role != null ? !role.equals(user.role) : user.role != null);
 
     }
 
@@ -172,6 +185,7 @@ public class User implements Serializable {
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
         return result;
     }
 
@@ -188,7 +202,7 @@ public class User implements Serializable {
                 ", userStatus='" + userStatus + '\'' +
                 ", city='" + city + '\'' +
                 ", truck=" + truck +
-                ", order=" + order +
+                ", orders=" + orders +
                 '}';
     }
 }

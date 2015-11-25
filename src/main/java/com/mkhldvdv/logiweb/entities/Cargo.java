@@ -26,7 +26,7 @@ public class Cargo implements Serializable {
     @JoinColumn(name = "CARGO_STATUS_ID", table = "CARGO_STATUSES", referencedColumnName = "CARGO_STATUS_ID")
     private String cargoStatus;
 
-    @OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Waypoint> waypoints;
 
     protected Cargo() {
