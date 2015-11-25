@@ -2,6 +2,7 @@ package com.mkhldvdv.logiweb.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by mkhldvdv on 18.11.2015.
@@ -16,38 +17,32 @@ public class Waypoint implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CITY_ID")
-    private City city;
+    @JoinColumn(name = "CITY_ID", table = "CITIES", referencedColumnName = "CITY_NAME")
+    private String city;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "CARGO_ID")
-    private Cargo cargos;
+    private Cargo cargo;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CARGO_TYPE_ID")
-    private CargoType cargoType;
+    @JoinColumn(name = "CARGO_TYPE_ID", table = "CARGO_TYPES", referencedColumnName = "CARGO_TYPE_NAME")
+    private String cargoType;
 
     protected Waypoint() {
     }
 
-    public Waypoint(Order order, City city, Cargo cargos, CargoType cargoType) {
+    public Waypoint(Order order, String city, Cargo cargo, String cargoType) {
         this.order = order;
         this.city = city;
-        this.cargos = cargos;
+        this.cargo = cargo;
         this.cargoType = cargoType;
     }
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public Order getOrder() {
@@ -58,27 +53,27 @@ public class Waypoint implements Serializable {
         this.order = order;
     }
 
-    public City getCity() {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(City city) {
+    public void setCity(String city) {
         this.city = city;
     }
 
-    public Cargo getCargos() {
-        return cargos;
+    public Cargo getCargo() {
+        return cargo;
     }
 
-    public void setCargos(Cargo cargos) {
-        this.cargos = cargos;
+    public void setCargo(Cargo cargo) {
+        this.cargo = cargo;
     }
 
-    public CargoType getCargoType() {
+    public String getCargoType() {
         return cargoType;
     }
 
-    public void setCargoType(CargoType cargoType) {
+    public void setCargoType(String cargoType) {
         this.cargoType = cargoType;
     }
 
@@ -103,9 +98,9 @@ public class Waypoint implements Serializable {
         return "Waypoint{" +
                 "id=" + id +
                 ", order=" + order +
-                ", city=" + city +
-                ", cargos=" + cargos +
-                ", cargoType=" + cargoType +
+                ", city='" + city + '\'' +
+                ", cargo=" + cargo +
+                ", cargoType='" + cargoType + '\'' +
                 '}';
     }
 }

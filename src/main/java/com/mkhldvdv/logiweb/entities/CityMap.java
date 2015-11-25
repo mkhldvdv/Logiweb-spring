@@ -16,13 +16,11 @@ public class CityMap implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CITY_ID1")
-    private City city1;
+    @JoinColumn(name = "CITY_ID1", table = "CITIES", referencedColumnName = "CITY_NAME")
+    private String city1;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CITY_ID2")
-    private City city2;
+    @JoinColumn(name = "CITY_ID2", table = "CITIES", referencedColumnName = "CITY_NAME")
+    private String city2;
 
     @Column(name = "DISTANCE")
     private int distance;
@@ -30,7 +28,7 @@ public class CityMap implements Serializable {
     protected CityMap() {
     }
 
-    public CityMap(City city1, City city2, int distance) {
+    public CityMap(String city1, String city2, int distance) {
         this.city1 = city1;
         this.city2 = city2;
         this.distance = distance;
@@ -40,23 +38,19 @@ public class CityMap implements Serializable {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public City getCity1() {
+    public String getCity1() {
         return city1;
     }
 
-    public void setCity1(City city1) {
+    public void setCity1(String city1) {
         this.city1 = city1;
     }
 
-    public City getCity2() {
+    public String getCity2() {
         return city2;
     }
 
-    public void setCity2(City city2) {
+    public void setCity2(String city2) {
         this.city2 = city2;
     }
 
@@ -91,8 +85,8 @@ public class CityMap implements Serializable {
     public String toString() {
         return "CityMap{" +
                 "id=" + id +
-                ", city1=" + city1 +
-                ", city2=" + city2 +
+                ", city1='" + city1 + '\'' +
+                ", city2='" + city2 + '\'' +
                 ", distance=" + distance +
                 '}';
     }

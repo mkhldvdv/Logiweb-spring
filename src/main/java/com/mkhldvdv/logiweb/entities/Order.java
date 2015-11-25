@@ -2,6 +2,7 @@ package com.mkhldvdv.logiweb.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by mkhldvdv on 18.11.2015.
@@ -16,36 +17,47 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ORDER_STATUS_ID")
-    private OrderStatus orderStatus;
+    @JoinColumn(name = "ORDER_STATUS_ID", table = "ORDER_STATUSES", referencedColumnName = "ORDER_STATUS_NAME")
+    private String orderStatus;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<Waypoint> waypoints;
+
+    @OneToOne
     @JoinColumn(name = "TRUCK_ID")
     private Truck truck;
+
+    @OneToMany(mappedBy = "order")
+    private List<User> drivers;
 
     protected Order() {
     }
 
-    public Order(OrderStatus orderStatus, Truck truck) {
+    public Order(String orderStatus, List<Waypoint> waypoints, Truck truck, List<User> users) {
         this.orderStatus = orderStatus;
+        this.waypoints = waypoints;
         this.truck = truck;
+        this.drivers = users;
     }
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public OrderStatus getOrderStatus() {
+    public String getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(OrderStatus orderStatus) {
+    public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public List<Waypoint> getWaypoints() {
+        return waypoints;
+    }
+
+    public void setWaypoints(List<Waypoint> waypoints) {
+        this.waypoints = waypoints;
     }
 
     public Truck getTruck() {
@@ -54,6 +66,14 @@ public class Order implements Serializable {
 
     public void setTruck(Truck truck) {
         this.truck = truck;
+    }
+
+    public List<User> getDrivers() {
+        return drivers;
+    }
+
+    public void setDrivers(List<User> drivers) {
+        this.drivers = drivers;
     }
 
     @Override
@@ -76,8 +96,10 @@ public class Order implements Serializable {
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", orderStatus=" + orderStatus +
+                ", orderStatus='" + orderStatus + '\'' +
+                ", waypoints=" + waypoints +
                 ", truck=" + truck +
+                ", drivers=" + drivers +
                 '}';
     }
 }

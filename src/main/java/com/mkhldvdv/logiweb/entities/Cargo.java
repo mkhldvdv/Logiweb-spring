@@ -2,6 +2,7 @@ package com.mkhldvdv.logiweb.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by mkhldvdv on 17.11.2015.
@@ -22,17 +23,20 @@ public class Cargo implements Serializable {
     @Column(name = "WEIGHT")
     private int weight;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CARGO_STATUS_ID")
-    private CargoStatus cargoStatus;
+    @JoinColumn(name = "CARGO_STATUS_ID", table = "CARGO_STATUSES", referencedColumnName = "CARGO_STATUS_ID")
+    private String cargoStatus;
+
+    @OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL)
+    private List<Waypoint> waypoints;
 
     protected Cargo() {
     }
 
-    public Cargo(String cargoName, int weight, CargoStatus cargoStatus) {
+    public Cargo(String cargoName, int weight, String cargoStatus, List<Waypoint> waypoints) {
         this.cargoName = cargoName;
         this.weight = weight;
         this.cargoStatus = cargoStatus;
+        this.waypoints = waypoints;
     }
 
     public long getId() {
@@ -59,12 +63,20 @@ public class Cargo implements Serializable {
         this.weight = weight;
     }
 
-    public CargoStatus getCargoStatus() {
+    public String getCargoStatus() {
         return cargoStatus;
     }
 
-    public void setCargoStatus(CargoStatus cargoStatus) {
+    public void setCargoStatus(String cargoStatus) {
         this.cargoStatus = cargoStatus;
+    }
+
+    public List<Waypoint> getWaypoints() {
+        return waypoints;
+    }
+
+    public void setWaypoints(List<Waypoint> waypoints) {
+        this.waypoints = waypoints;
     }
 
     @Override
@@ -76,7 +88,8 @@ public class Cargo implements Serializable {
 
         if (id != cargo.id) return false;
         if (weight != cargo.weight) return false;
-        return !(cargoName != null ? !cargoName.equals(cargo.cargoName) : cargo.cargoName != null);
+        if (cargoName != null ? !cargoName.equals(cargo.cargoName) : cargo.cargoName != null) return false;
+        return !(cargoStatus != null ? !cargoStatus.equals(cargo.cargoStatus) : cargo.cargoStatus != null);
 
     }
 
@@ -85,6 +98,7 @@ public class Cargo implements Serializable {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (cargoName != null ? cargoName.hashCode() : 0);
         result = 31 * result + weight;
+        result = 31 * result + (cargoStatus != null ? cargoStatus.hashCode() : 0);
         return result;
     }
 
@@ -94,7 +108,8 @@ public class Cargo implements Serializable {
                 "id=" + id +
                 ", cargoName='" + cargoName + '\'' +
                 ", weight=" + weight +
-                ", cargoStatus=" + cargoStatus +
+                ", cargoStatus='" + cargoStatus + '\'' +
+                ", waypoints=" + waypoints +
                 '}';
     }
 }

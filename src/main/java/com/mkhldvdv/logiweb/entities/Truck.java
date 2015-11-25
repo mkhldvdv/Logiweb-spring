@@ -25,18 +25,16 @@ public class Truck implements Serializable {
     @Column(name = "CAPACITY")
     private byte capacity;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "TRUCK_STATUS_ID")
-    private TruckStatus truckStatus;
+    @JoinColumn(name = "TRUCK_STATUS_ID", table = "TRUCK_STATUSES", referencedColumnName = "TRUCK_STATUS_NAME")
+    private String truckStatus;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CITY_ID")
-    private City city;
+    @JoinColumn(name = "CITY_ID", table = "CITIES", referencedColumnName = "CITY_NAME")
+    private String city;
 
     protected Truck() {
     }
 
-    public Truck(String regNum, byte driverCount, byte capacity, TruckStatus truckStatus, City city) {
+    public Truck(String regNum, byte driverCount, byte capacity, String truckStatus, String city) {
         this.regNum = regNum;
         this.driverCount = driverCount;
         this.capacity = capacity;
@@ -46,10 +44,6 @@ public class Truck implements Serializable {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getRegNum() {
@@ -76,19 +70,19 @@ public class Truck implements Serializable {
         this.capacity = capacity;
     }
 
-    public TruckStatus getTruckStatus() {
+    public String getTruckStatus() {
         return truckStatus;
     }
 
-    public void setTruckStatus(TruckStatus truckStatus) {
+    public void setTruckStatus(String truckStatus) {
         this.truckStatus = truckStatus;
     }
 
-    public City getCity() {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(City city) {
+    public void setCity(String city) {
         this.city = city;
     }
 
@@ -122,8 +116,8 @@ public class Truck implements Serializable {
                 ", regNum='" + regNum + '\'' +
                 ", driverCount=" + driverCount +
                 ", capacity=" + capacity +
-                ", truckStatus=" + truckStatus +
-                ", city=" + city +
+                ", truckStatus='" + truckStatus + '\'' +
+                ", city='" + city + '\'' +
                 '}';
     }
 }

@@ -4,18 +4,9 @@
     <persistence-unit name="Logiweb" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>com.mkhldvdv.logiweb.entities.Cargo</class>
-        <class>com.mkhldvdv.logiweb.entities.CargoStatus</class>
-        <class>com.mkhldvdv.logiweb.entities.CargoType</class>
-        <class>com.mkhldvdv.logiweb.entities.City</class>
         <class>com.mkhldvdv.logiweb.entities.CityMap</class>
-        <class>com.mkhldvdv.logiweb.entities.Driver</class>
-        <class>com.mkhldvdv.logiweb.entities.DriverStatus</class>
         <class>com.mkhldvdv.logiweb.entities.Order</class>
-        <class>com.mkhldvdv.logiweb.entities.OrderDriver</class>
-        <class>com.mkhldvdv.logiweb.entities.OrderStatus</class>
-        <class>com.mkhldvdv.logiweb.entities.Role</class>
         <class>com.mkhldvdv.logiweb.entities.Truck</class>
-        <class>com.mkhldvdv.logiweb.entities.TruckStatus</class>
         <class>com.mkhldvdv.logiweb.entities.User</class>
         <class>com.mkhldvdv.logiweb.entities.Waypoint</class>
         <properties>

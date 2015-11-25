@@ -2,6 +2,8 @@ package com.mkhldvdv.logiweb.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by mkhldvdv on 17.11.2015.
@@ -22,32 +24,50 @@ public class User implements Serializable {
     @Column(name = "LAST_NAME")
     private String lastName;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ROLE_ID")
-    private Role role;
+    @Column(name = "LOGIN")
+    private String login;
 
     @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "LOGIN")
-    private String login;
+    @JoinColumn(name = "ROLE_ID", table = "ROLES", referencedColumnName = "ROLE_NAME")
+    private String role;
+
+    @Column(name = "HOURS")
+    private short hours;
+
+    @JoinColumn(name = "USER_STATUS_ID", table = "USER_STATUSES", referencedColumnName = "USER_STATUS_NAME")
+    private String userStatus;
+
+    @JoinColumn(name = "CITY_ID", table = "CITIES", referencedColumnName = "CITY_NAME")
+    private String city;
+
+    @ManyToOne
+    @JoinColumn(name = "TRUCK_ID")
+    private Truck truck;
+
+    @ManyToOne
+    @JoinTable(name = "ORDER_DRIVER")
+    private Order order;
 
     protected User() {
     }
 
-    public User(String fisrtName, String lastName, Role role, String password) {
+    public User(String fisrtName, String lastName, String login, String password, String role, short hours, String userStatus, String city, Truck truck, Order order) {
         this.fisrtName = fisrtName;
         this.lastName = lastName;
-        this.role = role;
+        this.login = login;
         this.password = password;
+        this.role = role;
+        this.hours = hours;
+        this.userStatus = userStatus;
+        this.city = city;
+        this.truck = truck;
+        this.order = order;
     }
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getFisrtName() {
@@ -66,12 +86,12 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    public Role getRole() {
-        return role;
+    public String getLogin() {
+        return login;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getPassword() {
@@ -80,6 +100,54 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public short getHours() {
+        return hours;
+    }
+
+    public void setHours(short hours) {
+        this.hours = hours;
+    }
+
+    public String getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(String userStatus) {
+        this.userStatus = userStatus;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public Truck getTruck() {
+        return truck;
+    }
+
+    public void setTruck(Truck truck) {
+        this.truck = truck;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     @Override
@@ -92,6 +160,7 @@ public class User implements Serializable {
         if (id != user.id) return false;
         if (fisrtName != null ? !fisrtName.equals(user.fisrtName) : user.fisrtName != null) return false;
         if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
+        if (login != null ? !login.equals(user.login) : user.login != null) return false;
         return !(password != null ? !password.equals(user.password) : user.password != null);
 
     }
@@ -101,6 +170,7 @@ public class User implements Serializable {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (fisrtName != null ? fisrtName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
     }
@@ -111,8 +181,14 @@ public class User implements Serializable {
                 "id=" + id +
                 ", fisrtName='" + fisrtName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", role=" + role +
+                ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", hours=" + hours +
+                ", userStatus='" + userStatus + '\'' +
+                ", city='" + city + '\'' +
+                ", truck=" + truck +
+                ", order=" + order +
                 '}';
     }
 }
