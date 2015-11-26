@@ -5,13 +5,11 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
-    <servlet-name>servlet</servlet-name>
-    <servlet-class>com.mkhldvdv.logiweb.servlets.Servlet</servlet-class>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>com.mkhldvdv.logiweb.servlets.LoginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>servlet</servlet-name>
-    <url-pattern>/servlet/Servlet</url-pattern>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/servlet/LoginServlet</url-pattern>
   </servlet-mapping>
-
-
 </web-app>

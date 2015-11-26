@@ -26,11 +26,11 @@ public class Truck implements Serializable {
     @Column(name = "CAPACITY")
     private byte capacity;
 
-    @JoinColumn(name = "TRUCK_STATUS_ID", table = "TRUCK_STATUSES", referencedColumnName = "TRUCK_STATUS_NAME")
-    private String truckStatus;
+    @Column(name = "TRUCK_STATUS_ID")
+    private byte truckStatus;
 
-    @JoinColumn(name = "CITY_ID", table = "CITIES", referencedColumnName = "CITY_NAME")
-    private String city;
+    @Column(name = "CITY_ID")
+    private long city;
 
     @OneToMany(mappedBy = "truck")
     private List<User> drivers;
@@ -38,11 +38,14 @@ public class Truck implements Serializable {
     @OneToMany(mappedBy = "truck")
     private List<Order> orders;
 
+    @Column(name = "DELETED")
+    private boolean isDeleted;
+
     protected Truck() {
     }
 
     public Truck(String regNum, byte driverCount, byte capacity,
-                 String truckStatus, String city) {
+                 byte truckStatus, long city) {
         this.regNum = regNum;
         this.driverCount = driverCount;
         this.capacity = capacity;
@@ -52,10 +55,6 @@ public class Truck implements Serializable {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getRegNum() {
@@ -82,19 +81,19 @@ public class Truck implements Serializable {
         this.capacity = capacity;
     }
 
-    public String getTruckStatus() {
+    public byte getTruckStatus() {
         return truckStatus;
     }
 
-    public void setTruckStatus(String truckStatus) {
+    public void setTruckStatus(byte truckStatus) {
         this.truckStatus = truckStatus;
     }
 
-    public String getCity() {
+    public long getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(long city) {
         this.city = city;
     }
 
@@ -114,6 +113,14 @@ public class Truck implements Serializable {
         this.orders = orders;
     }
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -121,20 +128,13 @@ public class Truck implements Serializable {
 
         Truck truck = (Truck) o;
 
-        if (id != truck.id) return false;
-        if (driverCount != truck.driverCount) return false;
-        if (capacity != truck.capacity) return false;
-        return !(regNum != null ? !regNum.equals(truck.regNum) : truck.regNum != null);
+        return id == truck.id;
 
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (regNum != null ? regNum.hashCode() : 0);
-        result = 31 * result + (int) driverCount;
-        result = 31 * result + (int) capacity;
-        return result;
+        return (int) (id ^ (id >>> 32));
     }
 
     @Override
@@ -144,10 +144,11 @@ public class Truck implements Serializable {
                 ", regNum='" + regNum + '\'' +
                 ", driverCount=" + driverCount +
                 ", capacity=" + capacity +
-                ", truckStatus='" + truckStatus + '\'' +
-                ", city='" + city + '\'' +
+                ", truckStatus=" + truckStatus +
+                ", city=" + city +
                 ", drivers=" + drivers +
                 ", orders=" + orders +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
 }

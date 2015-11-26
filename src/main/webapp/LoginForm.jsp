@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<%@ page isELIgnored="false" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +11,7 @@
     <div class="content-wrap">
         <h1>Login Form</h1>
         <!--<form name="formName" action="action.html" onsubmit=validation()>-->
-        <form name="formName" action="LoginForm.html" onsubmit="validation(); return false;">
+        <form name="formName" action="/servlet/LoginServlet" method="post" onsubmit="validation()">
             <div class="form-element">
                 <label id="username">Username:</label>
                 <input type="text" name="username"/>
@@ -34,14 +35,17 @@
                     return false;
                 }
 
-                var passMatch = /^[A-Za-z0-9].$/;
+                var passMatch = /^[A-Za-z0-9]{5,10}$/;
                 if (!passInput[0].value.match(passMatch)) {
                     alert("Password is incorrect");
                     return false;
                 }
+
+                return true;
             }
         </script>
     </div>
+    <c:forEach var="username" items="${list}"><p>${username}</p></c:forEach>
 </section>
 </body>
 </html>

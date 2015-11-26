@@ -67,6 +67,12 @@ public interface AdminServices {
     public void deleteDriver(long driverId) throws WrongIdException;
 
     /**
+     * get the list of all orders
+     * @return  orders
+     */
+    public List<Order> getOrders();
+
+    /**
      * get the full info of order
      * @param orderId   order id
      * @return  specified order
@@ -79,4 +85,26 @@ public interface AdminServices {
      * @return  specified cargo
      */
     public Cargo getCargo(long cargoId) throws WrongIdException;
+
+    /**
+     * adds new order
+     * @param order order to add
+     * @return  id of added order
+     * @throws WrongIdException (shit happens)
+     */
+    public long addOrder(Order order) throws WrongIdException;
+
+    /**
+     * get the list of trucks which are able to delivery order
+     * @param orderId     specified order id
+     * @return            list of trucks
+     */
+    public List<Truck> getTruckForOrder(long orderId) throws WrongIdException;
+
+    /**
+     * get the list of drivers for the specified truck
+     * @param truckId   specified truck
+     * @return          list of drivers
+     */
+    public List<User> getDriversForTruck(long truckId) throws WrongIdException;
 }

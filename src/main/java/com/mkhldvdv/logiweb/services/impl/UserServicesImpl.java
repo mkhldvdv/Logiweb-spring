@@ -7,6 +7,11 @@ import com.mkhldvdv.logiweb.entities.Waypoint;
 import com.mkhldvdv.logiweb.exceptions.WrongIdException;
 import com.mkhldvdv.logiweb.services.UserServices;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -18,7 +23,7 @@ import java.util.Set;
 public class UserServicesImpl implements UserServices {
 
     public static final String NOT_COMPLETE = "not complete";
-    private UserDaoImpl userDao;
+    private UserDaoImpl userDao = new UserDaoImpl();
 
     /**
      * returns user by login name and password
@@ -79,8 +84,9 @@ public class UserServicesImpl implements UserServices {
 
     /**
      * returns not complete orders for the driver
-     * @param driverId  driver's id
-     * @return          list of not complete orders
+     *
+     * @param driverId driver's id
+     * @return list of not complete orders
      */
     private List<Order> getNotCompleteOrders(long driverId) throws WrongIdException {
         User user = userDao.getById(driverId);

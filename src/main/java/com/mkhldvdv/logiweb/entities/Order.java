@@ -17,8 +17,8 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id;
 
-    @JoinColumn(name = "ORDER_STATUS_ID", table = "ORDER_STATUSES", referencedColumnName = "ORDER_STATUS_NAME")
-    private String orderStatus;
+    @Column(name = "ORDER_STATUS_ID")
+    private byte orderStatus;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Waypoint> waypoints;
@@ -30,25 +30,28 @@ public class Order implements Serializable {
     @ManyToMany(mappedBy = "orders")
     private List<User> drivers;
 
+    @Column(name = "DELETED")
+    private boolean isDeleted;
+
     protected Order() {
     }
 
-    public Order(String orderStatus, List<Waypoint> waypoints, Truck truck, List<User> users) {
+    public Order(byte orderStatus, List<Waypoint> waypoints, Truck truck, List<User> drivers) {
         this.orderStatus = orderStatus;
         this.waypoints = waypoints;
         this.truck = truck;
-        this.drivers = users;
+        this.drivers = drivers;
     }
 
     public long getId() {
         return id;
     }
 
-    public String getOrderStatus() {
+    public byte getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(String orderStatus) {
+    public void setOrderStatus(byte orderStatus) {
         this.orderStatus = orderStatus;
     }
 
@@ -76,6 +79,14 @@ public class Order implements Serializable {
         this.drivers = drivers;
     }
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -96,10 +107,11 @@ public class Order implements Serializable {
     public String toString() {
         return "Order{" +
                 "id=" + id +
-                ", orderStatus='" + orderStatus + '\'' +
+                ", orderStatus=" + orderStatus +
                 ", waypoints=" + waypoints +
                 ", truck=" + truck +
                 ", drivers=" + drivers +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
 }

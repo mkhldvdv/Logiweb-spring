@@ -1,8 +1,6 @@
 package com.mkhldvdv.logiweb.dao;
 
 
-import com.mkhldvdv.logiweb.dao.GenericDao;
-
 import javax.persistence.*;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -22,24 +20,39 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
                 .getGenericSuperclass();
         this.entityClass = (Class) genericSuperclass
                 .getActualTypeArguments()[0];
+//         create entity manager
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Logiweb");
+//        em = emf.createEntityManager();
     }
 
     @Override
     public T create(T t) {
-        em.persist(t);
-        return t;
+        try {
+            em.persist(t);
+            return t;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
     public T update(T t) {
         em.merge(t);
-        return t;
+        try {
+            return t;
+        } finally {
+            em.close();
+        }
     }
 
     @Override
     public void remove(T t) {
-        t = em.merge(t);
-        em.remove(t);
+        try {
+            t = em.merge(t);
+            em.remove(t);
+        } finally {
+            em.close();
+        }
     }
 
     @Override

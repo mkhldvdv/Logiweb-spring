@@ -5,6 +5,8 @@ import com.mkhldvdv.logiweb.entities.User;
 import com.mkhldvdv.logiweb.entities.Waypoint;
 import com.mkhldvdv.logiweb.exceptions.WrongIdException;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +21,7 @@ public interface UserServices {
      * @param pass  password
      * @return      specified user
      */
-    public User getUser(String login, String pass);
+    public User getUser(String login, String pass) throws UnsupportedEncodingException, NoSuchAlgorithmException;
 
     /**
      * returns list of co-drivers for the specified driver

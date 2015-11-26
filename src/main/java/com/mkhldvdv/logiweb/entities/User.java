@@ -5,7 +5,6 @@ import com.sun.istack.internal.Nullable;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by mkhldvdv on 17.11.2015.
@@ -32,36 +31,41 @@ public class User implements Serializable {
     @Column(name = "PASSWORD")
     private String password;
 
-    @JoinColumn(name = "ROLE_ID", table = "ROLES", referencedColumnName = "ROLE_NAME")
-    private String role;
+    @Column(name = "ROLE_ID")
+    private byte role;
 
     @Nullable
     @Column(name = "HOURS")
     private short hours;
 
     @Nullable
-    @JoinColumn(name = "USER_STATUS_ID", table = "USER_STATUSES", referencedColumnName = "USER_STATUS_NAME")
-    private String userStatus;
+    @Column(name = "USER_STATUS_ID")
+//    @JoinColumn(name = "USER_STATUS_ID", table = "USER_STATUSES", referencedColumnName = "USER_STATUS_NAME")
+    private byte userStatus;
 
     @Nullable
-    @JoinColumn(name = "CITY_ID", table = "CITIES", referencedColumnName = "CITY_NAME")
-    private String city;
+    @Column(name = "CITY_ID")
+    private long city;
 
     @Nullable
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "TRUCK_ID")
     private Truck truck;
 
     @Nullable
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name = "ORDER_DRIVER", joinColumns = {@JoinColumn(name = "USER_ID")},
     inverseJoinColumns = {@JoinColumn(name = "ORDER_ID")})
     private List<Order> orders;
 
+    @Column(name = "DELETED")
+    private boolean isDeleted;
+
     protected User() {
     }
 
-    public User(String fisrtName, String lastName, String login, String password, String role, short hours, String userStatus, String city, Truck truck, List<Order> orders) {
+    public User(String fisrtName, String lastName, String login, String password, byte role,
+                short hours, byte userStatus, long city) {
         this.fisrtName = fisrtName;
         this.lastName = lastName;
         this.login = login;
@@ -70,16 +74,10 @@ public class User implements Serializable {
         this.hours = hours;
         this.userStatus = userStatus;
         this.city = city;
-        this.truck = truck;
-        this.orders = orders;
     }
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getFisrtName() {
@@ -114,11 +112,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getRole() {
+    public byte getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(byte role) {
         this.role = role;
     }
 
@@ -130,19 +128,19 @@ public class User implements Serializable {
         this.hours = hours;
     }
 
-    public String getUserStatus() {
+    public byte getUserStatus() {
         return userStatus;
     }
 
-    public void setUserStatus(String userStatus) {
+    public void setUserStatus(byte userStatus) {
         this.userStatus = userStatus;
     }
 
-    public String getCity() {
+    public long getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(long city) {
         this.city = city;
     }
 
@@ -162,6 +160,14 @@ public class User implements Serializable {
         this.orders = orders;
     }
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -169,24 +175,13 @@ public class User implements Serializable {
 
         User user = (User) o;
 
-        if (id != user.id) return false;
-        if (fisrtName != null ? !fisrtName.equals(user.fisrtName) : user.fisrtName != null) return false;
-        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
-        if (login != null ? !login.equals(user.login) : user.login != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        return !(role != null ? !role.equals(user.role) : user.role != null);
+        return id == user.id;
 
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (fisrtName != null ? fisrtName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (login != null ? login.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (role != null ? role.hashCode() : 0);
-        return result;
+        return (int) (id ^ (id >>> 32));
     }
 
     @Override
@@ -197,12 +192,13 @@ public class User implements Serializable {
                 ", lastName='" + lastName + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
+                ", role=" + role +
                 ", hours=" + hours +
                 ", userStatus='" + userStatus + '\'' +
-                ", city='" + city + '\'' +
+                ", city=" + city +
                 ", truck=" + truck +
                 ", orders=" + orders +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
 }

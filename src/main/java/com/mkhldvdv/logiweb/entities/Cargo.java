@@ -23,16 +23,19 @@ public class Cargo implements Serializable {
     @Column(name = "WEIGHT")
     private int weight;
 
-    @JoinColumn(name = "CARGO_STATUS_ID", table = "CARGO_STATUSES", referencedColumnName = "CARGO_STATUS_ID")
-    private String cargoStatus;
+    @JoinColumn(name = "CARGO_STATUS_ID")
+    private byte cargoStatus;
 
     @OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Waypoint> waypoints;
 
+    @JoinColumn(name = "DELETED")
+    private boolean isDeleted;
+
     protected Cargo() {
     }
 
-    public Cargo(String cargoName, int weight, String cargoStatus, List<Waypoint> waypoints) {
+    public Cargo(String cargoName, int weight, byte cargoStatus, List<Waypoint> waypoints) {
         this.cargoName = cargoName;
         this.weight = weight;
         this.cargoStatus = cargoStatus;
@@ -41,10 +44,6 @@ public class Cargo implements Serializable {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getCargoName() {
@@ -63,11 +62,11 @@ public class Cargo implements Serializable {
         this.weight = weight;
     }
 
-    public String getCargoStatus() {
+    public byte getCargoStatus() {
         return cargoStatus;
     }
 
-    public void setCargoStatus(String cargoStatus) {
+    public void setCargoStatus(byte cargoStatus) {
         this.cargoStatus = cargoStatus;
     }
 
@@ -79,6 +78,14 @@ public class Cargo implements Serializable {
         this.waypoints = waypoints;
     }
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -86,20 +93,13 @@ public class Cargo implements Serializable {
 
         Cargo cargo = (Cargo) o;
 
-        if (id != cargo.id) return false;
-        if (weight != cargo.weight) return false;
-        if (cargoName != null ? !cargoName.equals(cargo.cargoName) : cargo.cargoName != null) return false;
-        return !(cargoStatus != null ? !cargoStatus.equals(cargo.cargoStatus) : cargo.cargoStatus != null);
+        return id == cargo.id;
 
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (cargoName != null ? cargoName.hashCode() : 0);
-        result = 31 * result + weight;
-        result = 31 * result + (cargoStatus != null ? cargoStatus.hashCode() : 0);
-        return result;
+        return (int) (id ^ (id >>> 32));
     }
 
     @Override
@@ -108,8 +108,9 @@ public class Cargo implements Serializable {
                 "id=" + id +
                 ", cargoName='" + cargoName + '\'' +
                 ", weight=" + weight +
-                ", cargoStatus='" + cargoStatus + '\'' +
+                ", cargoStatus=" + cargoStatus +
                 ", waypoints=" + waypoints +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
 }

@@ -2,7 +2,6 @@ package com.mkhldvdv.logiweb.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by mkhldvdv on 18.11.2015.
@@ -21,20 +20,20 @@ public class Waypoint implements Serializable {
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
-    @JoinColumn(name = "CITY_ID", table = "CITIES", referencedColumnName = "CITY_NAME")
-    private String city;
+    @JoinColumn(name = "CITY_ID")
+    private byte city;
 
     @ManyToOne
     @JoinColumn(name = "CARGO_ID")
     private Cargo cargo;
 
-    @JoinColumn(name = "CARGO_TYPE_ID", table = "CARGO_TYPES", referencedColumnName = "CARGO_TYPE_NAME")
-    private String cargoType;
+    @JoinColumn(name = "CARGO_TYPE_ID")
+    private byte cargoType;
 
     protected Waypoint() {
     }
 
-    public Waypoint(Order order, String city, Cargo cargo, String cargoType) {
+    public Waypoint(Order order, byte city, Cargo cargo, byte cargoType) {
         this.order = order;
         this.city = city;
         this.cargo = cargo;
@@ -53,11 +52,11 @@ public class Waypoint implements Serializable {
         this.order = order;
     }
 
-    public String getCity() {
+    public byte getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(byte city) {
         this.city = city;
     }
 
@@ -69,11 +68,11 @@ public class Waypoint implements Serializable {
         this.cargo = cargo;
     }
 
-    public String getCargoType() {
+    public byte getCargoType() {
         return cargoType;
     }
 
-    public void setCargoType(String cargoType) {
+    public void setCargoType(byte cargoType) {
         this.cargoType = cargoType;
     }
 

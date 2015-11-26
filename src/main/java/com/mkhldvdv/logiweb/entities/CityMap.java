@@ -16,11 +16,11 @@ public class CityMap implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id;
 
-    @JoinColumn(name = "CITY_ID1", table = "CITIES", referencedColumnName = "CITY_NAME")
-    private String city1;
+    @JoinColumn(name = "CITY_ID1")
+    private long city1;
 
-    @JoinColumn(name = "CITY_ID2", table = "CITIES", referencedColumnName = "CITY_NAME")
-    private String city2;
+    @JoinColumn(name = "CITY_ID2")
+    private long city2;
 
     @Column(name = "DISTANCE")
     private int distance;
@@ -28,7 +28,7 @@ public class CityMap implements Serializable {
     protected CityMap() {
     }
 
-    public CityMap(String city1, String city2, int distance) {
+    public CityMap(long city1, long city2, int distance) {
         this.city1 = city1;
         this.city2 = city2;
         this.distance = distance;
@@ -38,19 +38,19 @@ public class CityMap implements Serializable {
         return id;
     }
 
-    public String getCity1() {
+    public long getCity1() {
         return city1;
     }
 
-    public void setCity1(String city1) {
+    public void setCity1(long city1) {
         this.city1 = city1;
     }
 
-    public String getCity2() {
+    public long getCity2() {
         return city2;
     }
 
-    public void setCity2(String city2) {
+    public void setCity2(long city2) {
         this.city2 = city2;
     }
 
@@ -69,16 +69,13 @@ public class CityMap implements Serializable {
 
         CityMap cityMap = (CityMap) o;
 
-        if (id != cityMap.id) return false;
-        return distance == cityMap.distance;
+        return id == cityMap.id;
 
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + distance;
-        return result;
+        return (int) (id ^ (id >>> 32));
     }
 
     @Override
