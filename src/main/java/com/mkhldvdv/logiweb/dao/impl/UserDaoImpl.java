@@ -2,6 +2,7 @@ package com.mkhldvdv.logiweb.dao.impl;
 
 import com.mkhldvdv.logiweb.dao.GenericDaoImpl;
 import com.mkhldvdv.logiweb.entities.User;
+import com.mkhldvdv.logiweb.exceptions.WrongLoginPass;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -28,11 +29,17 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
         try {
             String hashedPass = SHAHashing(pass);
 
-            return em.createQuery("select u from User u " +
+            User user = em.createQuery("select u from User u " +
                     "where u.login = :login and u.password = :pass", User.class)
                     .setParameter("login", login)
                     .setParameter("pass", hashedPass)
                     .getSingleResult();
+
+//            if (user == null) {
+//                throw new WrongLoginPass("No user with specified login/password combination");
+//            }
+
+            return user;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -43,18 +50,18 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
         }
     }
 
-    public static void main(String[] args) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        UserDaoImpl userDao = new UserDaoImpl();
-        String login = "admin";
-        String pass = "admin";
-        User user = userDao.getUserByLoginPassword(login, pass);
-        System.out.println(user);
+//    public static void main(String[] args) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+//        UserDaoImpl userDao = new UserDaoImpl();
+//        String login = "admin";
+//        String pass = "admin";
+//        User user = userDao.getUserByLoginPassword(login, pass);
+//        System.out.println(user);
+//
+//        String hashedPass = userDao.SHAHashing(pass);
+//        System.out.println(hashedPass);
+//    }
 
-        String hashedPass = userDao.SHAHashing(pass);
-        System.out.println(hashedPass);
-    }
-
-    private String SHAHashing(String textToHash) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public String SHAHashing(String textToHash) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         String text = textToHash;
 
