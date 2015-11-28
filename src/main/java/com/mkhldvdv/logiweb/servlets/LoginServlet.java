@@ -16,25 +16,13 @@ import java.util.List;
  */
 public class LoginServlet extends HttpServlet {
 
-    public List<String> list;
-//    public String stringUser;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (list == null) {
-            list = new ArrayList<String>();
-        }
-        UserServicesImpl user = new UserServicesImpl();
-        list.add(req.getParameter("username"));
-        list.add(user.getUser(req.getParameter("username"), req.getParameter("password")).toString());
-//        stringUser = user.getUser(req.getParameter("username"), req.getParameter("password")).toString();
-        req.getSession().setAttribute("list", list);
-//        req.getSession().setAttribute("list", stringUser);
-//        PrintWriter out = resp.getWriter();
-//        for (String s : list) {
-//            out.println(s);
-//        }
 
-        resp.sendRedirect("/LoginForm.jsp");
-//        resp.sendRedirect("/NameAge.jsp");
+        UserServicesImpl user = new UserServicesImpl();
+        User myUser = user.getUser(req.getParameter("login"), req.getParameter("password"));
+        req.getSession().setAttribute("myUser", myUser.getFisrtName());
+
+        resp.sendRedirect("/info.jsp");
     }
 }

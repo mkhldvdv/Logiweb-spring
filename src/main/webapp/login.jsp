@@ -40,13 +40,13 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Logiweb: Please Sign In</h3>
+                        <h3 class="panel-title">Logiweb: Sign In</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form" method="post" action="info.jsp" onsubmit="validation()">
+                        <form role="form" method="post" action="/servlet/LoginServlet" onsubmit="return checkForm(this);">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Enter login..." name="login" type="login" autofocus>
+                                    <input class="form-control" placeholder="Enter login..." name="login" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Enter password" name="password" type="password" value="">
@@ -57,24 +57,47 @@
                             </fieldset>
                         </form>
                         <script>
-                            function validation(){
-                                var inputLogin = document.getElementsByName("username");
-                                var passInput = document.getElementsByName("password");
 
-                                var loginMatch = /^[A-Za-z0-9]{5,10}$/;
-                                if (!inputLogin[0].value.match(loginMatch)) {
-                                    alert("Login name is incorrect");
+                            function checkForm(form)
+                            {
+                                // regular expression to match only alphanumeric characters and spaces
+                                var re = /^[\w ]{5,10}$/;
+
+                                // validation fails if the input is blank
+                                if(form.login.value == "" || form.login.value == null) {
+                                    alert("Error: Login should not be empty");
+                                    form.login.focus();
                                     return false;
                                 }
 
-                                var passMatch = /^[A-Za-z0-9]{5,10}$/;
-                                if (!passInput[0].value.match(passMatch)) {
-                                    alert("Password is incorrect");
+                                // validation fails if the input doesn't match our regular expression
+                                if(!re.test(form.login.value)) {
+                                    alert("Error: Login should be between 5 and 10 symbols and alphanumeric");
+                                    form.login.focus();
                                     return false;
                                 }
 
+                                // regular expression to match only alphanumeric characters and spaces
+                                re = /^.{5,10}$/;
+
+                                // validation fails if the input is blank
+                                if(form.password.value == "" || form.password.value == null) {
+                                    alert("Error: Password should not be empty");
+                                    form.password.focus();
+                                    return false;
+                                }
+
+                                // validation fails if the input doesn't match our regular expression
+                                if(!re.test(form.password.value)) {
+                                    alert("Error: Password should be between 5 and 10 symbols");
+                                    form.password.focus();
+                                    return false;
+                                }
+
+                                // validation was successful
                                 return true;
                             }
+
                         </script>
                     </div>
                 </div>

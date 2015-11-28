@@ -11,7 +11,7 @@
     <div class="content-wrap">
         <h1>Login Form</h1>
         <!--<form name="formName" action="action.html" onsubmit=validation()>-->
-        <form name="formName" action="/servlet/LoginServlet" method="post" onsubmit="validation()">
+        <form name="formName" action="/servlet/LoginServlet" method="post" onsubmit="validation();">
             <div class="form-element">
                 <label id="username">Username:</label>
                 <input type="text" name="username"/>
