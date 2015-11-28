@@ -43,7 +43,7 @@
                         <h3 class="panel-title">Logiweb: Sign In</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form" method="post" action="/servlet/LoginServlet" onsubmit="return checkForm(this);">
+                        <form role="form" method="post" action="/login" onsubmit="return checkForm(this);">
                             <fieldset>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Enter login..." name="login" autofocus>
@@ -99,7 +99,7 @@
                             }
 
                         </script>
-                    </div>
+                    </div>`
                 </div>
             </div>
         </div>
@@ -116,6 +116,11 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="dist/js/sb-admin-2.js"></script>
+
+    <c:set var="noUser" value="${noUser}"/>
+    <c:if test="${noUser}"><script>alert("Error: Invalid User/Password. Please try again");</script></c:if>
+    <c:set var="noUser" value=""/>
+
 
 </body>
 

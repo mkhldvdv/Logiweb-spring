@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +23,13 @@ public class LoginServlet extends HttpServlet {
 
         UserServicesImpl user = new UserServicesImpl();
         User myUser = user.getUser(req.getParameter("login"), req.getParameter("password"));
-        req.getSession().setAttribute("myUser", myUser.getFisrtName());
-
-        resp.sendRedirect("/info.jsp");
+        if (myUser != null) {
+            req.getSession().setAttribute("myUser", myUser.getFisrtName());
+            req.getSession().setAttribute("loggedInUser", myUser);
+            resp.sendRedirect("/info.jsp");
+        } else {
+            req.getSession().setAttribute("noUser", true);
+            resp.sendRedirect("/login.jsp");
+        }
     }
 }

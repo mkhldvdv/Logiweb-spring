@@ -5,6 +5,7 @@ import com.mkhldvdv.logiweb.entities.User;
 import com.mkhldvdv.logiweb.exceptions.WrongLoginPass;
 
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
