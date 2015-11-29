@@ -33,4 +33,9 @@
     <url-pattern>/logout</url-pattern>
   </servlet-mapping>
 
+  <description>ServletContextListener</description>
+  <listener>
+    <listener-class>com.mkhldvdv.logiweb.listeners.PersistenceListener</listener-class>
+  </listener>
+
 </web-app>

@@ -3,6 +3,7 @@ package com.mkhldvdv.logiweb.dao.impl;
 import com.mkhldvdv.logiweb.dao.GenericDaoImpl;
 import com.mkhldvdv.logiweb.entities.User;
 import com.mkhldvdv.logiweb.exceptions.WrongLoginPass;
+import com.mkhldvdv.logiweb.services.PersistenceManager;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -24,44 +25,32 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
      * @return      specified user
      */
     public User getUserByLoginPassword(String login, String pass) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Logiweb");
-        em = emf.createEntityManager();
 
         try {
             String hashedPass = SHAHashing(pass);
 
             User user = em.createQuery("select u from User u " +
-                    "where u.login = :login and u.password = :pass", User.class)
+                    "where u.login = :login and u.password = :pass and u.isDeleted = false", User.class)
                     .setParameter("login", login)
                     .setParameter("pass", hashedPass)
                     .getSingleResult();
 
-//            if (user == null) {
-//                throw new WrongLoginPass("No user with specified login/password combination");
-//            }
-
             return user;
 
         } catch (Exception e) {
+            System.out.printf("INFO: No user exists with provided login/password: %s/%s\n", login, pass);
             e.printStackTrace();
             return null;
-        } finally {
-            em.close();
-            emf.close();
         }
     }
 
-//    public static void main(String[] args) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-//        UserDaoImpl userDao = new UserDaoImpl();
-//        String login = "admin";
-//        String pass = "admin";
-//        User user = userDao.getUserByLoginPassword(login, pass);
-//        System.out.println(user);
-//
-//        String hashedPass = userDao.SHAHashing(pass);
-//        System.out.println(hashedPass);
-//    }
-
+    /**
+     * hash any string to not keep it in plain text
+     * @param textToHash    what to hash
+     * @return              hashed string
+     * @throws UnsupportedEncodingException
+     * @throws NoSuchAlgorithmException
+     */
     public String SHAHashing(String textToHash) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         String text = textToHash;

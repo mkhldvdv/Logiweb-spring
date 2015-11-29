@@ -20,9 +20,6 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
                 .getGenericSuperclass();
         this.entityClass = (Class) genericSuperclass
                 .getActualTypeArguments()[0];
-//         create entity manager
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Logiweb");
-//        em = emf.createEntityManager();
     }
 
     @Override
@@ -66,5 +63,13 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
     public List<T> getAll() {
         TypedQuery<T> query = em.createQuery("from " + entityClass.getName(), entityClass);
         return query.getResultList();
+    }
+
+    public EntityManager getEm() {
+        return em;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
     }
 }

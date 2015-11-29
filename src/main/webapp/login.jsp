@@ -99,7 +99,7 @@
                             }
 
                         </script>
-                    </div>`
+                    </div>
                 </div>
             </div>
         </div>
@@ -119,8 +119,7 @@
 
     <c:set var="noUser" value="${noUser}"/>
     <c:if test="${noUser}"><script>alert("Error: Invalid User/Password. Please try again");</script></c:if>
-    <c:set var="noUser" value=""/>
-
+    <c:remove var="noUser"/>
 
 </body>
 
