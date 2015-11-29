@@ -20,7 +20,7 @@ public class LoginServlet extends HttpServlet {
         UserServicesImpl user = new UserServicesImpl();
         UserDTO myUser = user.getUser(req.getParameter("login"), req.getParameter("password"));
         if (myUser != null) {
-            req.getSession().setAttribute("myUser", myUser.getFisrtName());
+            req.getSession().setAttribute("myUser", myUser.getFirstName());
             req.getSession().setAttribute("loggedInUser", myUser);
             // if not driver then full access
             if (myUser.getRole() != 3) resp.sendRedirect("/info.jsp");

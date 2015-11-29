@@ -39,7 +39,7 @@ public class Truck implements Serializable {
     private List<Order> orders;
 
     @Column(name = "DELETED")
-    private boolean isDeleted;
+    private byte deleted;
 
     protected Truck() {
     }
@@ -113,12 +113,12 @@ public class Truck implements Serializable {
         this.orders = orders;
     }
 
-    public boolean isDeleted() {
-        return isDeleted;
+    public byte getDeleted() {
+        return deleted;
     }
 
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+    public void setDeleted(byte deleted) {
+        this.deleted = deleted;
     }
 
     @Override
@@ -148,7 +148,7 @@ public class Truck implements Serializable {
                 ", city=" + city +
                 ", drivers=" + drivers +
                 ", orders=" + orders +
-                ", isDeleted=" + isDeleted +
+                ", deleted=" + deleted +
                 '}';
     }
 }

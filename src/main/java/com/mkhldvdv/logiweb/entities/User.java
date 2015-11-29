@@ -20,7 +20,7 @@ public class User implements Serializable {
     private long id;
 
     @Column(name = "FIRST_NAME")
-    private String fisrtName;
+    private String firstName;
 
     @Column(name = "LAST_NAME")
     private String lastName;
@@ -59,14 +59,14 @@ public class User implements Serializable {
     private List<Order> orders;
 
     @Column(name = "DELETED")
-    private boolean isDeleted;
+    private byte deleted;
 
     protected User() {
     }
 
-    public User(String fisrtName, String lastName, String login, String password, byte role,
+    public User(String firstName, String lastName, String login, String password, byte role,
                 short hours, byte userStatus, long city) {
-        this.fisrtName = fisrtName;
+        this.firstName = firstName;
         this.lastName = lastName;
         this.login = login;
         this.password = password;
@@ -80,12 +80,12 @@ public class User implements Serializable {
         return id;
     }
 
-    public String getFisrtName() {
-        return fisrtName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFisrtName(String fisrtName) {
-        this.fisrtName = fisrtName;
+    public void setFirstName(String fisrtName) {
+        this.firstName = fisrtName;
     }
 
     public String getLastName() {
@@ -160,12 +160,12 @@ public class User implements Serializable {
         this.orders = orders;
     }
 
-    public boolean isDeleted() {
-        return isDeleted;
+    public byte getDeleted() {
+        return deleted;
     }
 
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+    public void setDeleted(byte deleted) {
+        this.deleted = deleted;
     }
 
     @Override
@@ -188,7 +188,7 @@ public class User implements Serializable {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", fisrtName='" + fisrtName + '\'' +
+                ", fisrtName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
@@ -198,7 +198,7 @@ public class User implements Serializable {
                 ", city=" + city +
                 ", truck=" + truck +
                 ", orders=" + orders +
-                ", isDeleted=" + isDeleted +
+                ", deleted=" + deleted +
                 '}';
     }
 }

@@ -33,6 +33,33 @@
     <url-pattern>/logout</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>ListDriversServlet</servlet-name>
+    <servlet-class>com.mkhldvdv.logiweb.servlets.ListDriversServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListDriversServlet</servlet-name>
+    <url-pattern>/listDrivers</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ListTrucksServlet</servlet-name>
+    <servlet-class>com.mkhldvdv.logiweb.servlets.ListTrucksServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListTrucksServlet</servlet-name>
+    <url-pattern>/listTrucks</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ListOrdersServlet</servlet-name>
+    <servlet-class>com.mkhldvdv.logiweb.servlets.ListOrdersServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListOrdersServlet</servlet-name>
+    <url-pattern>/listOrders</url-pattern>
+  </servlet-mapping>
+
   <description>ServletContextListener</description>
   <listener>
     <listener-class>com.mkhldvdv.logiweb.listeners.PersistenceListener</listener-class>

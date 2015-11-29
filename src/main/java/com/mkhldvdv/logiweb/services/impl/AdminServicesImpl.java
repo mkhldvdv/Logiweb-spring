@@ -4,13 +4,21 @@ import com.mkhldvdv.logiweb.dao.impl.CargoDaoImpl;
 import com.mkhldvdv.logiweb.dao.impl.OrderDaoImpl;
 import com.mkhldvdv.logiweb.dao.impl.TruckDaoImpl;
 import com.mkhldvdv.logiweb.dao.impl.UserDaoImpl;
+import com.mkhldvdv.logiweb.dto.OrderDTO;
+import com.mkhldvdv.logiweb.dto.TruckDTO;
+import com.mkhldvdv.logiweb.dto.UserDTO;
 import com.mkhldvdv.logiweb.entities.*;
 import com.mkhldvdv.logiweb.exceptions.RegNumNotMatchException;
 import com.mkhldvdv.logiweb.exceptions.WrongIdException;
 import com.mkhldvdv.logiweb.services.AdminServices;
+import com.mkhldvdv.logiweb.services.PersistenceManager;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
@@ -24,14 +32,42 @@ public class AdminServicesImpl implements AdminServices {
     private OrderDaoImpl orderDao;
     private CargoDaoImpl cargoDao;
 
+    private EntityManagerFactory emf = PersistenceManager.getInstance().getEntityManagerFactory();
+    {
+        EntityManager em = emf.createEntityManager();
+        userDao = new UserDaoImpl();
+        userDao.setEm(em);
+        truckDao = new TruckDaoImpl();
+        truckDao.setEm(em);
+        orderDao = new OrderDaoImpl();
+        orderDao.setEm(em);
+    }
+
     /**
      * get the list of all trucks
      *
      * @return list of trucks
      */
     @Override
-    public List<Truck> getTrucks() {
-        return truckDao.getAll();
+    public List<TruckDTO> getTrucks() {
+        try {
+            List<TruckDTO> truckDTOList = new ArrayList<TruckDTO>();
+            List<Truck> truckList = truckDao.getAll();
+            // check if it's empty
+            if (truckList.isEmpty()) throw new WrongIdException("Exception: trucks list is empty");
+
+            for (Truck truck : truckList) {
+                TruckDTO truckDTO = new TruckDTO(truck.getId(), truck.getRegNum(), truck.getDriverCount(),
+                        truck.getCapacity(), truck.getTruckStatus(), truck.getCity(), truck.getDeleted());
+                truckDTOList.add(truckDTO);
+            }
+
+            return truckDTOList;
+        } catch (Exception e) {
+            return null;
+        } finally {
+            truckDao.getEm().close();
+        }
     }
 
     /**
@@ -93,8 +129,30 @@ public class AdminServicesImpl implements AdminServices {
      * @return the list of all drivers
      */
     @Override
-    public List<User> getDrivers() {
-        return userDao.getAllDrivers();
+    public List<UserDTO> getDrivers() {
+
+        try {
+            List<UserDTO> userDTOList = new ArrayList<UserDTO>();
+            List<User> userList = userDao.getAllDrivers();
+            // check if list is empty
+            if (userList.isEmpty()) {
+                throw new WrongIdException("Exception: drivers list is empty");
+            }
+
+            for (User user : userList) {
+                UserDTO userDTO = new UserDTO(user.getId(), user.getFirstName(), user.getLastName(),
+                        user.getLogin(), user.getPassword(), user.getRole(), user.getHours(),
+                        user.getUserStatus(), user.getCity(), user.getTruck(), user.getOrders(), user.getDeleted());
+                userDTOList.add(userDTO);
+            }
+
+            return userDTOList;
+
+        } catch (Exception e) {
+            return null;
+        } finally {
+            userDao.getEm().close();
+        }
     }
 
     /**
@@ -146,8 +204,35 @@ public class AdminServicesImpl implements AdminServices {
      * @return orders
      */
     @Override
-    public List<Order> getOrders() {
-        return orderDao.getAll();
+    public List<OrderDTO> getOrders() {
+        try {
+            List<OrderDTO> orderDTOList = new ArrayList<OrderDTO>();
+            List<Order> orderList = orderDao.getAll();
+            // check if order list is empty
+            if (orderList.isEmpty()) {
+                throw new WrongIdException("Exception: orders list is empty");
+            }
+
+            for (Order order : orderList) {
+                // collect all cities for the order
+                Set<Long> waypointsSet = new HashSet<Long>();
+                for (Waypoint waypoint : order.getWaypoints()) waypoint.getCity();
+                // collect all drivers for the order
+                Set<Long> driversSet = new HashSet<Long>();
+                for (User driver : order.getDrivers()) driversSet.add(driver.getId());
+
+                OrderDTO orderDTO = new OrderDTO(order.getId(),order.getOrderStatus(), waypointsSet,
+                        order.getTruck(), driversSet, order.getDeleted());
+                orderDTOList.add(orderDTO);
+            }
+
+            return orderDTOList;
+        } catch (WrongIdException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            orderDao.getEm().close();
+        }
     }
 
     /**

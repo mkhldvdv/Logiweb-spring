@@ -20,7 +20,7 @@ public class Order implements Serializable {
     @Column(name = "ORDER_STATUS_ID")
     private byte orderStatus;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<Waypoint> waypoints;
 
     @ManyToOne
@@ -31,16 +31,17 @@ public class Order implements Serializable {
     private List<User> drivers;
 
     @Column(name = "DELETED")
-    private boolean isDeleted;
+    private byte deleted;
 
     protected Order() {
     }
 
-    public Order(byte orderStatus, List<Waypoint> waypoints, Truck truck, List<User> drivers) {
+    public Order(byte orderStatus, List<Waypoint> waypoints, Truck truck, List<User> drivers, byte deleted) {
         this.orderStatus = orderStatus;
         this.waypoints = waypoints;
         this.truck = truck;
         this.drivers = drivers;
+        this.deleted = deleted;
     }
 
     public long getId() {
@@ -79,12 +80,12 @@ public class Order implements Serializable {
         this.drivers = drivers;
     }
 
-    public boolean isDeleted() {
-        return isDeleted;
+    public byte getDeleted() {
+        return deleted;
     }
 
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+    public void setDeleted(byte deleted) {
+        this.deleted = deleted;
     }
 
     @Override
@@ -111,7 +112,7 @@ public class Order implements Serializable {
                 ", waypoints=" + waypoints +
                 ", truck=" + truck +
                 ", drivers=" + drivers +
-                ", isDeleted=" + isDeleted +
+                ", deleted=" + deleted +
                 '}';
     }
 }

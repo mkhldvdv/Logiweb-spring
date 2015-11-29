@@ -84,7 +84,7 @@
                                 <a href="deleteTruck.jsp">Delete...</a>
                             </li>
                             <li>
-                                <a href="listTrucks.jsp">List...</a>
+                                <a href="/listTrucks">List...</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -102,7 +102,7 @@
                                 <a href="deleteDriver.jsp">Delete...</a>
                             </li>
                             <li>
-                                <a href="listDrivers.jsp">List...</a>
+                                <a href="/listDrivers">List...</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -117,7 +117,7 @@
                                 <a href="findOrder.jsp">Find...</a>
                             </li>
                             <li>
-                                <a href="listOrders.jsp">List...</a>
+                                <a href="/listOrders">List...</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->

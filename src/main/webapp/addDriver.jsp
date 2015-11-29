@@ -83,7 +83,7 @@
                                 <a href="deleteTruck.jsp">Delete...</a>
                             </li>
                             <li>
-                                <a href="listTrucks.jsp">List...</a>
+                                <a href="/listTrucks">List...</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -101,7 +101,7 @@
                                 <a href="deleteDriver.jsp">Delete...</a>
                             </li>
                             <li>
-                                <a href="listDrivers.jsp">List...</a>
+                                <a href="/listDrivers">List...</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -116,7 +116,7 @@
                                 <a href="findOrder.jsp">Find...</a>
                             </li>
                             <li>
-                                <a href="listOrders.jsp">List...</a>
+                                <a href="/listOrders">List...</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -155,7 +155,7 @@
                             <fieldset>
                                 <div class="form-group">
                                     <label>First Name</label>
-                                    <input class="form-control" placeholder="Enter first name" name="fisrtName" autofocus>
+                                    <input class="form-control" placeholder="Enter first name" name="firstName" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <label>Last Name</label>

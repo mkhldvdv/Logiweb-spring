@@ -2,10 +2,7 @@ package com.mkhldvdv.logiweb.dto;
 
 import com.mkhldvdv.logiweb.entities.Order;
 import com.mkhldvdv.logiweb.entities.Truck;
-import com.mkhldvdv.logiweb.entities.User;
-import com.sun.istack.internal.Nullable;
 
-import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -14,7 +11,7 @@ import java.util.List;
 public class UserDTO {
     private long id;
 
-    private String fisrtName;
+    private String firstName;
 
     private String lastName;
 
@@ -34,14 +31,15 @@ public class UserDTO {
 
     private List<Order> orders;
 
-    private boolean isDeleted;
+    private byte deleted;
 
     protected UserDTO() {
     }
 
-    public UserDTO(long id, String fisrtName, String lastName, String login, String password, byte role,
-                   short hours, byte userStatus, long city, Truck truck, List<Order> orders, boolean isDeleted) {
-        this.fisrtName = fisrtName;
+    public UserDTO(long id, String firstName, String lastName, String login, String password, byte role,
+                   short hours, byte userStatus, long city, Truck truck, List<Order> orders, byte deleted) {
+        this.id = id;
+        this.firstName = firstName;
         this.lastName = lastName;
         this.login = login;
         this.password = password;
@@ -51,7 +49,7 @@ public class UserDTO {
         this.city = city;
         this.truck = truck;
         this.orders = orders;
-        this.isDeleted = isDeleted;
+        this.deleted = deleted;
     }
 
     public long getId() {
@@ -62,12 +60,12 @@ public class UserDTO {
         this.id = id;
     }
 
-    public String getFisrtName() {
-        return fisrtName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFisrtName(String fisrtName) {
-        this.fisrtName = fisrtName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
@@ -142,12 +140,12 @@ public class UserDTO {
         this.orders = orders;
     }
 
-    public boolean isDeleted() {
-        return isDeleted;
+    public byte getDeleted() {
+        return deleted;
     }
 
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+    public void setDeleted(byte deleted) {
+        this.deleted = deleted;
     }
 
     @Override
@@ -170,7 +168,7 @@ public class UserDTO {
     public String toString() {
         return "UserDTO{" +
                 "id=" + id +
-                ", fisrtName='" + fisrtName + '\'' +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
@@ -180,7 +178,7 @@ public class UserDTO {
                 ", city=" + city +
                 ", truck=" + truck +
                 ", orders=" + orders +
-                ", isDeleted=" + isDeleted +
+                ", deleted=" + deleted +
                 '}';
     }
 }

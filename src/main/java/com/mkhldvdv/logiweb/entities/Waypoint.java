@@ -20,14 +20,14 @@ public class Waypoint implements Serializable {
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
-    @JoinColumn(name = "CITY_ID")
+    @Column(name = "CITY_ID")
     private byte city;
 
     @ManyToOne
     @JoinColumn(name = "CARGO_ID")
     private Cargo cargo;
 
-    @JoinColumn(name = "CARGO_TYPE_ID")
+    @Column(name = "CARGO_TYPE_ID")
     private byte cargoType;
 
     protected Waypoint() {

@@ -13,9 +13,11 @@ public class TruckDTO {
 
     private byte capacity;
 
-    private String truckStatus;
+    private byte truckStatus;
 
-    private String city;
+    private long city;
+
+    private byte deleted;
 
     public long getId() {
         return id;
@@ -49,19 +51,53 @@ public class TruckDTO {
         this.capacity = capacity;
     }
 
-    public String getTruckStatus() {
+    public byte getTruckStatus() {
         return truckStatus;
     }
 
-    public void setTruckStatus(String truckStatus) {
+    public void setTruckStatus(byte truckStatus) {
         this.truckStatus = truckStatus;
     }
 
-    public String getCity() {
+    public long getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(long city) {
         this.city = city;
+    }
+
+    public byte getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(byte deleted) {
+        this.deleted = deleted;
+    }
+
+    public TruckDTO(long id, String regNum, byte driverCount, byte capacity, byte truckStatus, long city, byte deleted) {
+        this.id = id;
+        this.regNum = regNum;
+        this.driverCount = driverCount;
+        this.capacity = capacity;
+        this.truckStatus = truckStatus;
+        this.city = city;
+        this.deleted = deleted;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TruckDTO truckDTO = (TruckDTO) o;
+
+        return id == truckDTO.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
     }
 }

@@ -2,12 +2,7 @@ package com.mkhldvdv.logiweb.dao.impl;
 
 import com.mkhldvdv.logiweb.dao.GenericDaoImpl;
 import com.mkhldvdv.logiweb.entities.User;
-import com.mkhldvdv.logiweb.exceptions.WrongLoginPass;
-import com.mkhldvdv.logiweb.services.PersistenceManager;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
-import javax.persistence.Persistence;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -17,6 +12,9 @@ import java.util.List;
  * Created by mkhldvdv on 25.11.2015.
  */
 public class UserDaoImpl extends GenericDaoImpl<User> {
+
+    public static final byte DRIVER_ROLE = 3;
+    public static final byte NOT_DELETED = 0;
 
     /**
      * returns for user ny login name and password, for autorization
@@ -30,9 +28,10 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
             String hashedPass = SHAHashing(pass);
 
             User user = em.createQuery("select u from User u " +
-                    "where u.login = :login and u.password = :pass and u.isDeleted = false", User.class)
+                    "where u.login = :login and u.password = :pass and u.deleted = :isDeleted", User.class)
                     .setParameter("login", login)
                     .setParameter("pass", hashedPass)
+                    .setParameter("isDeleted", NOT_DELETED)
                     .getSingleResult();
 
             return user;
@@ -66,10 +65,17 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
      * @return  list of drivers
      */
     public List<User> getAllDrivers() {
-        return em.createQuery("select u from User u " +
-                "where u.role = :driver", User.class)
-                .setParameter("driver", 2)
-                .getResultList();
+        try {
+            List<User> userList = em.createQuery("select u from User u " +
+                    "where u.role = :driver", User.class)
+                    .setParameter("driver", DRIVER_ROLE)
+                    .getResultList();
+            return userList;
+        } catch (Exception e) {
+            System.out.printf("INFO: drivers list is empty\n");
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
@@ -78,9 +84,9 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
      */
     public List<User> getAllNotDeletedDrivers() {
         return em.createQuery("select u from User u " +
-                "where u.role = :driver and u.isDeleted = :deleted", User.class)
-                .setParameter("driver", 2)
-                .setParameter("deleted", false)
+                "where u.role = :driver and u.deleted = :isDeleted", User.class)
+                .setParameter("driver", DRIVER_ROLE)
+                .setParameter("isDeleted", NOT_DELETED)
                 .getResultList();
     }
 }

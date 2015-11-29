@@ -61,7 +61,7 @@
                             function checkForm(form)
                             {
                                 // regular expression to match only alphanumeric characters and spaces
-                                var re = /^[\w ]{5,10}$/;
+                                var re = /^[\w.]{5,10}$/;
 
                                 // validation fails if the input is blank
                                 if(form.login.value == "" || form.login.value == null) {
@@ -72,7 +72,8 @@
 
                                 // validation fails if the input doesn't match our regular expression
                                 if(!re.test(form.login.value)) {
-                                    alert("Error: Login should be between 5 and 10 symbols and alphanumeric");
+                                    alert("Error: Login should be between 5 and 10 symbols " +
+                                            "and alphanumeric (dot is also acceptible)");
                                     form.login.focus();
                                     return false;
                                 }

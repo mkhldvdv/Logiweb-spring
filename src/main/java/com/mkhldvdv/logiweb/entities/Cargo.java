@@ -23,23 +23,24 @@ public class Cargo implements Serializable {
     @Column(name = "WEIGHT")
     private int weight;
 
-    @JoinColumn(name = "CARGO_STATUS_ID")
+    @Column(name = "CARGO_STATUS_ID")
     private byte cargoStatus;
 
     @OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Waypoint> waypoints;
 
-    @JoinColumn(name = "DELETED")
-    private boolean isDeleted;
+    @Column(name = "DELETED")
+    private byte deleted;
 
     protected Cargo() {
     }
 
-    public Cargo(String cargoName, int weight, byte cargoStatus, List<Waypoint> waypoints) {
+    public Cargo(String cargoName, int weight, byte cargoStatus, List<Waypoint> waypoints, byte deleted) {
         this.cargoName = cargoName;
         this.weight = weight;
         this.cargoStatus = cargoStatus;
         this.waypoints = waypoints;
+        this.deleted = deleted;
     }
 
     public long getId() {
@@ -78,12 +79,12 @@ public class Cargo implements Serializable {
         this.waypoints = waypoints;
     }
 
-    public boolean isDeleted() {
-        return isDeleted;
+    public byte getDeleted() {
+        return deleted;
     }
 
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+    public void setDeleted(byte deleted) {
+        this.deleted = deleted;
     }
 
     @Override
@@ -110,7 +111,7 @@ public class Cargo implements Serializable {
                 ", weight=" + weight +
                 ", cargoStatus=" + cargoStatus +
                 ", waypoints=" + waypoints +
-                ", isDeleted=" + isDeleted +
+                ", deleted=" + deleted +
                 '}';
     }
 }

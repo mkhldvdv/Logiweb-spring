@@ -1,5 +1,8 @@
 package com.mkhldvdv.logiweb.services;
 
+import com.mkhldvdv.logiweb.dto.OrderDTO;
+import com.mkhldvdv.logiweb.dto.TruckDTO;
+import com.mkhldvdv.logiweb.dto.UserDTO;
 import com.mkhldvdv.logiweb.entities.Cargo;
 import com.mkhldvdv.logiweb.entities.Order;
 import com.mkhldvdv.logiweb.entities.Truck;
@@ -18,7 +21,7 @@ public interface AdminServices {
      * get the list of all trucks
      * @return  list of trucks
      */
-    public List<Truck> getTrucks();
+    public List<TruckDTO> getTrucks();
 
     /**
      * adds a new truck
@@ -44,7 +47,7 @@ public interface AdminServices {
      * get the list of all drivers
      * @return
      */
-    public List<User> getDrivers();
+    public List<UserDTO> getDrivers();
 
     /**
      * adds a new driver
@@ -70,7 +73,7 @@ public interface AdminServices {
      * get the list of all orders
      * @return  orders
      */
-    public List<Order> getOrders();
+    public List<OrderDTO> getOrders();
 
     /**
      * get the full info of order
