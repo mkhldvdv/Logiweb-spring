@@ -199,6 +199,13 @@
                                         <option value="10">london</option>
                                     </select>
                                 </div>
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <select class="form-control" name="deleted">
+                                        <option value="0">false</option>
+                                        <option value="1">true</option>
+                                    </select>
+                                </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <!-- a href="info.jsp" class="btn btn-md btn-success btn-block">Login</a-->
                                 <button type="submit" class="btn btn-default">Submit</button>

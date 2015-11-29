@@ -1,5 +1,7 @@
 package com.mkhldvdv.logiweb.entities;
 
+import com.sun.istack.internal.Nullable;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -20,13 +22,14 @@ public class Order implements Serializable {
     @Column(name = "ORDER_STATUS_ID")
     private byte orderStatus;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
     private List<Waypoint> waypoints;
 
     @ManyToOne
     @JoinColumn(name = "TRUCK_ID")
     private Truck truck;
 
+    @Nullable
     @ManyToMany(mappedBy = "orders")
     private List<User> drivers;
 

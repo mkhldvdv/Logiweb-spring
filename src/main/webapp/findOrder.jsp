@@ -151,7 +151,7 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="info.jsp">
+                        <form role="form" method="post" action="/listOrders">
                             <fieldset>
                                 <div class="form-group">
                                     <div class="form-group">

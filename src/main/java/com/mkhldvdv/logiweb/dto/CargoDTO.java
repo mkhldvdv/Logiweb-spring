@@ -1,8 +1,7 @@
 package com.mkhldvdv.logiweb.dto;
 
-import com.mkhldvdv.logiweb.entities.Waypoint;
-
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by mkhldvdv on 25.11.2015.
@@ -14,9 +13,11 @@ public class CargoDTO {
 
     private int weight;
 
-    private String cargoStatus;
+    private byte cargoStatus;
 
-    private List<Waypoint> waypoints;
+    private Set<Long> waypoints;
+
+    private byte deleted;
 
     public long getId() {
         return id;
@@ -42,19 +43,36 @@ public class CargoDTO {
         this.weight = weight;
     }
 
-    public String getCargoStatus() {
+    public byte getCargoStatus() {
         return cargoStatus;
     }
 
-    public void setCargoStatus(String cargoStatus) {
+    public void setCargoStatus(byte cargoStatus) {
         this.cargoStatus = cargoStatus;
     }
 
-    public List<Waypoint> getWaypoints() {
+    public Set<Long> getWaypoints() {
         return waypoints;
     }
 
-    public void setWaypoints(List<Waypoint> waypoints) {
+    public void setWaypoints(Set<Long> waypoints) {
         this.waypoints = waypoints;
+    }
+
+    public byte getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(byte deleted) {
+        this.deleted = deleted;
+    }
+
+    public CargoDTO(long id, String cargoName, int weight, byte cargoStatus, Set<Long> waypoints, byte deleted) {
+        this.id = id;
+        this.cargoName = cargoName;
+        this.weight = weight;
+        this.cargoStatus = cargoStatus;
+        this.waypoints = waypoints;
+        this.deleted = deleted;
     }
 }

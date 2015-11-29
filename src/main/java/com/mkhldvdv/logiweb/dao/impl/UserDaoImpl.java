@@ -14,13 +14,13 @@ import java.util.List;
 public class UserDaoImpl extends GenericDaoImpl<User> {
 
     public static final byte DRIVER_ROLE = 3;
-    public static final byte NOT_DELETED = 0;
 
     /**
      * returns for user ny login name and password, for autorization
+     *
      * @param login login name
      * @param pass  password
-     * @return      specified user
+     * @return specified user
      */
     public User getUserByLoginPassword(String login, String pass) {
 
@@ -28,10 +28,9 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
             String hashedPass = SHAHashing(pass);
 
             User user = em.createQuery("select u from User u " +
-                    "where u.login = :login and u.password = :pass and u.deleted = :isDeleted", User.class)
+                    "where u.login = :login and u.password = :pass", User.class)
                     .setParameter("login", login)
                     .setParameter("pass", hashedPass)
-                    .setParameter("isDeleted", NOT_DELETED)
                     .getSingleResult();
 
             return user;
@@ -45,8 +44,9 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
 
     /**
      * hash any string to not keep it in plain text
-     * @param textToHash    what to hash
-     * @return              hashed string
+     *
+     * @param textToHash what to hash
+     * @return hashed string
      * @throws UnsupportedEncodingException
      * @throws NoSuchAlgorithmException
      */
@@ -62,7 +62,8 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
 
     /**
      * returns list of drivers, i.e. users with the role "driver"
-     * @return  list of drivers
+     *
+     * @return list of drivers
      */
     public List<User> getAllDrivers() {
         try {
@@ -80,13 +81,43 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
 
     /**
      * return all not deleted drivers
+     *
      * @return
      */
     public List<User> getAllNotDeletedDrivers() {
         return em.createQuery("select u from User u " +
-                "where u.role = :driver and u.deleted = :isDeleted", User.class)
+                "where u.role = :driver", User.class)
                 .setParameter("driver", DRIVER_ROLE)
-                .setParameter("isDeleted", NOT_DELETED)
                 .getResultList();
+    }
+
+    @Override
+    public User create(User user) {
+        try {
+            String hashedPass = SHAHashing(user.getPassword());
+            user.setPassword(hashedPass);
+            return super.create(user);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public User update(User user) {
+        try {
+            String hashedPass = SHAHashing(user.getPassword());
+            user.setPassword(hashedPass);
+            return super.update(user);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

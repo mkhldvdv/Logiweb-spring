@@ -149,7 +149,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header">Orders List</h3>
+                <h3 class="page-header">Cargos List</h3>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -166,21 +166,21 @@
                             <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                 <tr>
-                                    <th>Order ID</th>
+                                    <th>Cargo ID</th>
+                                    <th>Cargo Name</th>
+                                    <th>Weight</th>
                                     <th>Status</th>
-                                    <th>Way Points</th>
-                                    <th>Truck ID</th>
-                                    <th>Drivers</th>
+                                    <th>Cities</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="orders" items="${ordersList}">
+                                <c:forEach var="cargo" items="${cargoList}">
                                     <tr class="odd gradeA">
-                                        <td>${orders.id}</td>
-                                        <td>${orders.orderStatus}</td>
-                                        <td>${orders.waypoints}</td>
-                                        <td>${orders.truck.regNum}</td>
-                                        <td>${orders.drivers}</td>
+                                        <td>${cargo.id}</td>
+                                        <td>${cargo.cargoName}</td>
+                                        <td>${cargo.weight}</td>
+                                        <td>${cargo.cargoStatus}</td>
+                                        <td>${cargo.waypoints}</td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>

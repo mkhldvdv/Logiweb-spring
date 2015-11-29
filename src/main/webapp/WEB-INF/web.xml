@@ -60,6 +60,24 @@
     <url-pattern>/listOrders</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>ListCargoServlet</servlet-name>
+    <servlet-class>com.mkhldvdv.logiweb.servlets.ListCargoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListCargoServlet</servlet-name>
+    <url-pattern>/listCargo</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AddEditUserServlet</servlet-name>
+    <servlet-class>com.mkhldvdv.logiweb.servlets.AddEditUserServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddEditUserServlet</servlet-name>
+    <url-pattern>/addEditUser</url-pattern>
+  </servlet-mapping>
+
   <description>ServletContextListener</description>
   <listener>
     <listener-class>com.mkhldvdv.logiweb.listeners.PersistenceListener</listener-class>

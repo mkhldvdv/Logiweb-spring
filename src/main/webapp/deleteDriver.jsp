@@ -150,12 +150,17 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="info.jsp">
+                        <form role="form" method="post" action="/addEditUser">
                             <fieldset>
                                 <div class="form-group">
                                     <div class="form-group">
-                                        <label>Driver ID</label>
-                                        <input class="form-control" placeholder="Enter driver ID" name="driverId" type="driverId" autofocus>
+                                        <label>User/Driver ID</label>
+                                        <input class="form-control" placeholder="Enter driver ID" name="driverId" autofocus>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <input class="form-control" name="delete" type="hidden" value="1">
                                     </div>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->

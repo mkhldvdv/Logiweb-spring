@@ -64,8 +64,8 @@ public class User implements Serializable {
     protected User() {
     }
 
-    public User(String firstName, String lastName, String login, String password, byte role,
-                short hours, byte userStatus, long city) {
+    public User(String firstName, String lastName, String login, String password, byte role, short hours,
+                byte userStatus, long city, Truck truck, List<Order> orders, byte deleted) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.login = login;
@@ -74,10 +74,17 @@ public class User implements Serializable {
         this.hours = hours;
         this.userStatus = userStatus;
         this.city = city;
+        this.truck = truck;
+        this.orders = orders;
+        this.deleted = deleted;
     }
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFirstName() {

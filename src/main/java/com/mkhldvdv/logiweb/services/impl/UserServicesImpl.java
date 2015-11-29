@@ -46,7 +46,7 @@ public class UserServicesImpl implements UserServices {
             User user = userDao.getUserByLoginPassword(login, pass);
             // check user exists
             if (user == null) {
-                throw new WrongLoginPass("Exception: No user exists");
+                throw new WrongLoginPass(">>> Exception: No user exists");
             }
 
             UserDTO userDTO = new UserDTO(user.getId(), user.getFirstName(), user.getLastName(),
@@ -59,84 +59,5 @@ public class UserServicesImpl implements UserServices {
         } finally {
             userDao.getEm().close();
         }
-    }
-
-    /**
-     * returns list of co-drivers for the specified driver
-     *
-     * @param driverId specified driver
-     * @return list of co-drivers
-     */
-    @Override
-    public List<User> getCoDrivers(long driverId) throws WrongIdException {
-        User user = userDao.getById(driverId);
-        // if driver doesn't exit
-        if (user == null) throw new WrongIdException("Wrong driver id");
-
-        List<User> drivers = user.getTruck().getDrivers();
-        List<User> coDrivers = new ArrayList<User>();
-        for (User driver : drivers) {
-            if (driver.getId() != driverId) coDrivers.add(driver);
-        }
-        return coDrivers;
-    }
-
-    /**
-     * returns registration number of the truck
-     *
-     * @param driverId driver's personal number
-     * @return reg number of the truck
-     */
-    @Override
-    public String getTruckRegNum(long driverId) throws WrongIdException {
-        User user = userDao.getById(driverId);
-        // if driver doesn't exit
-        if (user == null) throw new WrongIdException("Wrong driver id");
-        return user.getTruck().getRegNum();
-    }
-
-    /**
-     * returns the list of all open assigned orders for the driver
-     *
-     * @param driverId driver's id
-     * @return list of open assigned orders
-     */
-    @Override
-    public List<Order> getOrderNumbers(long driverId) throws WrongIdException {
-        return getNotCompleteOrders(driverId);
-    }
-
-    /**
-     * returns not complete orders for the driver
-     *
-     * @param driverId driver's id
-     * @return list of not complete orders
-     */
-    private List<Order> getNotCompleteOrders(long driverId) throws WrongIdException {
-        User user = userDao.getById(driverId);
-        // if driver doesn't exit
-        if (user == null) throw new WrongIdException("Wrong driver id");
-
-        List<Order> orders = user.getOrders();
-        List<Order> notCompleteOrders = new ArrayList<Order>();
-        for (Order order : orders) {
-            if (NOT_COMPLETE.equals(order.getOrderStatus())) notCompleteOrders.add(order);
-        }
-        return notCompleteOrders;
-    }
-
-    /**
-     * get list of waypoints
-     *
-     * @param driverId driver's id
-     * @return list of waypoints
-     */
-    @Override
-    public Set<Waypoint> getWaypoints(long driverId) throws WrongIdException {
-        List<Order> orders = getNotCompleteOrders(driverId);
-        // make list of all not repeated waypoints
-        Set<Waypoint> waypoints = new HashSet<Waypoint>();
-        for (Order order : orders) waypoints.addAll(order.getWaypoints());
-        return waypoints;
     }
 }

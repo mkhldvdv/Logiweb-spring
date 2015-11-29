@@ -172,7 +172,6 @@
                                     <th>Capacity</th>
                                     <th>Status</th>
                                     <th>City</th>
-                                    <th>Deleted</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -184,7 +183,6 @@
                                         <td>${trucks.capacity}</td>
                                         <td>${trucks.truckStatus}</td>
                                         <td>${trucks.city}</td>
-                                        <td>${trucks.deleted}</td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>

@@ -174,7 +174,6 @@
                                     <th>Status</th>
                                     <th>City</th>
                                     <th>Truck ID</th>
-                                    <th>Deleted</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -188,7 +187,6 @@
                                         <td>${drivers.userStatus}</td>
                                         <td>${drivers.city}</td>
                                         <td>${drivers.truck.regNum}</td>
-                                        <td>${drivers.deleted}</td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>

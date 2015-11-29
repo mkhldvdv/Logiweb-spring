@@ -1,9 +1,7 @@
 package com.mkhldvdv.logiweb.services.impl;
 
-import com.mkhldvdv.logiweb.dao.impl.CargoDaoImpl;
-import com.mkhldvdv.logiweb.dao.impl.OrderDaoImpl;
-import com.mkhldvdv.logiweb.dao.impl.TruckDaoImpl;
-import com.mkhldvdv.logiweb.dao.impl.UserDaoImpl;
+import com.mkhldvdv.logiweb.dao.impl.*;
+import com.mkhldvdv.logiweb.dto.CargoDTO;
 import com.mkhldvdv.logiweb.dto.OrderDTO;
 import com.mkhldvdv.logiweb.dto.TruckDTO;
 import com.mkhldvdv.logiweb.dto.UserDTO;
@@ -31,6 +29,7 @@ public class AdminServicesImpl implements AdminServices {
     private UserDaoImpl userDao;
     private OrderDaoImpl orderDao;
     private CargoDaoImpl cargoDao;
+    private WaypointDaoImpl waypointDao;
 
     private EntityManagerFactory emf = PersistenceManager.getInstance().getEntityManagerFactory();
     {
@@ -41,6 +40,10 @@ public class AdminServicesImpl implements AdminServices {
         truckDao.setEm(em);
         orderDao = new OrderDaoImpl();
         orderDao.setEm(em);
+        cargoDao = new CargoDaoImpl();
+        cargoDao.setEm(em);
+        waypointDao = new WaypointDaoImpl();
+        waypointDao.setEm(em);
     }
 
     /**
@@ -54,7 +57,7 @@ public class AdminServicesImpl implements AdminServices {
             List<TruckDTO> truckDTOList = new ArrayList<TruckDTO>();
             List<Truck> truckList = truckDao.getAll();
             // check if it's empty
-            if (truckList.isEmpty()) throw new WrongIdException("Exception: trucks list is empty");
+            if (truckList.isEmpty()) throw new WrongIdException(">>> Exception: trucks list is empty");
 
             for (Truck truck : truckList) {
                 TruckDTO truckDTO = new TruckDTO(truck.getId(), truck.getRegNum(), truck.getDriverCount(),
@@ -66,61 +69,8 @@ public class AdminServicesImpl implements AdminServices {
         } catch (Exception e) {
             return null;
         } finally {
-            truckDao.getEm().close();
+            if (truckDao.getEm().isOpen()) truckDao.getEm().close();
         }
-    }
-
-    /**
-     * adds a new truck
-     * @param truck to add
-     * @return added truck
-     */
-    @Override
-    public long addTruck(Truck truck) throws RegNumNotMatchException, WrongIdException {
-        if (truck == null) {
-            throw new WrongIdException("truck is not defined");
-        }
-        checkRegNum(truck);
-        return truckDao.create(truck).getId();
-    }
-
-    /**
-     * check reg num matches the pattern
-     * @param truck
-     * @throws RegNumNotMatchException
-     */
-    private void checkRegNum(Truck truck) throws RegNumNotMatchException {
-        if (!Pattern.matches("[a-zA-Z]{2}[0-9]{5}", truck.getRegNum())) {
-            throw new RegNumNotMatchException("Registration number doesn't match the pattern");
-        }
-    }
-
-    /**
-     * updates specified truck
-     *
-     * @param truckId specified truck
-     * @return updated truck
-     */
-    @Override
-    public Truck updateTruck(long truckId) throws RegNumNotMatchException, WrongIdException {
-        Truck truck = truckDao.getById(truckId);
-        // if driver doesn't exit
-        if (truck == null) throw new WrongIdException("Wrong truck id");
-        checkRegNum(truck);
-        return truckDao.update(truck);
-    }
-
-    /**
-     * deletes specified truck
-     *
-     * @param truckId specified truck
-     */
-    @Override
-    public void deleteTruck(long truckId) throws WrongIdException {
-        Truck truck = truckDao.getById(truckId);
-        // if driver doesn't exit
-        if (truck == null) throw new WrongIdException("Wrong truck id");
-        truckDao.remove(truck);
     }
 
     /**
@@ -136,7 +86,7 @@ public class AdminServicesImpl implements AdminServices {
             List<User> userList = userDao.getAllDrivers();
             // check if list is empty
             if (userList.isEmpty()) {
-                throw new WrongIdException("Exception: drivers list is empty");
+                throw new WrongIdException(">>> Exception: drivers list is empty");
             }
 
             for (User user : userList) {
@@ -151,51 +101,8 @@ public class AdminServicesImpl implements AdminServices {
         } catch (Exception e) {
             return null;
         } finally {
-            userDao.getEm().close();
+            if (userDao.getEm().isOpen()) userDao.getEm().close();
         }
-    }
-
-    /**
-     * adds a new driver
-     *
-     * @param user driver to add
-     * @return id of the added driver
-     */
-    @Override
-    public long addDriver(User user) throws WrongIdException {
-        if (user == null) {
-            throw new WrongIdException("driver is not defined");
-        }
-        return userDao.create(user).getId();
-    }
-
-    /**
-     * updates driver
-     *
-     * @param driverId specified driver
-     * @return updated driver
-     */
-    @Override
-    public User updateDriver(long driverId) throws WrongIdException {
-        User user = userDao.getById(driverId);
-        if (user == null) {
-            throw new WrongIdException("Wrong driver id");
-        }
-        return userDao.update(user);
-    }
-
-    /**
-     * deletes specified driver
-     *
-     * @param driverId driver to delete
-     */
-    @Override
-    public void deleteDriver(long driverId) throws WrongIdException {
-        User user = userDao.getById(driverId);
-        if (user == null) {
-            throw new WrongIdException("Wrong driver id");
-        }
-        userDao.remove(user);
     }
 
     /**
@@ -210,13 +117,13 @@ public class AdminServicesImpl implements AdminServices {
             List<Order> orderList = orderDao.getAll();
             // check if order list is empty
             if (orderList.isEmpty()) {
-                throw new WrongIdException("Exception: orders list is empty");
+                throw new WrongIdException(">>> Exception: orders list is empty");
             }
 
             for (Order order : orderList) {
                 // collect all cities for the order
                 Set<Long> waypointsSet = new HashSet<Long>();
-                for (Waypoint waypoint : order.getWaypoints()) waypoint.getCity();
+                for (Waypoint waypoint : order.getWaypoints()) waypointsSet.add((long) waypoint.getCity());
                 // collect all drivers for the order
                 Set<Long> driversSet = new HashSet<Long>();
                 for (User driver : order.getDrivers()) driversSet.add(driver.getId());
@@ -231,7 +138,7 @@ public class AdminServicesImpl implements AdminServices {
             e.printStackTrace();
             return null;
         } finally {
-            orderDao.getEm().close();
+            if (orderDao.getEm().isOpen()) orderDao.getEm().close();
         }
     }
 
@@ -242,12 +149,29 @@ public class AdminServicesImpl implements AdminServices {
      * @return specified order
      */
     @Override
-    public Order getOrder(long orderId) throws WrongIdException {
-        Order order = orderDao.getById(orderId);
-        if (order == null) {
-            throw new WrongIdException("Wrong order id");
+    public OrderDTO getOrder(long orderId) {
+        try {
+            Order order = orderDao.getById(orderId);
+            // check if null
+            if (order == null) {
+                throw new WrongIdException("Wrong order id");
+            }
+
+            Set<Long> waypointsList = new HashSet<Long>();
+            Set<Long> driversList = new HashSet<Long>();
+            for (Waypoint waypoint : order.getWaypoints()) waypointsList.add((long) waypoint.getCity());
+            for (User user : order.getDrivers()) driversList.add(user.getId());
+            // complete DTO object
+            OrderDTO orderDTO = new OrderDTO(order.getId(), order.getOrderStatus(), waypointsList, order.getTruck(),
+                    driversList, order.getDeleted());
+
+            return orderDTO;
+        } catch (WrongIdException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (orderDao.getEm().isOpen()) orderDao.getEm().close();
         }
-        return order;
     }
 
     /**
@@ -257,81 +181,143 @@ public class AdminServicesImpl implements AdminServices {
      * @return specified cargo
      */
     @Override
-    public Cargo getCargo(long cargoId) throws WrongIdException {
-        Cargo cargo = cargoDao.getById(cargoId);
-        if (cargo == null) {
-            throw new WrongIdException("Wrong cargo id");
-        }
-        return cargo;
-    }
-
-    /**
-     * adds new order
-     *
-     * @param order order to add
-     * @return id of added order
-     * @throws WrongIdException (shit happens)
-     */
-    @Override
-    public long addOrder(Order order) throws WrongIdException {
-        if (order == null) {
-            throw new WrongIdException("Specified order is null");
-        }
-        //toDo: check cargos types in the order, load and unload
-        return 0;
-    }
-
-    /**
-     * get the list of trucks which are able to delivery order
-     *
-     * @param orderId specified order id
-     * @return list of trucks
-     */
-    @Override
-    public List<Truck> getTruckForOrder(long orderId) throws WrongIdException {
-        Order order = orderDao.getById(orderId);
-        if (order == null) {
-            throw new WrongIdException("Wrong order id");
-        }
-
-        List<Truck> tmpTruckList = truckDao.getAll();
-        // filtered truck list
-        List<Truck> truckList = new ArrayList<Truck>();
-
-        for (Truck truck : tmpTruckList) {
-            // check if truck is valid
-            if (VALID.equals(truck.getTruckStatus())) {
-                List<Order> ordersList = truck.getOrders();
-                boolean isTrue = true;
-                // check if there are no orders at the moment
-                for (Order order1 : ordersList) {
-                    if (NOT_DONE.equals(order1.getOrderStatus())) isTrue = false;
-                }
-                // of all is ok, add to the list
-                if (isTrue) {
-                    truckList.add(truck);
-                }
+    public CargoDTO getCargo(long cargoId) {
+        try {
+            Cargo cargo = cargoDao.getById(cargoId);
+            // check if null
+            if (cargo == null) {
+                throw new WrongIdException("Wrong cargo id");
             }
-        }
 
-        return truckList;
+            Set<Long> waypointsList = new HashSet<Long>();
+            for (Waypoint waypoint : cargo.getWaypoints()) waypointsList.add((long) waypoint.getCity());
+            // complete DTO object
+            CargoDTO cargoDTO = new CargoDTO(cargo.getId(), cargo.getCargoName(), cargo.getWeight(),
+                    cargo.getCargoStatus(), waypointsList, cargo.getDeleted());
+
+            return cargoDTO;
+        } catch (WrongIdException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (cargoDao.getEm().isOpen()) cargoDao.getEm().close();
+        }
     }
 
     /**
-     * get the list of drivers for the specified truck
+     * adds new user/driver
      *
-     * @param truckId specified truck
-     * @return list of drivers
+     * @param userDTO new user to add
+     * @return id number of added user
      */
     @Override
-    public List<User> getDriversForTruck(long truckId) throws WrongIdException {
-        Truck truck = truckDao.getById(truckId);
-        if (truck == null) throw new WrongIdException("Wrong truck ID");
-        // get first match the shift size which have no open orders at the moment
-        byte shiftSize = truck.getDriverCount();
-        List<User> driverList = userDao.getAllDrivers();
-        List<User> assignedDrivers = new ArrayList<User>();
-        //toDo: shift size filter
-        return null;
+    public UserDTO addUser(UserDTO userDTO) {
+        try {
+            // check input
+            if (userDTO == null) throw new WrongIdException(">>> Exception: added user was null");
+
+            User user = new User(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getLogin(),
+                    userDTO.getPassword(), userDTO.getRole(), userDTO.getHours(), userDTO.getUserStatus(),
+                    userDTO.getCity(), userDTO.getTruck(), userDTO.getOrders(), userDTO.getDeleted());
+
+            userDao.getEm().getTransaction().begin();
+            User newUser = userDao.create(user);
+            // check user was added successfully
+            if (newUser == null) throw new WrongIdException(">>> Exception: user was not added for some reason");
+            userDao.getEm().getTransaction().commit();
+
+            userDTO.setId(newUser.getId());
+            userDTO.setFirstName(newUser.getFirstName());
+            userDTO.setLastName(newUser.getLastName());
+            userDTO.setLogin(newUser.getLogin());
+            userDTO.setPassword(newUser.getPassword());
+            userDTO.setRole(newUser.getRole());
+            userDTO.setHours(newUser.getHours());
+            userDTO.setUserStatus(newUser.getUserStatus());
+            userDTO.setCity(newUser.getCity());
+            userDTO.setTruck(newUser.getTruck());
+            userDTO.setOrders(newUser.getOrders());
+            userDTO.setDeleted(newUser.getDeleted());
+
+            return userDTO;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (userDao.getEm().getTransaction().isActive()) userDao.getEm().getTransaction().rollback();
+            if (userDao.getEm().isOpen()) userDao.getEm().close();
+        }
+    }
+
+    /**
+     * updated existing user
+     *
+     * @param userDTO user to update
+     * @return updated user
+     */
+    @Override
+    public UserDTO updateUser(UserDTO userDTO) {
+        try {
+            // check input
+            if (userDTO == null) throw new WrongIdException(">>> Exception: updated user was null");
+
+            User user = new User(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getLogin(),
+                    userDTO.getPassword(), userDTO.getRole(), userDTO.getHours(), userDTO.getUserStatus(),
+                    userDTO.getCity(), userDTO.getTruck(), userDTO.getOrders(), userDTO.getDeleted());
+            user.setId(userDTO.getId());
+
+            // updating user
+            userDao.getEm().getTransaction().begin();
+            User newUser = userDao.update(user);
+            // check user was added successfully
+            if (newUser == null) throw new WrongIdException(">>> Exception: user was not added for some reason");
+            userDao.getEm().getTransaction().commit();
+
+            // construct DTO object and return it back
+//            userDTO.setId(newUser.getId());
+            userDTO.setFirstName(newUser.getFirstName());
+            userDTO.setLastName(newUser.getLastName());
+            userDTO.setLogin(newUser.getLogin());
+            userDTO.setPassword(newUser.getPassword());
+            userDTO.setRole(newUser.getRole());
+            userDTO.setHours(newUser.getHours());
+            userDTO.setUserStatus(newUser.getUserStatus());
+            userDTO.setCity(newUser.getCity());
+            userDTO.setTruck(newUser.getTruck());
+            userDTO.setOrders(newUser.getOrders());
+            userDTO.setDeleted(newUser.getDeleted());
+
+            return userDTO;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (userDao.getEm().getTransaction().isActive()) userDao.getEm().getTransaction().rollback();
+            if (userDao.getEm().isOpen()) userDao.getEm().close();
+        }
+    }
+
+    /**
+     * deletes specified user
+     *
+     * @param userId user to delete
+     */
+    @Override
+    public void deleteUser(long userId) {
+        // check input
+        try {
+            if (userId == 0 || userId == -1) throw new WrongIdException(">>> Exception: deleted user was 0");
+            User user = userDao.getById(userId);
+            // delete user
+            userDao.getEm().getTransaction().begin();
+            userDao.remove(user);
+            userDao.getEm().getTransaction().commit();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (userDao.getEm().getTransaction().isActive()) userDao.getEm().getTransaction().rollback();
+            if (userDao.getEm().isOpen()) userDao.getEm().close();
+        }
     }
 }

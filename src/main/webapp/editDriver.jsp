@@ -153,11 +153,11 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="info.jsp">
+                        <form role="form" method="post" action="addDriver.jsp">
                             <fieldset>
                                 <div class="form-group">
                                     <div class="form-group">
-                                        <label>Truck ID</label>
+                                        <label>User ID</label>
                                         <input class="form-control" placeholder="Enter driver ID" name="driverId" autofocus>
                                     </div>
                                 </div>

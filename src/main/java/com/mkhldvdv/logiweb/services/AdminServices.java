@@ -1,5 +1,6 @@
 package com.mkhldvdv.logiweb.services;
 
+import com.mkhldvdv.logiweb.dto.CargoDTO;
 import com.mkhldvdv.logiweb.dto.OrderDTO;
 import com.mkhldvdv.logiweb.dto.TruckDTO;
 import com.mkhldvdv.logiweb.dto.UserDTO;
@@ -24,50 +25,10 @@ public interface AdminServices {
     public List<TruckDTO> getTrucks();
 
     /**
-     * adds a new truck
-     * @param   truck to add
-     * @return  added truck
-     */
-    public long addTruck(Truck truck) throws RegNumNotMatchException, WrongIdException;
-
-    /**
-     * updates specified truck
-     * @param truckId specified truck
-     * @return  updated truck
-     */
-    public Truck updateTruck(long truckId) throws RegNumNotMatchException, WrongIdException;
-
-    /**
-     * deletes specified truck
-     * @param truckId specified truck
-     */
-    public void deleteTruck(long truckId) throws WrongIdException;
-
-    /**
      * get the list of all drivers
      * @return
      */
     public List<UserDTO> getDrivers();
-
-    /**
-     * adds a new driver
-     * @param user  driver to add
-     * @return  id of the added driver
-     */
-    public long addDriver(User user) throws WrongIdException;
-
-    /**
-     * updates driver
-     * @param driverId specified driver
-     * @return  updated driver
-     */
-    public User updateDriver(long driverId) throws WrongIdException;
-
-    /**
-     * deletes specified driver
-     * @param driverId  driver to delete
-     */
-    public void deleteDriver(long driverId) throws WrongIdException;
 
     /**
      * get the list of all orders
@@ -80,34 +41,33 @@ public interface AdminServices {
      * @param orderId   order id
      * @return  specified order
      */
-    public Order getOrder(long orderId) throws WrongIdException;
+    public OrderDTO getOrder(long orderId) throws WrongIdException;
 
     /**
      * get the full info about the cargo
      * @param cargoId   cargo id
      * @return  specified cargo
      */
-    public Cargo getCargo(long cargoId) throws WrongIdException;
+    public CargoDTO getCargo(long cargoId) throws WrongIdException;
 
     /**
-     * adds new order
-     * @param order order to add
-     * @return  id of added order
-     * @throws WrongIdException (shit happens)
+     * adds new user/driver
+     * @param userDTO   new user to add
+     * @return          id number of added user
      */
-    public long addOrder(Order order) throws WrongIdException;
+    UserDTO addUser(UserDTO userDTO);
+
 
     /**
-     * get the list of trucks which are able to delivery order
-     * @param orderId     specified order id
-     * @return            list of trucks
+     * updates existing user
+     * @param userDTO   user to update
+     * @return          updated user
      */
-    public List<Truck> getTruckForOrder(long orderId) throws WrongIdException;
+    UserDTO updateUser(UserDTO userDTO);
 
     /**
-     * get the list of drivers for the specified truck
-     * @param truckId   specified truck
-     * @return          list of drivers
+     * deletes specified user
+     * @param userId    user to delete
      */
-    public List<User> getDriversForTruck(long truckId) throws WrongIdException;
+    void deleteUser(long userId);
 }

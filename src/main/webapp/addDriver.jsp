@@ -143,7 +143,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header"> Add Driver/Edit Driver</h3>
+                <h3 class="page-header"> Add User/Edit User</h3>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -151,7 +151,7 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="info.jsp">
+                        <form role="form" method="post" action="/addEditUser" onsubmit="return checkForm(this);">
                             <fieldset>
                                 <div class="form-group">
                                     <label>First Name</label>
@@ -172,21 +172,42 @@
                                 <div class="form-group">
                                     <label>Role</label>
                                     <select class="form-control" name="role">
-                                        <option value="2">driver</option>
-                                        <option value="1">operator</option>
+                                        <option value="3">driver</option>
+                                        <option value="2">operator</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Working hours</label>
-                                    <input class="form-control" placeholder="" name="hours" autofocus>
+                                    <input class="form-control" placeholder="" name="hours" value="0" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <label>Status</label>
                                     <select class="form-control" name="status">
+                                        <option value="0"></option>
                                         <option value="1">vacant</option>
                                         <option value="2">in shift</option>
                                         <option value="3">driving</option>
                                     </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Current city</label>
+                                    <select class="form-control" name="city">
+                                        <option value="1">st petersburg</option>
+                                        <option value="2">moskow</option>
+                                        <option value="3">kyiv</option>
+                                        <option value="4">minsk</option>
+                                        <option value="5">copenhagen</option>
+                                        <option value="6">helsinki</option>
+                                        <option value="7">prague</option>
+                                        <option value="8">berlin</option>
+                                        <option value="9">paris</option>
+                                        <option value="10">london</option>
+                                    </select>
+                                </div>
+                                <c:set var="driverId" value="${param.driverId}" />
+                                <div class="form-group">
+                                    <label>User ID</label>
+                                    <input class="form-control" value="${driverId}" name="driverId" readonly="readonly">
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <!-- a href="info.jsp" class="btn btn-md btn-success btn-block">Login</a-->
@@ -194,6 +215,82 @@
                                 <button type="reset" class="btn btn-default">Reset</button>
                             </fieldset>
                         </form>
+                        <script>
+
+                            function checkForm(form)
+                            {
+                                // regular expression to match only alphanumeric characters and spaces
+                                var re = /^[\w]{5,10}$/;
+
+                                // validation fails if the input is blank
+                                if(form.firstName.value == "" || form.firstName.value == null) {
+                                    alert("Error: First Name should not be empty");
+                                    form.firstName.focus();
+                                    return false;
+                                }
+
+                                // validation fails if the input doesn't match our regular expression
+                                if(!re.test(form.firstName.value)) {
+                                    alert("Error: First Name should be between 5 and 10 symbols " +
+                                            "and alphanumeric");
+                                    form.firstName.focus();
+                                    return false;
+                                }
+
+                                // validation fails if the input is blank
+                                if(form.lastName.value == "" || form.lastName.value == null) {
+                                    alert("Error: Last Name should not be empty");
+                                    form.lastName.focus();
+                                    return false;
+                                }
+
+                                // validation fails if the input doesn't match our regular expression
+                                if(!re.test(form.lastName.value)) {
+                                    alert("Error: Last Name should be between 5 and 10 symbols " +
+                                            "and alphanumeric");
+                                    form.lastName.focus();
+                                    return false;
+                                }
+
+                                // regular expression to match only alphanumeric characters and spaces
+                                re = /^[\w.]{5,10}$/;
+                                // validation fails if the input is blank
+                                if(form.loginName.value == "" || form.loginName.value == null) {
+                                    alert("Error: Login Name should not be empty");
+                                    form.loginName.focus();
+                                    return false;
+                                }
+
+                                // validation fails if the input doesn't match our regular expression
+                                if(!re.test(form.loginName.value)) {
+                                    alert("Error: Login Name should be between 5 and 10 symbols " +
+                                            "and alphanumeric (dot is accessible)");
+                                    form.loginName.focus();
+                                    return false;
+                                }
+
+                                // regular expression to match only alphanumeric characters and spaces
+                                re = /^.{5,10}$/;
+
+                                // validation fails if the input is blank
+                                if(form.password.value == "" || form.password.value == null) {
+                                    alert("Error: Password should not be empty");
+                                    form.password.focus();
+                                    return false;
+                                }
+
+                                // validation fails if the input doesn't match our regular expression
+                                if(!re.test(form.password.value)) {
+                                    alert("Error: Password should be between 5 and 10 symbols");
+                                    form.password.focus();
+                                    return false;
+                                }
+
+                                // validation was successful
+                                return true;
+                            }
+
+                        </script>
                     </div>
                 </div>
             </div>

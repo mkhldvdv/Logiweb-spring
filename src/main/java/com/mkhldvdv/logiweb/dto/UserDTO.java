@@ -33,7 +33,7 @@ public class UserDTO {
 
     private byte deleted;
 
-    protected UserDTO() {
+    public UserDTO() {
     }
 
     public UserDTO(long id, String firstName, String lastName, String login, String password, byte role,
