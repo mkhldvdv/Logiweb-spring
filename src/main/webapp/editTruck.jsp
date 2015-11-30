@@ -151,7 +151,7 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="addTruck.jsp" onsubmit="return checkForm(this);">
+                        <form role="form" method="post" action="/listTrucks" onsubmit="return checkForm(this);">
                             <fieldset>
                                 <div class="form-group">
                                     <div class="form-group">
@@ -170,7 +170,7 @@
                             function checkForm(form)
                             {
                                 // regular expression to match only alphanumeric characters and spaces
-                                var re = /^[0-9]+}$/;
+                                var re = /^[0-9]+$/;
 
                                 // validation fails if the input is blank
                                 if(form.truckId.value == "" || form.truckId.value == null) {

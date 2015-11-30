@@ -59,6 +59,10 @@ public class Truck implements Serializable {
         return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getRegNum() {
         return regNum;
     }

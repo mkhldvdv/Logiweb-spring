@@ -8,6 +8,7 @@ import com.mkhldvdv.logiweb.dto.UserDTO;
 import com.mkhldvdv.logiweb.entities.*;
 import com.mkhldvdv.logiweb.exceptions.RegNumNotMatchException;
 import com.mkhldvdv.logiweb.exceptions.WrongIdException;
+import com.mkhldvdv.logiweb.exceptions.WrongLoginPass;
 import com.mkhldvdv.logiweb.services.AdminServices;
 import com.mkhldvdv.logiweb.services.PersistenceManager;
 
@@ -288,11 +289,11 @@ public class AdminServicesImpl implements AdminServices {
             // updating user
             userDao.getEm().getTransaction().begin();
             User newUser = userDao.update(user, hashed);
+            userDao.getEm().getTransaction().commit();
             // check user was added successfully
             if (newUser == null) {
                 throw new WrongIdException(">>> Exception: user was not added for some reason");
             }
-            userDao.getEm().getTransaction().commit();
 
             // construct DTO object and return it back
 //            userDTO.setId(newUser.getId());
@@ -413,6 +414,84 @@ public class AdminServicesImpl implements AdminServices {
 
 //        } catch (Exception e) {
 //            e.printStackTrace();
+        } finally {
+            if (truckDao.getEm().getTransaction().isActive()) {
+                truckDao.getEm().getTransaction().rollback();
+            }
+            if (truckDao.getEm().isOpen()) {
+                truckDao.getEm().close();
+            }
+        }
+    }
+
+    /**
+     * gets the specified truck
+     *
+     * @param truckId truck id
+     * @return specified truck
+     */
+    @Override
+    public TruckDTO getTruck(long truckId) {
+        try {
+            Truck truck = truckDao.getById(truckId);
+            // check truck exists
+            if (truck == null) {
+                throw new WrongIdException(">>> Exception: No truck exists");
+            }
+
+            TruckDTO truckDTO = new TruckDTO(truck.getId(), truck.getRegNum(), truck.getDriverCount(),
+                    truck.getCapacity(), truck.getTruckStatus(), truck.getCity(), truck.getDeleted());
+            return truckDTO;
+
+        } catch (WrongIdException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (truckDao.getEm().isOpen()) {
+                truckDao.getEm().close();
+            }
+        }
+    }
+
+    /**
+     * updates specified truck
+     *
+     * @param truckDTO truck to update
+     * @return specified truck int DTO object
+     */
+    @Override
+    public TruckDTO updateTruck(TruckDTO truckDTO) {
+        try {
+            // check input
+            if (truckDTO == null) {
+                throw new WrongIdException(">>> Exception: truck id was not valid");
+            }
+
+            // transfer to entity
+            Truck truck = new Truck(truckDTO.getRegNum(), truckDTO.getDriverCount(), truckDTO.getCapacity(),
+                    truckDTO.getTruckStatus(), truckDTO.getCity());
+            truck.setId(truckDTO.getId());
+            // and update truck
+            truckDao.getEm().getTransaction().begin();
+            Truck newTruck = truckDao.update(truck);
+            truckDao.getEm().getTransaction().commit();
+
+            // check truck was added successfully
+            if (newTruck == null) {
+                throw new WrongIdException(">>> Exception: truck was not added for some reason");
+            }
+
+            // construct DTO object and return it back
+            truckDTO.setRegNum(newTruck.getRegNum());
+            truckDTO.setDriverCount(newTruck.getDriverCount());
+            truckDTO.setCapacity(newTruck.getCapacity());
+            truckDTO.setTruckStatus(newTruck.getTruckStatus());
+            truckDTO.setCity(newTruck.getCity());
+
+            return truckDTO;
+        } catch (WrongIdException e) {
+            e.printStackTrace();
+            return null;
         } finally {
             if (truckDao.getEm().getTransaction().isActive()) {
                 truckDao.getEm().getTransaction().rollback();

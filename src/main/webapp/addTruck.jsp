@@ -155,38 +155,33 @@
                     <div class="panel-body">
                         <form role="form" method="post" action="/addEditTruck" onsubmit="return checkForm(this);">
                             <fieldset>
+                                <c:set var="user" value="${userObject}" />
                                 <div class="form-group">
                                     <label>Regional Number</label>
-                                    <input class="form-control" placeholder="Enter regional number" name="regNum" type="regNum" autofocus>
+                                    <input class="form-control" placeholder="Enter regional number" name="regNum" value="${user.regNum}" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <label>Shift count</label>
-                                    <div>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="shift" id="optionsRadiosInline1" value="1" checked>1
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="shift" id="optionsRadiosInline2" value="2">2
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="shift" id="optionsRadiosInline3" value="3">3
-                                        </label>
-                                    </div>
+                                    <select class="form-control" name="shift" value="${user.driverCount}">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Capacity</label>
-                                    <input class="form-control" placeholder="Enter capacity" name="capacity" type="capacity" autofocus>
+                                    <input class="form-control" placeholder="Enter capacity" name="capacity" value="${user.capacity}" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <label>Status</label>
-                                    <select class="form-control" name="status" type="status">
+                                    <select class="form-control" name="status" value="${user.truckStatus}">
                                         <option value="1">valid</option>
                                         <option value="2">not valid</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Current city</label>
-                                    <select class="form-control" name="city" type="city">
+                                    <select class="form-control" name="city" value="${user.city}">
                                         <option value="1">st petersburg</option>
                                         <option value="2">moskow</option>
                                         <option value="3">kyiv</option>
@@ -199,7 +194,7 @@
                                         <option value="10">london</option>
                                     </select>
                                 </div>
-                                <c:set var="truckId" value="${param.truckId}" />
+                                <c:set var="truckId" value="${truckId}" />
                                 <div class="form-group">
                                     <label>Truck ID</label>
                                     <input class="form-control" value="${truckId}" name="truckId" readonly="readonly">
@@ -207,6 +202,8 @@
                                 <div class="form-group">
                                     <input class="form-control" value="add" name="action" type="hidden">
                                 </div>
+                                <c:remove var="userObject" />
+                                <c:remove var="truckId" />
                                 <!-- Change this to a button or input when using this as a form -->
                                 <!-- a href="info.jsp" class="btn btn-md btn-success btn-block">Login</a-->
                                 <button type="submit" class="btn btn-default">Submit</button>

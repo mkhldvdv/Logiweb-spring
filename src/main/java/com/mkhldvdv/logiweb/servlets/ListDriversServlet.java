@@ -29,7 +29,7 @@ public class ListDriversServlet extends HttpServlet {
                 resp.sendRedirect("/listDrivers.jsp");
             } else {
                 // trying to parse the value (should be numeric after the form)
-                long driverId = Long.parseLong(req.getParameter("driverId"));
+                long driverId = Long.parseLong(driverParam);
                 // get the user to fill in the form on the next page with the default values
                 UserDTO userDTO = userServices.getUser(driverId);
                 req.getSession().setAttribute("driverId", driverParam);

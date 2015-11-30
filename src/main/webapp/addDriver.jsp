@@ -213,6 +213,8 @@
                                 <div class="form-group">
                                     <input class="form-control" value="${user.password}" name="pass" type="hidden">
                                 </div>
+                                <c:remove var="userObject" />
+                                <c:remove var="driverId" />
                                 <!-- Change this to a button or input when using this as a form -->
                                 <!-- a href="info.jsp" class="btn btn-md btn-success btn-block">Login</a-->
                                 <button type="submit" class="btn btn-default">Submit</button>

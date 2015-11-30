@@ -16,9 +16,28 @@ import java.util.List;
 public class ListTrucksServlet extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        AdminServicesImpl adminServices = new AdminServicesImpl();
-        List<TruckDTO> trucksDTOList = adminServices.getTrucks();
-        req.getSession().setAttribute("trucksList", trucksDTOList);
-        resp.sendRedirect("/listTrucks.jsp");
+        try {
+            AdminServicesImpl adminServices = new AdminServicesImpl();
+            // get truckId from the params
+            String truckIdParam = req.getParameter("truckId");
+            // if it doesn't exist then get all the list of trucks
+            if (truckIdParam == null || truckIdParam == "") {
+                List<TruckDTO> truckDTOList = adminServices.getTrucks();
+                req.getSession().setAttribute("trucksList", truckDTOList);
+                resp.sendRedirect("/listTrucks.jsp");
+            } else {
+                // trying to parse the value (should be numeric after the form)
+                long truckId = Long.parseLong(truckIdParam);
+                // get the truck to fill in the form on the next page with the default values
+                TruckDTO truckDTO = adminServices.getTruck(truckId);
+                req.getSession().setAttribute("truckId", truckIdParam);
+                req.getSession().setAttribute("userObject", truckDTO);
+                resp.sendRedirect("/addTruck.jsp");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            req.getSession().setAttribute("error", e);
+            resp.sendRedirect("/error.jsp");
+        }
     }
 }

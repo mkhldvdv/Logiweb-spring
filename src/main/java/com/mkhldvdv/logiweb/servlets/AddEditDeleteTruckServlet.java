@@ -42,20 +42,29 @@ public class AddEditDeleteTruckServlet extends HttpServlet {
             // action
             TruckDTO newTruck = new TruckDTO();
             if (ADD.equals(action) && truckId == "") {
+                // add new truck
                 newTruck = adminServices.addTruck(truckDTO);
             } else if (ADD.equals(action) && truckId != "") {
+                // update truck
                 truckDTO.setId(Long.parseLong(truckId));
-//                newTruck = adminServices.updateTruck(truckDTO);
+                newTruck = adminServices.updateTruck(truckDTO);
             } else if (DELETE.equals(action)) {
+                // delete truck
                 truckDTO.setId(Long.parseLong(truckId));
                 adminServices.deleteTruck(truckDTO.getId());
             }
 
-            if (newTruck == null) throw new Exception(">>> Exception: Truck was not added/updated for some reason");
+            if (newTruck == null) {
+                throw new Exception(">>> Exception: Truck was not added/updated for some reason");
+            }
 
             // create response
-            if (DELETE.equals(action)) req.getSession().setAttribute("object", truckId);
-            else req.getSession().setAttribute("object", newTruck);
+            if (DELETE.equals(action)) {
+                req.getSession().setAttribute("object", truckId);
+            }
+            else {
+                req.getSession().setAttribute("object", newTruck);
+            }
 
             resp.sendRedirect("/success.jsp");
         } catch (Exception e) {

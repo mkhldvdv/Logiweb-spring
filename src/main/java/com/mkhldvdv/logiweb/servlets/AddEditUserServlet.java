@@ -44,7 +44,7 @@ public class AddEditUserServlet extends HttpServlet {
                 if (driverIdString == null || driverIdString == "") {
                     newUserId = adminServices.addUser(userDTO);
                 } else {
-                    userDTO.setId(Long.parseLong(req.getParameter("driverId")));
+                    userDTO.setId(Long.parseLong(driverIdString));
                     // check if "old" and "new" passwords identical
                     if (pass.equals(userDTO.getPassword())) {
                         newUserId = adminServices.updateUser(userDTO, true);

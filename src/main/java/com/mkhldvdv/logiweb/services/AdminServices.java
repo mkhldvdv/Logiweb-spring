@@ -83,4 +83,18 @@ public interface AdminServices {
      * @param truckId    truck to delete
      */
     void deleteTruck(long truckId) throws WrongIdException;
+
+    /**
+     * gets the specified truck
+     * @param truckId   truck id
+     * @return          specified truck
+     */
+    TruckDTO getTruck(long truckId);
+
+    /**
+     * updates specified truck
+     * @param truckDTO  truck id to update
+     * @return         specified truck int DTO object
+     */
+    TruckDTO updateTruck(TruckDTO truckDTO);
 }
