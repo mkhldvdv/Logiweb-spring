@@ -30,9 +30,13 @@ public class ListCargoServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             System.out.printf(">>> Exception: Cargo ID was not a number: %s\n", cargoIdString);
             e.printStackTrace();
+            req.getSession().setAttribute("error", e);
+            resp.sendRedirect("/error.jsp");
         } catch (IOException e) {
-            System.out.printf(">>> Exception: Something wrong with cargo id: %s\n", cargoIdString);
+            System.out.printf(">>> Exception: Something wrong with cargo id: %s\nCheck log file\n", cargoIdString);
             e.printStackTrace();
+            req.getSession().setAttribute("error", e);
+            resp.sendRedirect("/error.jsp");
         }
     }
 }

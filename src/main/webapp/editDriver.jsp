@@ -153,7 +153,7 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="addDriver.jsp">
+                        <form role="form" method="post" action="/listDrivers" onsubmit="return checkForm(this);">
                             <fieldset>
                                 <div class="form-group">
                                     <div class="form-group">
@@ -167,6 +167,32 @@
                                 <button type="reset" class="btn btn-default">Reset</button>
                             </fieldset>
                         </form>
+                        <script>
+
+                            function checkForm(form)
+                            {
+                                // regular expression to match only alphanumeric characters and spaces
+                                var re = /^[0-9]+$/;
+
+                                // validation fails if the input is blank
+                                if(form.driverId.value == "" || form.driverId.value == null) {
+                                    alert("Error: driverId should not be empty");
+                                    form.driverId.focus();
+                                    return false;
+                                }
+
+                                // validation fails if the input doesn't match our regular expression
+                                if(!re.test(form.driverId.value)) {
+                                    alert("Error: driverId should be numeric and at least 1 character");
+                                    form.driverId.focus();
+                                    return false;
+                                }
+
+                                // validation was successful
+                                return true;
+                            }
+
+                        </script>
                     </div>
                 </div>
             </div>

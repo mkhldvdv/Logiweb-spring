@@ -37,7 +37,7 @@ public class ListOrdersServlet extends HttpServlet {
             req.getSession().setAttribute("ordersList", orderDTOList);
             resp.sendRedirect("/listOrders.jsp");
         } catch (Exception e) {
-            System.out.printf(">>> Exception: Something wrong with order id: %s\n", orderIdString);
+            System.out.printf(">>> Exception: Something wrong with order id: %s\nCheck log file\n", orderIdString);
             e.printStackTrace();
             resp.sendRedirect("#");
         }

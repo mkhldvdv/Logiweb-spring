@@ -40,7 +40,7 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Logiweb: Sign In</h3>
+                        <h3 class="panel-title">Logiweb: Welcome</h3>
                     </div>
                     <div class="panel-body">
                         <form role="form" method="post" action="/login" onsubmit="return checkForm(this);">
@@ -53,7 +53,7 @@
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <!-- a href="info.jsp" class="btn btn-md btn-success btn-block">Login</a-->
-								<input type="submit" class="btn btn-md btn-success btn-block" value="Login">
+                                <input type="submit" class="btn btn-md btn-success btn-block" value="Sign in">
                             </fieldset>
                         </form>
                         <script>

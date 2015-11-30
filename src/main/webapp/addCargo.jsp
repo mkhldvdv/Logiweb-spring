@@ -152,7 +152,7 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="info.jsp">
+                        <form role="form" method="post" action="info.jsp" onsubmit="return checkForm(this);">
                             <fieldset>
                                 <div class="form-group">
                                     <label>Cargo Name</label>
@@ -206,6 +206,49 @@
                                 <button type="reset" class="btn btn-default">Reset</button>
                             </fieldset>
                         </form>
+                        <script>
+
+                            function checkForm(form)
+                            {
+                                // regular expression to match only alphanumeric characters and spaces
+                                var re = /^.{1,50}$/;
+
+                                // validation fails if the input is blank
+                                if(form.cargoName.value == "" || form.cargoName.value == null) {
+                                    alert("Error: cargoName should not be empty");
+                                    form.cargoName.focus();
+                                    return false;
+                                }
+
+                                // validation fails if the input doesn't match our regular expression
+                                if(!re.test(form.cargoName.value)) {
+                                    alert("Error: cargoName should be between 1 and 50 symbols");
+                                    form.cargoName.focus();
+                                    return false;
+                                }
+
+                                // regular expression to match only alphanumeric characters and spaces
+                                re = /^[0-9]+$/;
+
+                                // validation fails if the input is blank
+                                if(form.weight.value == "" || form.weight.value == null) {
+                                    alert("Error: weight should not be empty");
+                                    form.weight.focus();
+                                    return false;
+                                }
+
+                                // validation fails if the input doesn't match our regular expression
+                                if(!re.test(form.weight.value)) {
+                                    alert("Error: weight should be numeric and at least 1 character");
+                                    form.weight.focus();
+                                    return false;
+                                }
+
+                                // validation was successful
+                                return true;
+                            }
+
+                        </script>
                     </div>
                 </div>
             </div>

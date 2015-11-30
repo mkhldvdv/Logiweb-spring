@@ -153,7 +153,7 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="/addEditTruck">
+                        <form role="form" method="post" action="/addEditTruck" onsubmit="return checkForm(this);">
                             <fieldset>
                                 <div class="form-group">
                                     <label>Regional Number</label>
@@ -213,6 +213,47 @@
                                 <button type="reset" class="btn btn-default">Reset</button>
                             </fieldset>
                         </form>
+                        <script>
+                            function checkForm(form)
+                            {
+                                // regular expression to match only alphanumeric characters and spaces
+                                var re = /^[a-zA-Z]{2}[0-9]{5}$/;
+
+                                // validation fails if the input is blank
+                                if(form.regNum.value == "" || form.regNum.value == null) {
+                                    alert("Error: regNum should not be empty");
+                                    form.regNum.focus();
+                                    return false;
+                                }
+
+                                // validation fails if the input doesn't match our regular expression
+                                if(!re.test(form.regNum.value)) {
+                                    alert("Error: regNum should be exaclty 7 characters: 2 letters followed by 5 digits");
+                                    form.regNum.focus();
+                                    return false;
+                                }
+
+                                // regular expression to match only alphanumeric characters and spaces
+                                re = /^[0-9]{1,2}$/;
+
+                                // validation fails if the input is blank
+                                if(form.capacity.value == "" || form.capacity.value == null) {
+                                    alert("Error: capacity should not be empty");
+                                    form.capacity.focus();
+                                    return false;
+                                }
+
+                                // validation fails if the input doesn't match our regular expression
+                                if(!re.test(form.capacity.value)) {
+                                    alert("Error: capacity should be numeric and not more than 2 characters");
+                                    form.capacity.focus();
+                                    return false;
+                                }
+
+                                // validation was successful
+                                return true;
+                            }
+                        </script>
                     </div>
                 </div>
             </div>

@@ -153,36 +153,37 @@
                     <div class="panel-body">
                         <form role="form" method="post" action="/addEditUser" onsubmit="return checkForm(this);">
                             <fieldset>
+                                <c:set var="user" value="${userObject}" />
                                 <div class="form-group">
                                     <label>First Name</label>
-                                    <input class="form-control" placeholder="Enter first name" name="firstName" autofocus>
+                                    <input class="form-control" placeholder="Enter first name" name="firstName" value="${user.firstName}" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <label>Last Name</label>
-                                    <input class="form-control" placeholder="Enter last name" name="lastName" autofocus>
+                                    <input class="form-control" placeholder="Enter last name" name="lastName" value="${user.lastName}" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <label>Login name</label>
-                                    <input class="form-control" placeholder="Enter login name" name="loginName" autofocus>
+                                    <input class="form-control" placeholder="Enter login name" name="loginName" value="${user.login}" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <label>password</label>
-                                    <input class="form-control" placeholder="Enter password" name="password" type="password" autofocus>
+                                    <input class="form-control" placeholder="Enter password" name="password" type="password" value="${user.password}" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <label>Role</label>
-                                    <select class="form-control" name="role">
+                                    <select class="form-control" name="role" value="${user.role}">
                                         <option value="3">driver</option>
                                         <option value="2">operator</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Working hours</label>
-                                    <input class="form-control" placeholder="" name="hours" value="0" autofocus>
+                                    <input class="form-control" placeholder="" name="hours" value="${user.hours}" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <label>Status</label>
-                                    <select class="form-control" name="status">
+                                    <select class="form-control" name="status" value="${user.userStatus}">
                                         <option value="0"></option>
                                         <option value="1">vacant</option>
                                         <option value="2">in shift</option>
@@ -191,7 +192,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Current city</label>
-                                    <select class="form-control" name="city">
+                                    <select class="form-control" name="city" value="${user.city}">
                                         <option value="1">st petersburg</option>
                                         <option value="2">moskow</option>
                                         <option value="3">kyiv</option>
@@ -204,10 +205,13 @@
                                         <option value="10">london</option>
                                     </select>
                                 </div>
-                                <c:set var="driverId" value="${param.driverId}" />
+                                <%--<c:set var="driverId" value="${driverId}" />--%>
                                 <div class="form-group">
                                     <label>User ID</label>
                                     <input class="form-control" value="${driverId}" name="driverId" readonly="readonly">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" value="${user.password}" name="pass" type="hidden">
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <!-- a href="info.jsp" class="btn btn-md btn-success btn-block">Login</a-->
@@ -270,7 +274,7 @@
                                 }
 
                                 // regular expression to match only alphanumeric characters and spaces
-                                re = /^.{5,10}$/;
+                                re = /^.{5,256}$/;
 
                                 // validation fails if the input is blank
                                 if(form.password.value == "" || form.password.value == null) {
@@ -283,6 +287,23 @@
                                 if(!re.test(form.password.value)) {
                                     alert("Error: Password should be between 5 and 10 symbols");
                                     form.password.focus();
+                                    return false;
+                                }
+
+                                // regular expression to match only alphanumeric characters and spaces
+                                re = /^[0-9]{1,3}$/;
+
+                                // validation fails if the input is blank
+                                if(form.hours.value == "" || form.hours.value == null) {
+                                    alert("Error: Hours should not be empty");
+                                    form.hours.focus();
+                                    return false;
+                                }
+
+                                // validation fails if the input doesn't match our regular expression
+                                if(!re.test(form.hours.value)) {
+                                    alert("Error: Hours should be numeric and not more than 3 characters");
+                                    form.hours.focus();
                                     return false;
                                 }
 

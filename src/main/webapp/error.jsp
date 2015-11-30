@@ -148,8 +148,10 @@
                     <h3 class="page-header"> Error!</h3>
                 </div>
                 <!-- /.col-lg-12 -->
+                Operation cannot be peformed because of the error:<br>
                 <c:set var="error" value="${error}" />
                 <c:out value="${error}" />
+                <%--<c:forEach var="errorString" items="${error}">${errorString}</c:forEach>--%>
             </div>
         </div>
         <!-- /#page-wrapper -->

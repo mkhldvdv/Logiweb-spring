@@ -151,7 +151,7 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="addOrderTruck.jsp">
+                        <form role="form" method="post" action="addOrderTruck.jsp" >
                             <fieldset>
                                 <div class="form-group">
                                     <label>Multiple Selects</label>

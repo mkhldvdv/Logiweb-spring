@@ -24,4 +24,11 @@ public interface UserServices {
      */
     public UserDTO getUser(String login, String pass) throws UnsupportedEncodingException, NoSuchAlgorithmException;
 
+    /**
+     * returns the specified user
+     * @param userId        specified userId, long
+     * @return              specified user
+     */
+    public UserDTO getUser(long userId);
+
 }

@@ -60,4 +60,31 @@ public class UserServicesImpl implements UserServices {
             userDao.getEm().close();
         }
     }
+
+    /**
+     * returns the specified user
+     *
+     * @param userId       specified userId, long
+     * @return specified user
+     */
+    @Override
+    public UserDTO getUser(long userId) {
+        try {
+            User user = userDao.getById(userId);
+            // check user exists
+            if (user == null) {
+                throw new WrongLoginPass(">>> Exception: No user exists");
+            }
+            
+            UserDTO userDTO = new UserDTO(user.getId(), user.getFirstName(), user.getLastName(),
+                    user.getLogin(), user.getPassword(), user.getRole(), user.getHours(),
+                    user.getUserStatus(), user.getCity(), user.getTruck(), user.getOrders(), user.getDeleted());
+            return userDTO;
+
+        } catch (WrongLoginPass wrongLoginPass) {
+            return null;
+        } finally {
+            userDao.getEm().close();
+        }
+    }
 }

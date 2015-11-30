@@ -19,6 +19,7 @@ public class AddEditUserServlet extends HttpServlet {
         AdminServicesImpl adminServices = new AdminServicesImpl();
         String driverIdString = req.getParameter("driverId");
         String deleteString = req.getParameter("delete");
+        String pass = req.getParameter("pass");
         try {
             if (deleteString != null) {
                 // delete user
@@ -44,7 +45,12 @@ public class AddEditUserServlet extends HttpServlet {
                     newUserId = adminServices.addUser(userDTO);
                 } else {
                     userDTO.setId(Long.parseLong(req.getParameter("driverId")));
-                    newUserId = adminServices.updateUser(userDTO);
+                    // check if "old" and "new" passwords identical
+                    if (pass.equals(userDTO.getPassword())) {
+                        newUserId = adminServices.updateUser(userDTO, true);
+                    } else {
+                        newUserId = adminServices.updateUser(userDTO, false);
+                    }
                 }
 
                 // check all is fine
@@ -56,7 +62,7 @@ public class AddEditUserServlet extends HttpServlet {
                 resp.sendRedirect("/success.jsp");
             }
         } catch (Exception e) {
-            System.out.printf(">>> Exception: Something wrong with user id: %s\n", driverIdString);
+            System.out.printf(">>> Exception: Something wrong with user id: %s\nCheck log file\n", driverIdString);
             e.printStackTrace();
             req.getSession().setAttribute("error", e);
             resp.sendRedirect("/error.jsp");

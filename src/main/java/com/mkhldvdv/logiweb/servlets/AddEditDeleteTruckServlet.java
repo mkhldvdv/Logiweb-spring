@@ -59,7 +59,7 @@ public class AddEditDeleteTruckServlet extends HttpServlet {
 
             resp.sendRedirect("/success.jsp");
         } catch (Exception e) {
-            System.out.printf(">>> Exception: Something wrong with truck id: %s\n", truckId);
+            System.out.printf(">>> Exception: Something wrong with truck id: %s\nCheck log file\n", truckId);
             e.printStackTrace();
             req.getSession().setAttribute("error", e);
             resp.sendRedirect("/error.jsp");

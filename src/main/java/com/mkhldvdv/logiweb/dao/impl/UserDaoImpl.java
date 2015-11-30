@@ -106,11 +106,13 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
         }
     }
 
-    @Override
-    public User update(User user) {
+
+    public User update(User user, boolean hashed) {
         try {
-            String hashedPass = SHAHashing(user.getPassword());
-            user.setPassword(hashedPass);
+            if (!hashed) {
+                String hashedPass = SHAHashing(user.getPassword());
+                user.setPassword(hashedPass);
+            }
             return super.update(user);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

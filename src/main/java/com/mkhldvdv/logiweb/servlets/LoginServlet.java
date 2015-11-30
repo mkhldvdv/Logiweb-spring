@@ -23,9 +23,13 @@ public class LoginServlet extends HttpServlet {
             req.getSession().setAttribute("myUser", myUser.getFirstName());
             req.getSession().setAttribute("loggedInUser", myUser);
             // if not driver then full access
-            if (myUser.getRole() != 3) resp.sendRedirect("/info.jsp");
+            if (myUser.getRole() != 3) {
+                resp.sendRedirect("/info.jsp");
+            }
             // restricted access
-            else resp.sendRedirect("/infoDriver.jsp");
+            else {
+                resp.sendRedirect("/infoDriver.jsp");
+            }
         } else {
             req.getSession().setAttribute("noUser", true);
             resp.sendRedirect("/login.jsp");

@@ -57,7 +57,9 @@ public class AdminServicesImpl implements AdminServices {
             List<TruckDTO> truckDTOList = new ArrayList<TruckDTO>();
             List<Truck> truckList = truckDao.getAll();
             // check if it's empty
-            if (truckList.isEmpty()) throw new WrongIdException(">>> Exception: trucks list is empty");
+            if (truckList.isEmpty()) {
+                throw new WrongIdException(">>> Exception: trucks list is empty");
+            }
 
             for (Truck truck : truckList) {
                 TruckDTO truckDTO = new TruckDTO(truck.getId(), truck.getRegNum(), truck.getDriverCount(),
@@ -69,7 +71,9 @@ public class AdminServicesImpl implements AdminServices {
         } catch (Exception e) {
             return null;
         } finally {
-            if (truckDao.getEm().isOpen()) truckDao.getEm().close();
+            if (truckDao.getEm().isOpen()) {
+                truckDao.getEm().close();
+            }
         }
     }
 
@@ -101,7 +105,9 @@ public class AdminServicesImpl implements AdminServices {
         } catch (Exception e) {
             return null;
         } finally {
-            if (userDao.getEm().isOpen()) userDao.getEm().close();
+            if (userDao.getEm().isOpen()) {
+                userDao.getEm().close();
+            }
         }
     }
 
@@ -123,10 +129,14 @@ public class AdminServicesImpl implements AdminServices {
             for (Order order : orderList) {
                 // collect all cities for the order
                 Set<Long> waypointsSet = new HashSet<Long>();
-                for (Waypoint waypoint : order.getWaypoints()) waypointsSet.add((long) waypoint.getCity());
+                for (Waypoint waypoint : order.getWaypoints()) {
+                    waypointsSet.add((long) waypoint.getCity());
+                }
                 // collect all drivers for the order
                 Set<Long> driversSet = new HashSet<Long>();
-                for (User driver : order.getDrivers()) driversSet.add(driver.getId());
+                for (User driver : order.getDrivers()) {
+                    driversSet.add(driver.getId());
+                }
 
                 OrderDTO orderDTO = new OrderDTO(order.getId(),order.getOrderStatus(), waypointsSet,
                         order.getTruck(), driversSet, order.getDeleted());
@@ -138,7 +148,9 @@ public class AdminServicesImpl implements AdminServices {
             e.printStackTrace();
             return null;
         } finally {
-            if (orderDao.getEm().isOpen()) orderDao.getEm().close();
+            if (orderDao.getEm().isOpen()) {
+                orderDao.getEm().close();
+            }
         }
     }
 
@@ -159,8 +171,12 @@ public class AdminServicesImpl implements AdminServices {
 
             Set<Long> waypointsList = new HashSet<Long>();
             Set<Long> driversList = new HashSet<Long>();
-            for (Waypoint waypoint : order.getWaypoints()) waypointsList.add((long) waypoint.getCity());
-            for (User user : order.getDrivers()) driversList.add(user.getId());
+            for (Waypoint waypoint : order.getWaypoints()) {
+                waypointsList.add((long) waypoint.getCity());
+            }
+            for (User user : order.getDrivers()) {
+                driversList.add(user.getId());
+            }
             // complete DTO object
             OrderDTO orderDTO = new OrderDTO(order.getId(), order.getOrderStatus(), waypointsList, order.getTruck(),
                     driversList, order.getDeleted());
@@ -170,7 +186,9 @@ public class AdminServicesImpl implements AdminServices {
             e.printStackTrace();
             return null;
         } finally {
-            if (orderDao.getEm().isOpen()) orderDao.getEm().close();
+            if (orderDao.getEm().isOpen()) {
+                orderDao.getEm().close();
+            }
         }
     }
 
@@ -190,7 +208,9 @@ public class AdminServicesImpl implements AdminServices {
             }
 
             Set<Long> waypointsList = new HashSet<Long>();
-            for (Waypoint waypoint : cargo.getWaypoints()) waypointsList.add((long) waypoint.getCity());
+            for (Waypoint waypoint : cargo.getWaypoints()) {
+                waypointsList.add((long) waypoint.getCity());
+            }
             // complete DTO object
             CargoDTO cargoDTO = new CargoDTO(cargo.getId(), cargo.getCargoName(), cargo.getWeight(),
                     cargo.getCargoStatus(), waypointsList, cargo.getDeleted());
@@ -200,7 +220,9 @@ public class AdminServicesImpl implements AdminServices {
             e.printStackTrace();
             return null;
         } finally {
-            if (cargoDao.getEm().isOpen()) cargoDao.getEm().close();
+            if (cargoDao.getEm().isOpen()) {
+                cargoDao.getEm().close();
+            }
         }
     }
 
@@ -214,7 +236,9 @@ public class AdminServicesImpl implements AdminServices {
     public UserDTO addUser(UserDTO userDTO) {
         try {
             // check input
-            if (userDTO == null) throw new WrongIdException(">>> Exception: added user was null");
+            if (userDTO == null) {
+                throw new WrongIdException(">>> Exception: added user was null");
+            }
 
             User user = new User(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getLogin(),
                     userDTO.getPassword(), userDTO.getRole(), userDTO.getHours(), userDTO.getUserStatus(),
@@ -223,28 +247,21 @@ public class AdminServicesImpl implements AdminServices {
             userDao.getEm().getTransaction().begin();
             User newUser = userDao.create(user);
             // check user was added successfully
-            if (newUser == null) throw new WrongIdException(">>> Exception: user was not added for some reason");
+            if (newUser == null) {
+                throw new WrongIdException(">>> Exception: user was null due to some reason");
+            }
             userDao.getEm().getTransaction().commit();
 
             userDTO.setId(newUser.getId());
-//            userDTO.setFirstName(newUser.getFirstName());
-//            userDTO.setLastName(newUser.getLastName());
-//            userDTO.setLogin(newUser.getLogin());
-//            userDTO.setPassword(newUser.getPassword());
-//            userDTO.setRole(newUser.getRole());
-//            userDTO.setHours(newUser.getHours());
-//            userDTO.setUserStatus(newUser.getUserStatus());
-//            userDTO.setCity(newUser.getCity());
-//            userDTO.setTruck(newUser.getTruck());
-//            userDTO.setOrders(newUser.getOrders());
-//            userDTO.setDeleted(newUser.getDeleted());
 
             return userDTO;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         } finally {
-            if (userDao.getEm().getTransaction().isActive()) userDao.getEm().getTransaction().rollback();
+            if (userDao.getEm().getTransaction().isActive()) {
+                userDao.getEm().getTransaction().rollback();
+            }
             if (userDao.getEm().isOpen()) userDao.getEm().close();
         }
     }
@@ -256,10 +273,12 @@ public class AdminServicesImpl implements AdminServices {
      * @return updated user
      */
     @Override
-    public UserDTO updateUser(UserDTO userDTO) {
+    public UserDTO updateUser(UserDTO userDTO, boolean hashed) {
         try {
             // check input
-            if (userDTO == null) throw new WrongIdException(">>> Exception: updated user was null");
+            if (userDTO == null) {
+                throw new WrongIdException(">>> Exception: updated user was null");
+            }
 
             User user = new User(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getLogin(),
                     userDTO.getPassword(), userDTO.getRole(), userDTO.getHours(), userDTO.getUserStatus(),
@@ -268,9 +287,11 @@ public class AdminServicesImpl implements AdminServices {
 
             // updating user
             userDao.getEm().getTransaction().begin();
-            User newUser = userDao.update(user);
+            User newUser = userDao.update(user, hashed);
             // check user was added successfully
-            if (newUser == null) throw new WrongIdException(">>> Exception: user was not added for some reason");
+            if (newUser == null) {
+                throw new WrongIdException(">>> Exception: user was not added for some reason");
+            }
             userDao.getEm().getTransaction().commit();
 
             // construct DTO object and return it back
@@ -292,8 +313,12 @@ public class AdminServicesImpl implements AdminServices {
             e.printStackTrace();
             return null;
         } finally {
-            if (userDao.getEm().getTransaction().isActive()) userDao.getEm().getTransaction().rollback();
-            if (userDao.getEm().isOpen()) userDao.getEm().close();
+            if (userDao.getEm().getTransaction().isActive()) {
+                userDao.getEm().getTransaction().rollback();
+            }
+            if (userDao.getEm().isOpen()) {
+                userDao.getEm().close();
+            }
         }
     }
 
@@ -306,7 +331,9 @@ public class AdminServicesImpl implements AdminServices {
     public void deleteUser(long userId) {
         // check input
         try {
-            if (userId == 0 || userId == -1) throw new WrongIdException(">>> Exception: deleted user was 0");
+            if (userId == 0 || userId == -1) {
+                throw new WrongIdException(">>> Exception: deleted user was 0");
+            }
             User user = userDao.getById(userId);
             // delete user
             userDao.getEm().getTransaction().begin();
@@ -316,8 +343,12 @@ public class AdminServicesImpl implements AdminServices {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (userDao.getEm().getTransaction().isActive()) userDao.getEm().getTransaction().rollback();
-            if (userDao.getEm().isOpen()) userDao.getEm().close();
+            if (userDao.getEm().getTransaction().isActive()) {
+                userDao.getEm().getTransaction().rollback();
+            }
+            if (userDao.getEm().isOpen()) {
+                userDao.getEm().close();
+            }
         }
     }
 
@@ -331,7 +362,9 @@ public class AdminServicesImpl implements AdminServices {
     public TruckDTO addTruck(TruckDTO truckDTO) {
         try {
             // check input
-            if (truckDTO == null) throw new WrongIdException(">>> Exception: added truck was null");
+            if (truckDTO == null) {
+                throw new WrongIdException(">>> Exception: added truck was null");
+            }
 
             Truck truck = new Truck(truckDTO.getRegNum(), truckDTO.getDriverCount(), truckDTO.getCapacity(),
                     truckDTO.getTruckStatus(), truckDTO.getCity());
@@ -339,7 +372,9 @@ public class AdminServicesImpl implements AdminServices {
             truckDao.getEm().getTransaction().begin();
             Truck newTruck = truckDao.create(truck);
             // check user was added successfully
-            if (newTruck == null) throw new WrongIdException(">>> Exception: truck was not added for some reason");
+            if (newTruck == null) {
+                throw new WrongIdException(">>> Exception: truck was not added for some reason");
+            }
             truckDao.getEm().getTransaction().commit();
 
             truckDTO.setId(newTruck.getId());
@@ -349,8 +384,12 @@ public class AdminServicesImpl implements AdminServices {
             e.printStackTrace();
             return null;
         } finally {
-            if (truckDao.getEm().getTransaction().isActive()) truckDao.getEm().getTransaction().rollback();
-            if (truckDao.getEm().isOpen()) truckDao.getEm().close();
+            if (truckDao.getEm().getTransaction().isActive()) {
+                truckDao.getEm().getTransaction().rollback();
+            }
+            if (truckDao.getEm().isOpen()) {
+                truckDao.getEm().close();
+            }
         }
     }
 
@@ -363,7 +402,9 @@ public class AdminServicesImpl implements AdminServices {
     public void deleteTruck(long truckId) throws WrongIdException {
         // check input
         try {
-            if (truckId == 0 || truckId == -1) throw new WrongIdException(">>> Exception: deleted truck was 0");
+            if (truckId == 0 || truckId == -1) {
+                throw new WrongIdException(">>> Exception: deleted truck was 0");
+            }
             Truck truck = truckDao.getById(truckId);
             // delete user
             truckDao.getEm().getTransaction().begin();
@@ -373,8 +414,12 @@ public class AdminServicesImpl implements AdminServices {
 //        } catch (Exception e) {
 //            e.printStackTrace();
         } finally {
-            if (truckDao.getEm().getTransaction().isActive()) truckDao.getEm().getTransaction().rollback();
-            if (truckDao.getEm().isOpen()) truckDao.getEm().close();
+            if (truckDao.getEm().getTransaction().isActive()) {
+                truckDao.getEm().getTransaction().rollback();
+            }
+            if (truckDao.getEm().isOpen()) {
+                truckDao.getEm().close();
+            }
         }
     }
 }

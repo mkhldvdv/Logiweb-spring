@@ -63,7 +63,7 @@ public interface AdminServices {
      * @param userDTO   user to update
      * @return          updated user
      */
-    UserDTO updateUser(UserDTO userDTO);
+    UserDTO updateUser(UserDTO userDTO, boolean hashed);
 
     /**
      * deletes specified user
