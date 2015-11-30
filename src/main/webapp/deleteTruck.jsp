@@ -151,12 +151,15 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="info.jsp">
+                        <form role="form" method="post" action="/addEditTruck">
                             <fieldset>
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label>Truck ID</label>
                                         <input class="form-control" placeholder="Enter truck ID" name="truckId" autofocus>
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" value="delete" name="action" type="hidden">
                                     </div>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->

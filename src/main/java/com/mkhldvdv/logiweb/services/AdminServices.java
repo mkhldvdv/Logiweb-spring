@@ -70,4 +70,17 @@ public interface AdminServices {
      * @param userId    user to delete
      */
     void deleteUser(long userId);
+
+    /**
+     * adds new truck
+     * @param truckDTO  truck to add
+     * @return  added truck
+     */
+    TruckDTO addTruck(TruckDTO truckDTO);
+
+    /**
+     * deletes specified truck
+     * @param truckId    truck to delete
+     */
+    void deleteTruck(long truckId) throws WrongIdException;
 }

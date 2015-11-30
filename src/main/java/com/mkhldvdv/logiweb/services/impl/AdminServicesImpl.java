@@ -227,17 +227,17 @@ public class AdminServicesImpl implements AdminServices {
             userDao.getEm().getTransaction().commit();
 
             userDTO.setId(newUser.getId());
-            userDTO.setFirstName(newUser.getFirstName());
-            userDTO.setLastName(newUser.getLastName());
-            userDTO.setLogin(newUser.getLogin());
-            userDTO.setPassword(newUser.getPassword());
-            userDTO.setRole(newUser.getRole());
-            userDTO.setHours(newUser.getHours());
-            userDTO.setUserStatus(newUser.getUserStatus());
-            userDTO.setCity(newUser.getCity());
-            userDTO.setTruck(newUser.getTruck());
-            userDTO.setOrders(newUser.getOrders());
-            userDTO.setDeleted(newUser.getDeleted());
+//            userDTO.setFirstName(newUser.getFirstName());
+//            userDTO.setLastName(newUser.getLastName());
+//            userDTO.setLogin(newUser.getLogin());
+//            userDTO.setPassword(newUser.getPassword());
+//            userDTO.setRole(newUser.getRole());
+//            userDTO.setHours(newUser.getHours());
+//            userDTO.setUserStatus(newUser.getUserStatus());
+//            userDTO.setCity(newUser.getCity());
+//            userDTO.setTruck(newUser.getTruck());
+//            userDTO.setOrders(newUser.getOrders());
+//            userDTO.setDeleted(newUser.getDeleted());
 
             return userDTO;
         } catch (Exception e) {
@@ -318,6 +318,63 @@ public class AdminServicesImpl implements AdminServices {
         } finally {
             if (userDao.getEm().getTransaction().isActive()) userDao.getEm().getTransaction().rollback();
             if (userDao.getEm().isOpen()) userDao.getEm().close();
+        }
+    }
+
+    /**
+     * adds new truck
+     *
+     * @param truckDTO truck to add
+     * @return added truck
+     */
+    @Override
+    public TruckDTO addTruck(TruckDTO truckDTO) {
+        try {
+            // check input
+            if (truckDTO == null) throw new WrongIdException(">>> Exception: added truck was null");
+
+            Truck truck = new Truck(truckDTO.getRegNum(), truckDTO.getDriverCount(), truckDTO.getCapacity(),
+                    truckDTO.getTruckStatus(), truckDTO.getCity());
+
+            truckDao.getEm().getTransaction().begin();
+            Truck newTruck = truckDao.create(truck);
+            // check user was added successfully
+            if (newTruck == null) throw new WrongIdException(">>> Exception: truck was not added for some reason");
+            truckDao.getEm().getTransaction().commit();
+
+            truckDTO.setId(newTruck.getId());
+
+            return truckDTO;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (truckDao.getEm().getTransaction().isActive()) truckDao.getEm().getTransaction().rollback();
+            if (truckDao.getEm().isOpen()) truckDao.getEm().close();
+        }
+    }
+
+    /**
+     * deletes specified truck
+     *
+     * @param truckId truck to delete
+     */
+    @Override
+    public void deleteTruck(long truckId) throws WrongIdException {
+        // check input
+        try {
+            if (truckId == 0 || truckId == -1) throw new WrongIdException(">>> Exception: deleted truck was 0");
+            Truck truck = truckDao.getById(truckId);
+            // delete user
+            truckDao.getEm().getTransaction().begin();
+            truckDao.remove(truck);
+            truckDao.getEm().getTransaction().commit();
+
+//        } catch (Exception e) {
+//            e.printStackTrace();
+        } finally {
+            if (truckDao.getEm().getTransaction().isActive()) truckDao.getEm().getTransaction().rollback();
+            if (truckDao.getEm().isOpen()) truckDao.getEm().close();
         }
     }
 }

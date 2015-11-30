@@ -153,7 +153,7 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="info.jsp">
+                        <form role="form" method="post" action="/addEditTruck">
                             <fieldset>
                                 <div class="form-group">
                                     <label>Regional Number</label>
@@ -199,12 +199,13 @@
                                         <option value="10">london</option>
                                     </select>
                                 </div>
+                                <c:set var="truckId" value="${param.truckId}" />
                                 <div class="form-group">
-                                    <label>Status</label>
-                                    <select class="form-control" name="deleted">
-                                        <option value="0">false</option>
-                                        <option value="1">true</option>
-                                    </select>
+                                    <label>Truck ID</label>
+                                    <input class="form-control" value="${truckId}" name="truckId" readonly="readonly">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" value="add" name="action" type="hidden">
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <!-- a href="info.jsp" class="btn btn-md btn-success btn-block">Login</a-->
