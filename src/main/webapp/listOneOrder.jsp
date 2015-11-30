@@ -149,7 +149,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header">Cargo Info</h3>
+                <h3 class="page-header">Orders Info</h3>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -167,23 +167,23 @@
                             <table class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th>Cargo ID</th>
-                                    <th>Cargo Name</th>
-                                    <th>Weight</th>
+                                    <th>Order ID</th>
                                     <th>Status</th>
-                                    <th>Cities</th>
+                                    <th>Way Points</th>
+                                    <th>Truck ID</th>
+                                    <th>Drivers</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="cargo" items="${cargoList}">
+                                <%--<c:forEach var="orders" items="${ordersList}">--%>
                                     <tr class="odd gradeA">
-                                        <td>${cargo.id}</td>
-                                        <td>${cargo.cargoName}</td>
-                                        <td>${cargo.weight}</td>
-                                        <td>${cargo.cargoStatus}</td>
-                                        <td>${cargo.waypoints}</td>
+                                        <td>${ordersList.id}</td>
+                                        <td>${ordersList.orderStatus}</td>
+                                        <td>${ordersList.waypoints}</td>
+                                        <td>${ordersList.truck.regNum}</td>
+                                        <td>${ordersList.drivers}</td>
                                     </tr>
-                                </c:forEach>
+                                <%--</c:forEach>--%>
                                 </tbody>
                             </table>
                         </div>

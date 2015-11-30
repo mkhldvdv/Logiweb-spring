@@ -27,15 +27,17 @@ public class ListOrdersServlet extends HttpServlet {
             // if parameter is not defined, return list of all orders
             if (orderIdString == null || orderIdString == "") {
                 orderDTOList = adminServices.getOrders();
+                req.getSession().setAttribute("ordersList", orderDTOList);
+                resp.sendRedirect("/listOrders.jsp");
             } else {
                 // if defined then only specified order
                 orderDTOList = new ArrayList<OrderDTO>();
                 long orderId = Long.parseLong(orderIdString);
                 OrderDTO orderDTO = adminServices.getOrder(orderId);
-                orderDTOList.add(orderDTO);
+                req.getSession().setAttribute("ordersList", orderDTO);
+                resp.sendRedirect("/listOneOrder.jsp");
             }
-            req.getSession().setAttribute("ordersList", orderDTOList);
-            resp.sendRedirect("/listOrders.jsp");
+
         } catch (Exception e) {
             System.out.printf(">>> Exception: Something wrong with order id: %s\nCheck log file\n", orderIdString);
             e.printStackTrace();

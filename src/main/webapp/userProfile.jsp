@@ -18,6 +18,12 @@
     <!-- MetisMenu CSS -->
     <link href="bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
+    <!-- DataTables CSS -->
+    <link href="bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="dist/css/sb-admin-2.css" rel="stylesheet">
 
@@ -52,7 +58,7 @@
         <ul class="nav navbar-top-links navbar-right">
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i><c:set var="username" value="${myUser}"/> ${username} <i class="fa fa-caret-down"></i>
+                    <i class="fa fa-user fa-fw"></i><c:set var="username" value="${myUser.firstName}"/> ${username} <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
                     <li><a href="userProfile.jsp"><i class="fa fa-user fa-fw"></i> User Profile</a>
@@ -143,44 +149,61 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header"> Usage</h3>
+                <h3 class="page-header">User Profile</h3>
             </div>
             <!-- /.col-lg-12 -->
         </div>
+        <!-- /.row -->
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <i class="fa fa-fw"></i> Buttons to the left HowTo...
-                    </div>
+                    <!-- div class="panel-heading">
+                        DataTables Advanced Tables
+                    </div -->
                     <!-- /.panel-heading -->
                     <div class="panel-body">
-                        here is some description of what could be done with buttons to the left from current panel
+                        <div class="dataTable_wrapper">
+                            <%--<table class="table table-striped table-bordered table-hover" id="dataTables-example">--%>
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Login</th>
+                                    <%--<th>Hours worked</th>--%>
+                                    <%--<th>Status</th>--%>
+                                    <%--<th>City</th>--%>
+                                    <%--<th>Truck ID</th>--%>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <%--<c:forEach var="drivers" items="${driversList}">--%>
+                                    <tr class="odd gradeA">
+                                        <td>${myUser.id}</td>
+                                        <td>${myUser.firstName}</td>
+                                        <td>${myUser.lastName}</td>
+                                        <td>${myUser.login}</td>
+                                        <%--<td>${drivers.hours}</td>--%>
+                                        <%--<td>${drivers.userStatus}</td>--%>
+                                        <%--<td>${drivers.city}</td>--%>
+                                        <%--<td>${drivers.truck.regNum}</td>--%>
+                                    </tr>
+                                <%--</c:forEach>--%>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.table-responsive -->
                     </div>
                     <!-- /.panel-body -->
                 </div>
                 <!-- /.panel -->
             </div>
-            <!-- /.col-lg-8 -->
-            <div class="col-lg-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <i class="fa fa-fw"></i> Button at the top Howto...
-                    </div>
-                    <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        here is some description of what could be done with the top button
-                    </div>
-                    <!-- /.panel-body -->
-                </div>
-                <!-- /.panel -->
-            </div>
-            <!-- /.col-lg-4 -->
+            <!-- /.col-lg-12 -->
         </div>
         <!-- /.row -->
     </div>
     <!-- /#page-wrapper -->
-
 </div>
 <!-- /#wrapper -->
 
@@ -193,8 +216,21 @@
 <!-- Metis Menu Plugin JavaScript -->
 <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
+<!-- DataTables JavaScript -->
+<script src="bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+<script src="bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+
 <!-- Custom Theme JavaScript -->
 <script src="dist/js/sb-admin-2.js"></script>
+
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+<script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+</script>
 
 </body>
 

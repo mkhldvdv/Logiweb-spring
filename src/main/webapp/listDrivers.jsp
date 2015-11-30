@@ -58,7 +58,7 @@
         <ul class="nav navbar-top-links navbar-right">
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i><c:set var="username" value="${myUser}"/> ${username} <i class="fa fa-caret-down"></i>
+                    <i class="fa fa-user fa-fw"></i><c:set var="username" value="${myUser.firstName}"/> ${username} <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
                     <li><a href="userProfile.jsp"><i class="fa fa-user fa-fw"></i> User Profile</a>
@@ -173,7 +173,7 @@
                                     <th>Hours worked</th>
                                     <th>Status</th>
                                     <th>City</th>
-                                    <th>Truck ID</th>
+                                    <th>Truck Reg Num</th>
                                 </tr>
                                 </thead>
                                 <tbody>

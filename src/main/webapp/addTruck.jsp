@@ -53,7 +53,7 @@
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-user fa-fw"></i>
-                        <c:set var="username" value="${myUser}"/> ${username}
+                        <c:set var="username" value="${myUser.firstName}"/> ${username}
                     <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
