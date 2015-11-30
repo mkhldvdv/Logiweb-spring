@@ -172,7 +172,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Role</label>
-                                    <select class="form-control" name="role" value="${user.role}">
+                                    <select class="form-control" id="role" name="role">
                                         <option value="3">driver</option>
                                         <option value="2">operator</option>
                                     </select>
@@ -183,7 +183,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Status</label>
-                                    <select class="form-control" name="status" value="${user.userStatus}">
+                                    <select class="form-control" id="status" name="status">
                                         <option value="0"></option>
                                         <option value="1">vacant</option>
                                         <option value="2">in shift</option>
@@ -192,7 +192,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Current city</label>
-                                    <select class="form-control" name="city" value="${user.city}">
+                                    <select class="form-control" id="city" name="city">
                                         <option value="1">st petersburg</option>
                                         <option value="2">moskow</option>
                                         <option value="3">kyiv</option>
@@ -222,6 +222,15 @@
                             </fieldset>
                         </form>
                         <script>
+                            // set "default" values for the form
+                            function setSelectedIndex(s, i)
+                            {
+                                s.options[i-1].selected = true;
+                                return;
+                            }
+                            setSelectedIndex(document.getElementById("role"),${user.role});
+                            setSelectedIndex(document.getElementById("status"),${user.userStatus});
+                            setSelectedIndex(document.getElementById("city"),${user.city});
 
                             function checkForm(form)
                             {

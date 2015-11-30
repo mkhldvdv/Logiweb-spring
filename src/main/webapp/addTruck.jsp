@@ -162,11 +162,21 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Shift count</label>
-                                    <select class="form-control" name="shift" value="${user.driverCount}">
+                                    <select class="form-control" id="shift" name="shift">
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                     </select>
+                                    <script>
+                                        function setSelectedIndex(s, i)
+                                        {
+                                            s.options[i-1].selected = true;
+                                            return;
+                                        }
+                                        setSelectedIndex(document.getElementById("shift"),${user.driverCount});
+                                        setSelectedIndex(document.getElementById("status"),${user.truckStatus});
+                                        setSelectedIndex(document.getElementById("city"),${user.city});
+                                    </script>
                                 </div>
                                 <div class="form-group">
                                     <label>Capacity</label>
@@ -174,14 +184,14 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Status</label>
-                                    <select class="form-control" name="status" value="${user.truckStatus}">
+                                    <select class="form-control" id="status" name="status">
                                         <option value="1">valid</option>
                                         <option value="2">not valid</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Current city</label>
-                                    <select class="form-control" name="city" value="${user.city}">
+                                    <select class="form-control" id="city" name="city">
                                         <option value="1">st petersburg</option>
                                         <option value="2">moskow</option>
                                         <option value="3">kyiv</option>
@@ -211,6 +221,17 @@
                             </fieldset>
                         </form>
                         <script>
+
+                            // set "default" values for the form from updated truck
+                            function setSelectedIndex(s, i)
+                            {
+                                s.options[i-1].selected = true;
+                                return;
+                            }
+                            setSelectedIndex(document.getElementById("shift"),${user.driverCount});
+                            setSelectedIndex(document.getElementById("status"),${user.truckStatus});
+                            setSelectedIndex(document.getElementById("city"),${user.city});
+
                             function checkForm(form)
                             {
                                 // regular expression to match only alphanumeric characters and spaces
