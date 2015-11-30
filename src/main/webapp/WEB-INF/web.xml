@@ -78,6 +78,15 @@
     <url-pattern>/addEditUser</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>AddEditDeleteTruckServlet</servlet-name>
+    <servlet-class>com.mkhldvdv.logiweb.servlets.AddEditDeleteTruckServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddEditDeleteTruckServlet</servlet-name>
+    <url-pattern>/addEditTruck</url-pattern>
+  </servlet-mapping>
+
   <description>ServletContextListener</description>
   <listener>
     <listener-class>com.mkhldvdv.logiweb.listeners.PersistenceListener</listener-class>

@@ -75,6 +75,9 @@ public class TruckDTO {
         this.deleted = deleted;
     }
 
+    public TruckDTO() {
+    }
+
     public TruckDTO(long id, String regNum, byte driverCount, byte capacity, byte truckStatus, long city, byte deleted) {
         this.id = id;
         this.regNum = regNum;
@@ -99,5 +102,17 @@ public class TruckDTO {
     @Override
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
+    }
+
+    @Override
+    public String toString() {
+        return "TruckDTO{" +
+                "id=" + id +
+                ", regNum='" + regNum + '\'' +
+                ", driverCount=" + driverCount +
+                ", capacity=" + capacity +
+                ", truckStatus=" + truckStatus +
+                ", city=" + city +
+                '}';
     }
 }

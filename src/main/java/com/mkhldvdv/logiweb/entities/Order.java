@@ -25,6 +25,7 @@ public class Order implements Serializable {
     @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
     private List<Waypoint> waypoints;
 
+    @Nullable
     @ManyToOne
     @JoinColumn(name = "TRUCK_ID")
     private Truck truck;
