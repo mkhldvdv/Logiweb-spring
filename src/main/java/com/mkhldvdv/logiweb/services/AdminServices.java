@@ -97,4 +97,11 @@ public interface AdminServices {
      * @return         specified truck int DTO object
      */
     TruckDTO updateTruck(TruckDTO truckDTO);
+
+    /**
+     * creating new cargo with its waypoints
+     * @param cargoDTO  cargo to add, contains the list of its waypoints
+     * @return          added cargo
+     */
+    CargoDTO addCargo(CargoDTO cargoDTO);
 }

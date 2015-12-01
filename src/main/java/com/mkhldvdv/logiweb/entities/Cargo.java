@@ -32,7 +32,7 @@ public class Cargo implements Serializable {
     @Column(name = "DELETED")
     private byte deleted;
 
-    protected Cargo() {
+    public Cargo() {
     }
 
     public Cargo(String cargoName, int weight, byte cargoStatus, List<Waypoint> waypoints, byte deleted) {
@@ -45,6 +45,10 @@ public class Cargo implements Serializable {
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getCargoName() {

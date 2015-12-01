@@ -1,5 +1,7 @@
 package com.mkhldvdv.logiweb.dto;
 
+import com.mkhldvdv.logiweb.entities.Waypoint;
+
 import java.util.List;
 import java.util.Set;
 
@@ -15,9 +17,11 @@ public class CargoDTO {
 
     private byte cargoStatus;
 
-    private Set<Long> waypoints;
+    private List<Long> waypoints;
 
     private byte deleted;
+
+    private List<Waypoint> fullWaypoints;
 
     public long getId() {
         return id;
@@ -51,11 +55,11 @@ public class CargoDTO {
         this.cargoStatus = cargoStatus;
     }
 
-    public Set<Long> getWaypoints() {
+    public List<Long> getWaypoints() {
         return waypoints;
     }
 
-    public void setWaypoints(Set<Long> waypoints) {
+    public void setWaypoints(List<Long> waypoints) {
         this.waypoints = waypoints;
     }
 
@@ -67,12 +71,35 @@ public class CargoDTO {
         this.deleted = deleted;
     }
 
-    public CargoDTO(long id, String cargoName, int weight, byte cargoStatus, Set<Long> waypoints, byte deleted) {
+    public List<Waypoint> getFullWaypoints() {
+        return fullWaypoints;
+    }
+
+    public void setFullWaypoints(List<Waypoint> fullWaypoints) {
+        this.fullWaypoints = fullWaypoints;
+    }
+
+    public CargoDTO() {
+    }
+
+    public CargoDTO(long id, String cargoName, int weight, byte cargoStatus, List<Long> waypoints, byte deleted) {
         this.id = id;
         this.cargoName = cargoName;
         this.weight = weight;
         this.cargoStatus = cargoStatus;
         this.waypoints = waypoints;
         this.deleted = deleted;
+    }
+
+    @Override
+    public String toString() {
+        return "CargoDTO{" +
+                "id=" + id +
+                ", cargoName='" + cargoName + '\'' +
+                ", weight=" + weight +
+                ", cargoStatus=" + cargoStatus +
+                ", waypoints=" + waypoints +
+                ", deleted=" + deleted +
+                '}';
     }
 }

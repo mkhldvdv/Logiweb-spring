@@ -11,19 +11,21 @@ import com.mkhldvdv.logiweb.exceptions.WrongIdException;
 import com.mkhldvdv.logiweb.exceptions.WrongLoginPass;
 import com.mkhldvdv.logiweb.services.AdminServices;
 import com.mkhldvdv.logiweb.services.PersistenceManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**
  * Created by mkhldvdv on 25.11.2015.
  */
 public class AdminServicesImpl implements AdminServices {
+
+    private static final Logger LOG = LogManager.getLogger(AdminServicesImpl.class);
+
     public static final String VALID = "valid";
     public static final String NOT_DONE = "not done";
     private TruckDaoImpl truckDao;
@@ -54,6 +56,7 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public List<TruckDTO> getTrucks() {
+        LOG.info("getTrucks");
         try {
             List<TruckDTO> truckDTOList = new ArrayList<TruckDTO>();
             List<Truck> truckList = truckDao.getAll();
@@ -70,6 +73,7 @@ public class AdminServicesImpl implements AdminServices {
 
             return truckDTOList;
         } catch (Exception e) {
+            LOG.error("Error while getting trucks", e);
             return null;
         } finally {
             if (truckDao.getEm().isOpen()) {
@@ -85,6 +89,8 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public List<UserDTO> getDrivers() {
+
+        LOG.info("getDrivers");
 
         try {
             List<UserDTO> userDTOList = new ArrayList<UserDTO>();
@@ -104,6 +110,7 @@ public class AdminServicesImpl implements AdminServices {
             return userDTOList;
 
         } catch (Exception e) {
+            LOG.error("Error during getDrivers", e);
             return null;
         } finally {
             if (userDao.getEm().isOpen()) {
@@ -119,6 +126,9 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public List<OrderDTO> getOrders() {
+
+        LOG.info("getOrders");
+
         try {
             List<OrderDTO> orderDTOList = new ArrayList<OrderDTO>();
             List<Order> orderList = orderDao.getAll();
@@ -145,8 +155,8 @@ public class AdminServicesImpl implements AdminServices {
             }
 
             return orderDTOList;
-        } catch (WrongIdException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            LOG.error("Error during getOrders", e);
             return null;
         } finally {
             if (orderDao.getEm().isOpen()) {
@@ -163,6 +173,9 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public OrderDTO getOrder(long orderId) {
+
+        LOG.info("getOrder");
+
         try {
             Order order = orderDao.getById(orderId);
             // check if null
@@ -184,7 +197,7 @@ public class AdminServicesImpl implements AdminServices {
 
             return orderDTO;
         } catch (WrongIdException e) {
-            e.printStackTrace();
+            LOG.error("getOrder: ", e);
             return null;
         } finally {
             if (orderDao.getEm().isOpen()) {
@@ -201,6 +214,7 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public CargoDTO getCargo(long cargoId) {
+        LOG.info("getCargo");
         try {
             Cargo cargo = cargoDao.getById(cargoId);
             // check if null
@@ -208,17 +222,18 @@ public class AdminServicesImpl implements AdminServices {
                 throw new WrongIdException("Wrong cargo id");
             }
 
-            Set<Long> waypointsList = new HashSet<Long>();
+            List<Long> waypointsList = new ArrayList<Long>();
             for (Waypoint waypoint : cargo.getWaypoints()) {
                 waypointsList.add((long) waypoint.getCity());
             }
+
             // complete DTO object
             CargoDTO cargoDTO = new CargoDTO(cargo.getId(), cargo.getCargoName(), cargo.getWeight(),
                     cargo.getCargoStatus(), waypointsList, cargo.getDeleted());
 
             return cargoDTO;
         } catch (WrongIdException e) {
-            e.printStackTrace();
+            LOG.error("getCargo: ", e);
             return null;
         } finally {
             if (cargoDao.getEm().isOpen()) {
@@ -235,6 +250,7 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public UserDTO addUser(UserDTO userDTO) {
+        LOG.info("getUser");
         try {
             // check input
             if (userDTO == null) {
@@ -257,13 +273,15 @@ public class AdminServicesImpl implements AdminServices {
 
             return userDTO;
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("addUser", e);
             return null;
         } finally {
             if (userDao.getEm().getTransaction().isActive()) {
                 userDao.getEm().getTransaction().rollback();
             }
-            if (userDao.getEm().isOpen()) userDao.getEm().close();
+            if (userDao.getEm().isOpen()) {
+                userDao.getEm().close();
+            }
         }
     }
 
@@ -275,6 +293,7 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public UserDTO updateUser(UserDTO userDTO, boolean hashed) {
+        LOG.info("updateUser");
         try {
             // check input
             if (userDTO == null) {
@@ -311,7 +330,7 @@ public class AdminServicesImpl implements AdminServices {
 
             return userDTO;
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("updateUser", e);
             return null;
         } finally {
             if (userDao.getEm().getTransaction().isActive()) {
@@ -330,6 +349,8 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public void deleteUser(long userId) {
+
+        LOG.info("deleteUser");
         // check input
         try {
             if (userId == 0 || userId == -1) {
@@ -342,7 +363,7 @@ public class AdminServicesImpl implements AdminServices {
             userDao.getEm().getTransaction().commit();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("deleteUser", e);
         } finally {
             if (userDao.getEm().getTransaction().isActive()) {
                 userDao.getEm().getTransaction().rollback();
@@ -361,6 +382,7 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public TruckDTO addTruck(TruckDTO truckDTO) {
+        LOG.info("addTruck");
         try {
             // check input
             if (truckDTO == null) {
@@ -382,7 +404,7 @@ public class AdminServicesImpl implements AdminServices {
 
             return truckDTO;
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("addTruck", e);
             return null;
         } finally {
             if (truckDao.getEm().getTransaction().isActive()) {
@@ -400,7 +422,8 @@ public class AdminServicesImpl implements AdminServices {
      * @param truckId truck to delete
      */
     @Override
-    public void deleteTruck(long truckId) throws WrongIdException {
+    public void deleteTruck(long truckId) {
+        LOG.info("deleteTruck");
         // check input
         try {
             if (truckId == 0 || truckId == -1) {
@@ -412,8 +435,8 @@ public class AdminServicesImpl implements AdminServices {
             truckDao.remove(truck);
             truckDao.getEm().getTransaction().commit();
 
-//        } catch (Exception e) {
-//            e.printStackTrace();
+        } catch (Exception e) {
+            LOG.error("deleteTruck", e);
         } finally {
             if (truckDao.getEm().getTransaction().isActive()) {
                 truckDao.getEm().getTransaction().rollback();
@@ -432,6 +455,7 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public TruckDTO getTruck(long truckId) {
+        LOG.info("getTruck");
         try {
             Truck truck = truckDao.getById(truckId);
             // check truck exists
@@ -444,7 +468,7 @@ public class AdminServicesImpl implements AdminServices {
             return truckDTO;
 
         } catch (WrongIdException e) {
-            e.printStackTrace();
+            LOG.error("getTruck", e);
             return null;
         } finally {
             if (truckDao.getEm().isOpen()) {
@@ -461,6 +485,7 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public TruckDTO updateTruck(TruckDTO truckDTO) {
+        LOG.info("update truck");
         try {
             // check input
             if (truckDTO == null) {
@@ -490,7 +515,7 @@ public class AdminServicesImpl implements AdminServices {
 
             return truckDTO;
         } catch (WrongIdException e) {
-            e.printStackTrace();
+            LOG.error("update truck", e);
             return null;
         } finally {
             if (truckDao.getEm().getTransaction().isActive()) {
@@ -498,6 +523,81 @@ public class AdminServicesImpl implements AdminServices {
             }
             if (truckDao.getEm().isOpen()) {
                 truckDao.getEm().close();
+            }
+        }
+    }
+
+    /**
+     * creating new cargo with its waypoints
+     *
+     * @param cargoDTO cargo to add, contains the list of its waypoints
+     * @return added cargo
+     */
+    @Override
+    public CargoDTO addCargo(CargoDTO cargoDTO) {
+        LOG.info("add cargo");
+        try {
+            // check input
+            if (cargoDTO == null) {
+                throw new WrongIdException(">>> Exception: cargo id was not valid");
+            }
+
+            List<Waypoint> waypointList = cargoDTO.getFullWaypoints();
+            // ensure it is clear as we are going to add som info there
+//            cargoDTO.getFullWaypoints().clear();
+            // entity object for transaction
+            Cargo cargo = new Cargo();
+            cargo.setCargoName(cargoDTO.getCargoName());
+            cargo.setWeight(cargoDTO.getWeight());
+            cargo.setCargoStatus(cargoDTO.getCargoStatus());
+            // initializing the list of waypoints
+            cargo.setWaypoints(new ArrayList<Waypoint>());
+
+            // begin transaction
+            cargoDao.getEm().getTransaction().begin();
+            // create cargo
+            Cargo newCargo = cargoDao.create(cargo);
+            // creating waypoints
+            for (Waypoint waypoint : waypointList) {
+                Waypoint tmpWay = waypointDao.create(waypoint);
+                // setting link to created cargo
+                tmpWay.setCargo(newCargo);
+                // adding waypoint to waypoints list in cargo
+                newCargo.getWaypoints().add(tmpWay);
+                // update waypoint in database
+                tmpWay = waypointDao.update(tmpWay);
+            }
+            // update cargo in database
+            newCargo = cargoDao.update(newCargo);
+            // end of transaction
+            cargoDao.getEm().getTransaction().commit();
+
+            // transfer data to dto object and return it
+            cargoDTO.setId(newCargo.getId());
+            cargoDTO.setCargoName(newCargo.getCargoName());
+            cargoDTO.setCargoStatus(newCargo.getCargoStatus());
+            cargoDTO.setWeight(newCargo.getWeight());
+            // adding waypoints
+            cargoDTO.setFullWaypoints(newCargo.getWaypoints());
+            if (!cargoDTO.getWaypoints().isEmpty()) {
+                // will fill in the data from new cargo
+                cargoDTO.getWaypoints().clear();
+            }
+            // fill in the list
+            for (Waypoint waypoint : newCargo.getWaypoints()) {
+                cargoDTO.getWaypoints().add(waypoint.getId());
+            }
+
+            return cargoDTO;
+        } catch (WrongIdException e) {
+            LOG.error("add cargo", e);
+            return null;
+        } finally {
+            if (cargoDao.getEm().getTransaction().isActive()) {
+                cargoDao.getEm().getTransaction().rollback();
+            }
+            if (cargoDao.getEm().isOpen()) {
+                cargoDao.getEm().close();
             }
         }
     }

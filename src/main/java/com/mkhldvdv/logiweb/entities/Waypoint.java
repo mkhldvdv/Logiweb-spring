@@ -30,18 +30,15 @@ public class Waypoint implements Serializable {
     @Column(name = "CARGO_TYPE_ID")
     private byte cargoType;
 
-    protected Waypoint() {
-    }
-
-    public Waypoint(Order order, byte city, Cargo cargo, byte cargoType) {
-        this.order = order;
-        this.city = city;
-        this.cargo = cargo;
-        this.cargoType = cargoType;
+    public Waypoint() {
     }
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Order getOrder() {

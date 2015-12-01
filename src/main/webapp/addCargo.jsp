@@ -152,7 +152,7 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="info.jsp" onsubmit="return checkForm(this);">
+                        <form role="form" method="post" action="/addCargo" onsubmit="return checkForm(this);">
                             <fieldset>
                                 <div class="form-group">
                                     <label>Cargo Name</label>

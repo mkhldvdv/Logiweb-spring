@@ -28,17 +28,17 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
             em.persist(t);
             return t;
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
     @Override
     public T update(T t) {
-        em.merge(t);
         try {
+            em.merge(t);
             return t;
         } finally {
-            em.close();
+//            em.close();
         }
     }
 
@@ -48,7 +48,7 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
             t = em.merge(t);
             em.remove(t);
         } finally {
-            em.close();
+//            em.close();
         }
     }
 

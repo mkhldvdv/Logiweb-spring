@@ -10,6 +10,8 @@ import com.mkhldvdv.logiweb.exceptions.WrongIdException;
 import com.mkhldvdv.logiweb.exceptions.WrongIdException;
 import com.mkhldvdv.logiweb.services.PersistenceManager;
 import com.mkhldvdv.logiweb.services.UserServices;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -22,6 +24,8 @@ import java.util.Set;
  * Created by mkhldvdv on 25.11.2015.
  */
 public class UserServicesImpl implements UserServices {
+
+    private static final Logger LOG = LogManager.getLogger(UserServicesImpl.class);
 
     public static final String NOT_COMPLETE = "not complete";
     private UserDaoImpl userDao;
@@ -43,6 +47,8 @@ public class UserServicesImpl implements UserServices {
     @Override
     public UserDTO getUser(String login, String pass) {
 
+        LOG.info("get user by login/pass");
+
         try {
             userDao.setEm(emf.createEntityManager());
             User user = userDao.getUserByLoginPassword(login, pass);
@@ -58,9 +64,12 @@ public class UserServicesImpl implements UserServices {
             return userDTO;
 
         } catch (WrongIdException wrongLoginPass) {
+            LOG.error("get user by login/pass", wrongLoginPass);
             return null;
         } finally {
-            userDao.getEm().close();
+            if (userDao.getEm().isOpen()) {
+                userDao.getEm().close();
+            }
         }
     }
 
@@ -72,6 +81,7 @@ public class UserServicesImpl implements UserServices {
      */
     @Override
     public UserDTO getUser(long userId) {
+        LOG.info("get user by ID");
         try {
             userDao.setEm(emf.createEntityManager());
             User user = userDao.getById(userId);
@@ -90,7 +100,9 @@ public class UserServicesImpl implements UserServices {
             e.printStackTrace();
             return null;
         } finally {
-            userDao.getEm().close();
+            if (userDao.getEm().isOpen()) {
+                userDao.getEm().close();
+            }
         }
     }
 
@@ -102,6 +114,7 @@ public class UserServicesImpl implements UserServices {
      */
     @Override
     public List<Long> getCoDriversIds(long driverId) {
+        LOG.info("get co-drivers");
         try {
             userDao.setEm(emf.createEntityManager());
             User user = userDao.getById(driverId);
@@ -122,7 +135,7 @@ public class UserServicesImpl implements UserServices {
             return coDriversList;
 
         } catch (WrongIdException e) {
-            e.printStackTrace();
+            LOG.error("get co-drivers", e);
             return null;
         } finally {
             if (userDao.getEm().isOpen()) {
@@ -139,6 +152,7 @@ public class UserServicesImpl implements UserServices {
      */
     @Override
     public String getRegNum(long driverId) {
+        LOG.info("get reg num");
         try {
             userDao.setEm(emf.createEntityManager());
             User user = userDao.getById(driverId);
@@ -151,7 +165,7 @@ public class UserServicesImpl implements UserServices {
             return user.getTruck().getRegNum();
 
         } catch (WrongIdException e) {
-            e.printStackTrace();
+            LOG.error("get reg num", e);
             return null;
         } finally {
             if (userDao.getEm().isOpen()) {
@@ -168,6 +182,7 @@ public class UserServicesImpl implements UserServices {
      */
     @Override
     public List<Long> getDriversOrders(long driverId) {
+        LOG.info("get drivers orders");
         try {
             userDao.setEm(emf.createEntityManager());
             User user = userDao.getById(driverId);
@@ -185,7 +200,7 @@ public class UserServicesImpl implements UserServices {
             return ordersIds;
 
         } catch (WrongIdException e) {
-            e.printStackTrace();
+            LOG.error("get drivers orders", e);
             return null;
         } finally {
             if (userDao.getEm().isOpen()) {
@@ -202,6 +217,7 @@ public class UserServicesImpl implements UserServices {
      */
     @Override
     public Set<Byte> getDriversCities(long driverId) {
+        LOG.info("get drivers cities");
         try {
             userDao.setEm(emf.createEntityManager());
             User user = userDao.getById(driverId);
@@ -222,7 +238,7 @@ public class UserServicesImpl implements UserServices {
             return citiesIds;
 
         } catch (WrongIdException e) {
-            e.printStackTrace();
+            LOG.error("get drivers cities", e);
             return null;
         } finally {
             if (userDao.getEm().isOpen()) {
