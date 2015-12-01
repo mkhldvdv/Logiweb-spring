@@ -204,7 +204,7 @@
                                         <option value="10">london</option>
                                     </select>
                                 </div>
-                                <c:set var="truckId" value="${truckId}" />
+                                <%--<c:set var="truckId" value="${truckId}" />--%>
                                 <div class="form-group">
                                     <label>Truck ID</label>
                                     <input class="form-control" value="${truckId}" name="truckId" readonly="readonly">
@@ -221,16 +221,6 @@
                             </fieldset>
                         </form>
                         <script>
-
-                            // set "default" values for the form from updated truck
-                            function setSelectedIndex(s, i)
-                            {
-                                s.options[i-1].selected = true;
-                                return;
-                            }
-                            setSelectedIndex(document.getElementById("shift"),${user.driverCount});
-                            setSelectedIndex(document.getElementById("status"),${user.truckStatus});
-                            setSelectedIndex(document.getElementById("city"),${user.city});
 
                             function checkForm(form)
                             {
@@ -271,6 +261,20 @@
                                 // validation was successful
                                 return true;
                             }
+
+                        </script>
+                        <script>
+
+                            // set "default" values for the form from updated truck
+                            function setSelectedIndex(s, i)
+                            {
+                                s.options[i-1].selected = true;
+                                return;
+                            }
+                            setSelectedIndex(document.getElementById("shift"),${user.driverCount});
+                            setSelectedIndex(document.getElementById("status"),${user.truckStatus});
+                            setSelectedIndex(document.getElementById("city"),${user.city});
+
                         </script>
                     </div>
                 </div>

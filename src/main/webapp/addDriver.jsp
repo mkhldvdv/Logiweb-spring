@@ -179,15 +179,16 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Working hours</label>
-                                    <input class="form-control" placeholder="" name="hours" value="${user.hours}" autofocus>
+                                    <%--<input class="form-control" placeholder="" name="hours" value="${user.hours}" autofocus>--%>
+                                    <input class="form-control" placeholder="" id="hours" name="hours" value="0" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <label>Status</label>
                                     <select class="form-control" id="status" name="status">
-                                        <option value="0"></option>
                                         <option value="1">vacant</option>
                                         <option value="2">in shift</option>
                                         <option value="3">driving</option>
+                                        <option value="4">n/a</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -222,15 +223,6 @@
                             </fieldset>
                         </form>
                         <script>
-                            // set "default" values for the form
-                            function setSelectedIndex(s, i)
-                            {
-                                s.options[i-1].selected = true;
-                                return;
-                            }
-                            setSelectedIndex(document.getElementById("role"),${user.role});
-                            setSelectedIndex(document.getElementById("status"),${user.userStatus});
-                            setSelectedIndex(document.getElementById("city"),${user.city});
 
                             function checkForm(form)
                             {
@@ -321,6 +313,32 @@
                                 // validation was successful
                                 return true;
                             }
+
+                        </script>
+                        <script>
+
+                            // set "default" values for the form
+                            function setSelectedIndex(s, i)
+                            {
+                                s.options[i-1].selected = true;
+                                return;
+                            }
+                            setSelectedIndex(document.getElementById("status"),${user.userStatus});
+                            setSelectedIndex(document.getElementById("city"),${user.city});
+                            setSelectedIndex(document.getElementById("role"),${user.role});
+
+                        </script>
+                        <script>
+
+                            // set default value for hours
+                            function setHours(s, i) {
+                                if (i) {
+                                    s.value = i;
+                                }
+                                return;
+                            }
+
+                            setHours(document.getElementById("hours"),${user.hours});
 
                         </script>
                     </div>

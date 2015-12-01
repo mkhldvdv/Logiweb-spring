@@ -31,7 +31,7 @@ public class ListOrdersServlet extends HttpServlet {
                 resp.sendRedirect("/listOrders.jsp");
             } else {
                 // if defined then only specified order
-                orderDTOList = new ArrayList<OrderDTO>();
+//                orderDTOList = new ArrayList<OrderDTO>();
                 long orderId = Long.parseLong(orderIdString);
                 OrderDTO orderDTO = adminServices.getOrder(orderId);
                 req.getSession().setAttribute("ordersList", orderDTO);

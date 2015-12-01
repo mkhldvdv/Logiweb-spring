@@ -87,6 +87,15 @@
     <url-pattern>/addEditTruck</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>DriversInfoServlet</servlet-name>
+    <servlet-class>com.mkhldvdv.logiweb.servlets.DriversInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DriversInfoServlet</servlet-name>
+    <url-pattern>/infoForDriver</url-pattern>
+  </servlet-mapping>
+
   <description>ServletContextListener</description>
   <listener>
     <listener-class>com.mkhldvdv.logiweb.listeners.PersistenceListener</listener-class>

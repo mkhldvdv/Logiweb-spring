@@ -77,7 +77,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header">Driver Profile</h3>
+                <h3 class="page-header">Drivers List</h3>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -96,26 +96,20 @@
                                 <thead>
                                 <tr>
                                     <th>Driver ID</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Login</th>
-                                    <th>Hours worked</th>
-                                    <th>Status</th>
-                                    <th>City</th>
+                                    <th>Co-Drivers IDs</th>
                                     <th>Truck Reg Num</th>
+                                    <th>Orders</th>
+                                    <th>Cities</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <%--<c:forEach var="drivers" items="${driversList}">--%>
                                     <tr class="odd gradeA">
-                                        <td>${myUser.id}</td>
-                                        <td>${myUser.firstName}</td>
-                                        <td>${myUser.lastName}</td>
-                                        <td>${myUser.login}</td>
-                                        <td>${myUser.hours}</td>
-                                        <td>${myUser.userStatus}</td>
-                                        <td>${myUser.city}</td>
-                                        <td>${myUser.truck.regNum}</td>
+                                        <td>${drivers.id}</td>
+                                        <td>${drivers.coDriversIds}</td>
+                                        <td>${drivers.regNum}</td>
+                                        <td>${drivers.orderId}</td>
+                                        <td>${drivers.cities}</td>
                                     </tr>
                                 <%--</c:forEach>--%>
                                 </tbody>

@@ -183,7 +183,7 @@
                                     return false;
                                 }
 
-                                // validation fails if the input doesn't match our regular expression
+                                // valdriverIdation fails if the input doesn't match our regular expression
                                 if(!re.test(form.driverId.value)) {
                                     alert("Error: driverId should be numeric and at least 1 character");
                                     form.driverId.focus();

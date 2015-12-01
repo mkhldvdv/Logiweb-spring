@@ -57,7 +57,7 @@
                         <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="driverProfile.jsp"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <li><a href="userProfile.jsp"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
@@ -73,61 +73,17 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h3 class="page-header"> Get Info</h3>
+                    <h3 class="page-header"> Error!</h3>
                 </div>
                 <!-- /.col-lg-12 -->
+                Operation cannot be peformed because of the error:<br>
+                <c:set var="error" value="${error}" />
+                <c:out value="${error}" />
+                <%--<c:forEach var="errorString" items="${error}">${errorString}</c:forEach>--%>
             </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <form role="form" method="post" action="/infoForDriver" onsubmit="return checkForm(this)">
-                                <fieldset>
-                                    <div class="form-group">
-                                        <div class="form-group">
-                                            <label>Driver ID</label>
-                                            <input class="form-control" placeholder="Enter driver ID" name="driverId" autofocus>
-                                        </div>
-                                    </div>
-                                    <!-- Change this to a button or input when using this as a form -->
-                                    <!-- a href="info.jsp" class="btn btn-md btn-success btn-block">Login</a-->
-                                    <button type="submit" class="btn btn-default">Submit</button>
-                                    <button type="reset" class="btn btn-default">Reset</button>
-                                </fieldset>
-                            </form>
-                            <script>
-
-                                function checkForm(form)
-                                {
-                                    // regular expression to match only alphanumeric characters and spaces
-                                    var re = /^[0-9]+$/;
-
-                                    // validation fails if the input is blank
-                                    if(form.driverId.value == "" || form.driverId.value == null) {
-                                        alert("Error: driver ID should not be empty");
-                                        form.driverId.focus();
-                                        return false;
-                                    }
-
-                                    // validation fails if the input doesn't match our regular expression
-                                    if(!re.test(form.driverId.value)) {
-                                        alert("Error: driver ID should be numeric and at least 1 character");
-                                        form.driverId.focus();
-                                        return false;
-                                    }
-
-                                    // validation was successful
-                                    return true;
-                                }
-
-                            </script>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /.row -->
         </div>
         <!-- /#page-wrapper -->
+
     </div>
     <!-- /#wrapper -->
 

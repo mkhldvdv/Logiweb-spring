@@ -21,17 +21,14 @@ public class ListCargoServlet extends HttpServlet {
         String cargoIdString = req.getParameter("cargoId");
         try {
             // search for specified cargo
-            CargoDTO cargoDTO = adminServices.getCargo(Long.parseLong(cargoIdString));
+            long cargoId = Long.parseLong(cargoIdString);
+            CargoDTO cargoDTO = adminServices.getCargo(cargoId);
             // write session attributes
             List<CargoDTO> cargoDTOList = Arrays.asList(cargoDTO);
+
             req.getSession().setAttribute("cargoList", cargoDTOList);
             // redirect
             resp.sendRedirect("/listCargo.jsp");
-        } catch (NumberFormatException e) {
-            System.out.printf(">>> Exception: Cargo ID was not a number: %s\n", cargoIdString);
-            e.printStackTrace();
-            req.getSession().setAttribute("error", e);
-            resp.sendRedirect("/error.jsp");
         } catch (IOException e) {
             System.out.printf(">>> Exception: Something wrong with cargo id: %s\nCheck log file\n", cargoIdString);
             e.printStackTrace();
