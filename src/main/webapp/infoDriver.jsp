@@ -74,9 +74,12 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h3 class="page-header"> Get Info</h3>
-                    You can find all of your assignments by submiting the form fulfilled with you User ID.
-                    You can easily find your User ID in "User Profile" page at the right top corner by clicking the button with your name and then choosing "User Profile" link in dropdown menu.
-                    "Sign out" button is also there, if you will decide to leave the site.
+                    <p>Here you can find the short description of what could be done on the site.<br><br>
+                    The first button is in the top left corner called "Logiweb". That is a link to the current page with description. That button presents on every page of the site.</p>
+
+                    <p>You can find all of your assignments by submiting the form fulfilled with your User ID.<br>
+                    You can easily find your User ID in "User Profile" page in the top right corner by clicking the button with your name and then choosing "User Profile" link in dropdown menu.<br>
+                    "Sign out" button is also there if you will decide to leave the site.</p>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

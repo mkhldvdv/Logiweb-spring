@@ -157,20 +157,20 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            Here you can find the short description of what could be done on the site.
-                            On the left panel you can see "directories" with main objects.
-                            Click on any of them and you will see the available actions which could be performed against objects and database.
+                            <p>Here you can find the short description of what could be done on the site.<br>
+                            On the left panel you can see "directories" with main objects.<br>
+                            Click on any of them and you will see the available actions which could be performed against objects and database.<br><br>
 
-                            0. The first button is in the left top corner called "Logiweb". That is a link on the current page with instructions. That button presents on every page of the site.
-                            Below are the links with objects and actions.
-                            1. "Truck" menu:
-                            here you can "Add", "Edit", "Delete" trucks and call the "List" of all available trucks.
-                            2. "User/Driver" menu:
-                            here you can "Add", "Edit", "Delete" operators and drivers (both are users) into the system and call the "List" of all available drivers (not operators).
-                            3. "Order" menu:
-                            here you can "Add" order, "Find" specified order (to get the full info about it) and call the "List" of all orders.
-                            4. "Cargo" menu:
-                            here you can "Add" new cargo and "Find" sepcified cargo (to get the full info about it).
+                            0. The first button is in the top left corner called "Logiweb". That is a link to the current page with description. That button presents on every page of the site.<br>
+                            Below are the links with objects and actions.<br><br>
+                            1. "Truck" menu:<br>
+                            here you can "Add", "Edit", "Delete" trucks and call the "List" of all available trucks.<br>
+                            2. "User/Driver" menu:<br>
+                            here you can "Add", "Edit", "Delete" operators and drivers (both are users) into the system and call the "List" of all available drivers (not operators).<br>
+                            3. "Order" menu:<br>
+                            here you can "Add" order, "Find" specified order (to get the full info about it) and call the "List" of all orders.<br>
+                            4. "Cargo" menu:<br>
+                            here you can "Add" new cargo and "Find" sepcified cargo (to get the full info about it).</p>
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -184,8 +184,8 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            Button at the top can be used to see the details of "User Profile".
-                            "Sign out" button is also there, if you will decide to leave the site.
+                            Button at the top right corner can be used to see "User Profile" details.<br>
+                            "Sign out" button is also there if you will decide to leave the site.<br>
                         </div>
                         <!-- /.panel-body -->
                     </div>

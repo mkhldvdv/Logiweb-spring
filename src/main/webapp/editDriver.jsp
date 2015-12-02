@@ -145,7 +145,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header"> Edit Driver</h3>
+                <h3 class="page-header"> Edit User/Driver</h3>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -158,7 +158,7 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label>User ID</label>
-                                        <input class="form-control" placeholder="Enter driver ID" name="driverId" autofocus>
+                                        <input class="form-control" placeholder="Enter ID" name="driverId" autofocus>
                                     </div>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
