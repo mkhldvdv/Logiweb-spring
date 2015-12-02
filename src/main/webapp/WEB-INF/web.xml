@@ -105,6 +105,15 @@
     <url-pattern>/addCargo</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>AddOrderServlet</servlet-name>
+    <servlet-class>com.mkhldvdv.logiweb.servlets.AddOrderServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddOrderServlet</servlet-name>
+    <url-pattern>/addOrder</url-pattern>
+  </servlet-mapping>
+
   <description>ServletContextListener</description>
   <listener>
     <listener-class>com.mkhldvdv.logiweb.listeners.PersistenceListener</listener-class>

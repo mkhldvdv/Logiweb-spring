@@ -110,7 +110,7 @@
                         <a href="#"><i class="fa fa-fw"></i> Order<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="addOrder.jsp">Add...</a>
+                                <a href="/addOrder">Add...</a>
                             </li>
                             <li>
                                 <a href="findOrder.jsp">Find...</a>
@@ -143,7 +143,12 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header"> Add Drivers to Order</h3>
+                <h4>
+                    Creating Order. Step 3 out of 3:
+                </h4>
+                <h3 class="page-header">
+                    Add Drivers to Order
+                </h3>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -151,15 +156,18 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="info.jsp">
+                        <form role="form" method="post" action="/addOrder" onsubmit="return checkForm(this);">
                             <fieldset>
                                 <div class="form-group">
-                                    <label>Multiple Selects</label>
-                                    <select multiple class="form-control">
+                                    <label>Select Drivers</label>
+                                    <select name="drivers" multiple class="form-control">
                                         <!-- get the list of cargos -->
-                                        <c:forEach var="driver" items="${driverList}"><option>1</option>
+                                        <c:forEach var="driver" items="${driverList}"><option>${driver}</option>
                                         </c:forEach>
                                     </select>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" name="step" value="3" type="hidden">
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <!-- a href="info.jsp" class="btn btn-md btn-success btn-block">Login</a-->
@@ -167,6 +175,19 @@
                                 <button type="reset" class="btn btn-default">Reset</button>
                             </fieldset>
                         </form>
+                        <script>
+                            // check the form input
+                            function checkForm(form) {
+                                if (form.drivers.value == null || form.drivers.value == "") {
+                                    alert("Please select drivers for the order");
+                                    form.drivers.focus();
+                                    return false;
+                                }
+
+                                // check passed
+                                return true;
+                            }
+                        </script>
                     </div>
                 </div>
             </div>

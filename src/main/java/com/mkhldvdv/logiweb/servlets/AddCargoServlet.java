@@ -32,7 +32,7 @@ public class AddCargoServlet extends HttpServlet {
             Waypoint waypointUnload = new Waypoint();
 
             cargoDTO.setCargoName(req.getParameter("cargoName"));
-            cargoDTO.setWeight(Byte.parseByte(req.getParameter("weight")));
+            cargoDTO.setWeight(Integer.parseInt(req.getParameter("weight")));
             cargoDTO.setCargoStatus(Byte.parseByte(req.getParameter("cargoStatus")));
 
             // loading cargo waypoint

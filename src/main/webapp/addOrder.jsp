@@ -110,7 +110,7 @@
                         <a href="#"><i class="fa fa-fw"></i> Order<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="addOrder.jsp">Add...</a>
+                                <a href="/addOrder">Add...</a>
                             </li>
                             <li>
                                 <a href="findOrder.jsp">Find...</a>
@@ -143,7 +143,12 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header"> Add Cargos to Order</h3>
+                <h4>
+                    Creating Order. Step 1 out of 3:
+                </h4>
+                <h3 class="page-header">
+                    Add Cargos to Order
+                </h3>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -151,15 +156,20 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="addOrderTruck.jsp" >
+                        <form role="form" method="post" action="/addOrder" onsubmit="return checkForm(this);">
+                        <%--<form role="form" method="post" action="addOrderTruck.jsp" >--%>
                             <fieldset>
                                 <div class="form-group">
-                                    <label>Multiple Selects</label>
-                                    <select multiple class="form-control">
+                                    <label>Select Cargos</label>
+                                    <select name="cargos" multiple class="form-control">
                                         <!-- get the list of cargos -->
-                                        <c:forEach var="cargo" items="${cargoList}"><option>1</option>
+                                        <c:forEach var="cargo" items="${cargoList}">
+                                            <option value="${cargo.id}">${cargo.id}&nbsp;&nbsp;&nbsp;${cargo.cargoName}</option>
                                         </c:forEach>
                                     </select>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" name="step" value="1" type="hidden">
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <!-- a href="info.jsp" class="btn btn-md btn-success btn-block">Login</a-->
@@ -167,6 +177,19 @@
                                 <button type="reset" class="btn btn-default">Reset</button>
                             </fieldset>
                         </form>
+                        <script>
+                            // check the form input
+                            function checkForm(form) {
+                                if (form.cargos.value == null || form.cargos.value == "") {
+                                    alert("Please select cargos for the order");
+                                    form.cargos.focus();
+                                    return false;
+                                }
+
+                                // check passed
+                                return true;
+                            }
+                        </script>
                     </div>
                 </div>
             </div>
