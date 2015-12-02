@@ -160,9 +160,12 @@
                             <fieldset>
                                 <div class="form-group">
                                     <label>Select Drivers</label>
-                                    <select name="drivers" multiple class="form-control">
+                                    <select name="drivers" id="drivers" multiple class="form-control">
                                         <!-- get the list of cargos -->
-                                        <c:forEach var="driver" items="${driverList}"><option>${driver}</option>
+                                        <c:forEach var="driver" items="${driverList}">
+                                            <option value="${driver.id}">
+                                                ${driver.id}&nbsp;&nbsp;&nbsp;${driver.firstName} ${driver.lastName} ${driver.login}
+                                            </option>
                                         </c:forEach>
                                     </select>
                                 </div>
@@ -178,8 +181,18 @@
                         <script>
                             // check the form input
                             function checkForm(form) {
+
                                 if (form.drivers.value == null || form.drivers.value == "") {
                                     alert("Please select drivers for the order");
+                                    form.drivers.focus();
+                                    return false;
+                                }
+
+                                var count = $('#drivers option:selected').length;
+
+                                // check exaclty necessary drivers number was chosen
+                                if (count != ${truckObj.driverCount}) {
+                                    alert("Number of drivers should be exactly ${truckObj.driverCount}");
                                     form.drivers.focus();
                                     return false;
                                 }

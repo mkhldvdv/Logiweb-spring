@@ -163,7 +163,7 @@
                                     <select name="truck" class="form-control">
                                         <!-- get the list of cargos -->
                                         <c:forEach var="truck" items="${truckList}">
-                                            <option>
+                                            <option value="${truck.id}">
                                                 ${truck.id}&nbsp;&nbsp;&nbsp;regnum: ${truck.regNum}&nbsp;&nbsp;capacity: ${truck.capacity}&nbsp;&nbsp;shift: ${truck.driverCount}
                                             </option>
                                         </c:forEach>
@@ -171,6 +171,9 @@
                                 </div>
                                 <div class="form-group">
                                     <input class="form-control" name="step" value="2" type="hidden">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" name="cargos" value="${cargos}" type="hidden">
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <!-- a href="info.jsp" class="btn btn-md btn-success btn-block">Login</a-->

@@ -1,6 +1,7 @@
 package com.mkhldvdv.logiweb.dao.impl;
 
 import com.mkhldvdv.logiweb.dao.GenericDaoImpl;
+import com.mkhldvdv.logiweb.entities.Truck;
 import com.mkhldvdv.logiweb.entities.User;
 
 import java.io.UnsupportedEncodingException;
@@ -107,6 +108,12 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
     }
 
 
+    /**
+     * update user
+     * @param user      specified user
+     * @param hashed    if the password hashed
+     * @return          updated user
+     */
     public User update(User user, boolean hashed) {
         try {
             if (!hashed) {
@@ -121,5 +128,18 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
             e.printStackTrace();
             return null;
         }
+    }
+
+    /**
+     * get the list of all drivers available for truck/order
+     * @param truck specified truck
+     * @return      list of drivers
+     */
+    public List<User> getAllAvailableDrivers(Truck truck) {
+        // order status "not completed", driver.city == truck.city
+        return em.createQuery("select u from User u where u.city = :city and u.role = :driver", User.class)
+                .setParameter("city", truck.getCity())
+                .setParameter("driver", DRIVER_ROLE)
+                .getResultList();
     }
 }

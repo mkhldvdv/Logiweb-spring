@@ -2,6 +2,8 @@ package com.mkhldvdv.logiweb.servlets;
 
 import com.mkhldvdv.logiweb.dto.CargoDTO;
 import com.mkhldvdv.logiweb.dto.TruckDTO;
+import com.mkhldvdv.logiweb.dto.UserDTO;
+import com.mkhldvdv.logiweb.entities.Truck;
 import com.mkhldvdv.logiweb.services.impl.AdminServicesImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -59,8 +61,9 @@ public class AddOrderServlet extends HttpServlet {
             // get the list of trucks: not broken, with no order, appropriate capacity
             List<TruckDTO> truckDTOs = adminServices.getAllAvailableTrucks(cargosIds);
 
-            // set parameter...
+            // set parameters...
             req.getSession().setAttribute("truckList", truckDTOs);
+            req.getSession().setAttribute("cargos", cargos);
             // ...and redirect to the next step page
             resp.sendRedirect("/addOrderTruck.jsp");
         }
@@ -69,7 +72,25 @@ public class AddOrderServlet extends HttpServlet {
         // step 2: get all the drivers which could be assigned to the order
         // after step 2 redirect to /addOrderDrivers.jsp
         if (step == 2) {
+            // truckId shouldn't be null on this step as it was passed through the option on the form
+            long truckId = Long.parseLong(req.getParameter("truck"));
+            TruckDTO truck = adminServices.getTruck(truckId);
+            // list of cargos for waypoints
+            // cut index 0 and last
+            List<String> cargos = Arrays.asList(req.getParameter("cargos").substring(1, req.getParameter("cargos").length() - 2).split(", "));
+            // fill in new list with cargos ids
+            List<Long> cargosIds = new ArrayList<Long>();
+            for (String cargo : cargos) {
+                LOG.error("cargo: " + cargo);
+                cargosIds.add(Long.parseLong(cargo));
+            }
 
+            adminServices = new AdminServicesImpl();
+            List<UserDTO> driverDTOs = adminServices.getAllAvailableDrivers(truckId, cargosIds);
+
+            // set parameter...
+            req.getSession().setAttribute("truckObj", truck);
+            req.getSession().setAttribute("driverList", driverDTOs);
             // redirect to the next step page
             resp.sendRedirect("/addOrderDrivers.jsp");
         }

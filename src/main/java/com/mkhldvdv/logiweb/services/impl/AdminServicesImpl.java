@@ -30,6 +30,7 @@ public class AdminServicesImpl implements AdminServices {
     private OrderDaoImpl orderDao;
     private CargoDaoImpl cargoDao;
     private WaypointDaoImpl waypointDao;
+    private CityMapDaoImpl cityMapDao;
 
     private EntityManagerFactory emf = PersistenceManager.getInstance().getEntityManagerFactory();
     {
@@ -44,6 +45,8 @@ public class AdminServicesImpl implements AdminServices {
         cargoDao.setEm(em);
         waypointDao = new WaypointDaoImpl();
         waypointDao.setEm(em);
+        cityMapDao = new CityMapDaoImpl();
+        cityMapDao.setEm(em);
     }
 
     /**
@@ -738,6 +741,92 @@ public class AdminServicesImpl implements AdminServices {
             return waypointWeightMap;
         } catch (Exception e) {
             LOG.error("get all available trucks: fill the map", e);
+            return null;
+        }
+    }
+
+    /**
+     * get all available drivers for truck
+     * @param truckId   specified truck id
+     * @param cargosIds
+     * @return          list of drivers
+     */
+    @Override
+    public List<UserDTO> getAllAvailableDrivers(long truckId, List<Long> cargosIds) {
+        LOG.info("get all available drivers for order and truck");
+        try {
+            // find truck
+            Truck truck = truckDao.getById(truckId);
+            // list of drivers without active orders
+            List<User> driversWithoutOrder = new ArrayList<User>();
+            // get all drivers with the same city for the truck
+            List<User> drivers = userDao.getAllAvailableDrivers(truck);
+            for (User driver : drivers) {
+                boolean flag = true;
+                for (Order order : driver.getOrders()) {
+                    // not completed orders not included
+                    if (order != null && order.getOrderStatus() == 2) {
+                        flag = true;
+                    }
+                }
+                // if no active orders found, add user to the list
+                driversWithoutOrder.add(driver);
+            }
+
+            // get waypoints for cargo
+//            List<Waypoint> waypoints = new ArrayList<Waypoint>();
+//            for (Long cargoId : cargosIds) {
+//                waypoints = waypointDao.getByCargoId(cargoId);
+//            }
+//            // sorting it
+//            Collections.sort(waypoints);
+//
+//
+//            // count the distance summary for the trip
+//            int distanceSum = 0;
+//            byte cityStart = 0;
+//            for (int i = 0; i < waypoints.size(); i++) {
+//                if (i == 0) {
+//                    cityStart = waypoints.get(i).getCity();
+//                } else {
+//                    byte cityEnd = waypoints.get(i).getCity();
+//                    distanceSum += cityMapDao.getCityMap(cityStart, cityEnd).getDistance();
+//                    cityStart = cityEnd;
+//                }
+//            }
+
+            // check
+//            LOG.error("distance summary:\n" + distanceSum);
+            List<Long> driLongList = new ArrayList<Long>();
+            for (User driver : driversWithoutOrder) {
+                driLongList.add(driver.getId());
+            }
+            LOG.error("get all available drivers for order and truck:\n" + driLongList);
+            // check done
+
+            // convert drivers to UserDTOs
+            List<UserDTO> userDTOs = new ArrayList<UserDTO>();
+            for (User driver : driversWithoutOrder) {
+                UserDTO userDTO = new UserDTO();
+                // convert
+                userDTO.setId(driver.getId());
+                userDTO.setFirstName(driver.getFirstName());
+                userDTO.setLastName(driver.getLastName());
+                userDTO.setLogin(driver.getLogin());
+                userDTO.setPassword(driver.getPassword());
+                userDTO.setRole(driver.getRole());
+                userDTO.setHours(driver.getHours());
+                userDTO.setUserStatus(driver.getUserStatus());
+                userDTO.setCity(driver.getCity());
+                userDTO.setTruck(driver.getTruck());
+                userDTO.setOrders(driver.getOrders());
+                // adding to list
+                userDTOs.add(userDTO);
+            }
+
+            return userDTOs;
+        } catch (Exception e) {
+            LOG.error("get all available drivers for order and truck", e);
             return null;
         }
     }

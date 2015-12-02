@@ -117,4 +117,12 @@ public interface AdminServices {
      * @return  list of trucks
      */
     List<TruckDTO> getAllAvailableTrucks(List<Long> cargosIds);
+
+    /**
+     * get the list of drivers available for the order and truck
+     * @param truckId   specified truck id
+     * @param cargosIds
+     * @return          list of drivers
+     */
+    List<UserDTO> getAllAvailableDrivers(long truckId, List<Long> cargosIds);
 }

@@ -164,7 +164,9 @@
                                     <select name="cargos" multiple class="form-control">
                                         <!-- get the list of cargos -->
                                         <c:forEach var="cargo" items="${cargoList}">
-                                            <option value="${cargo.id}">${cargo.id}&nbsp;&nbsp;&nbsp;${cargo.cargoName}</option>
+                                            <option value="${cargo.id}">
+                                                ${cargo.id}&nbsp;&nbsp;&nbsp;${cargo.cargoName}
+                                            </option>
                                         </c:forEach>
                                     </select>
                                 </div>

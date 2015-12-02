@@ -6,7 +6,7 @@ import com.mkhldvdv.logiweb.entities.CityMap;
 /**
  * Created by mkhldvdv on 25.11.2015.
  */
-public class CityMapImpl extends GenericDaoImpl<CityMap> {
+public class CityMapDaoImpl extends GenericDaoImpl<CityMap> {
 
     /**
      * returns distance between 2 cities
@@ -14,9 +14,9 @@ public class CityMapImpl extends GenericDaoImpl<CityMap> {
      * @param city2 second city
      * @return      distance
      */
-    public int getDistance(String city1, String city2) {
+    public CityMap getCityMap(byte city1, byte city2) {
         return em.createQuery("select cm from CityMap cm " +
-                "where cm.city1 = :city1 and cm.city2 = :city2", Integer.class)
+                "where cm.city1 = :city1 and cm.city2 = :city2", CityMap.class)
                 .setParameter("city1", city1)
                 .setParameter("city2", city2)
                 .getSingleResult();
