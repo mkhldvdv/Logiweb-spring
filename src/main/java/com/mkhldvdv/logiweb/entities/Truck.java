@@ -43,7 +43,7 @@ public class Truck implements Serializable {
     @Column(name = "DELETED")
     private byte deleted;
 
-    protected Truck() {
+    public Truck() {
     }
 
     public Truck(String regNum, byte driverCount, byte capacity,

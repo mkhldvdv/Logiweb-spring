@@ -37,7 +37,7 @@ public class Order implements Serializable {
     @Column(name = "DELETED")
     private byte deleted;
 
-    protected Order() {
+    public Order() {
     }
 
     public Order(byte orderStatus, List<Waypoint> waypoints, Truck truck, List<User> drivers, byte deleted) {

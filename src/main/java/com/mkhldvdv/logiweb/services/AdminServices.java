@@ -125,4 +125,13 @@ public interface AdminServices {
      * @return          list of drivers
      */
     List<UserDTO> getAllAvailableDrivers(long truckId, List<Long> cargosIds);
+
+    /**
+     * add order into the database with all dependencies
+     * @param cargoIds  list of cargos to update with order id
+     * @param truckDTO  truck to update with order id
+     * @param userIds   list of users to update with order id
+     * @return          new added order object
+     */
+    OrderDTO addOrder(List<Long> cargoIds, TruckDTO truckDTO, List<Long> userIds);
 }

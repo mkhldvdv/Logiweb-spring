@@ -830,4 +830,122 @@ public class AdminServicesImpl implements AdminServices {
             return null;
         }
     }
+
+    @Override
+    public OrderDTO addOrder(List<Long> cargoIds, TruckDTO truckDTO, List<Long> userIds) {
+        LOG.info("add order");
+        try {
+
+            // get list of users by its id
+            List<User> userList = new ArrayList<User>();
+            for (Long user : userIds) {
+                userList.add(userDao.getById(user));
+            }
+            // end of user list creating
+
+            // get list of cargos by its id
+            List<Cargo> cargoList = new ArrayList<Cargo>();
+            for (Long cargoId : cargoIds) {
+                cargoList.add(cargoDao.getById(cargoId));
+            }
+            // end of cargos list creating
+
+            // creating list of waypoints for order
+            List<Waypoint> waypointList = new ArrayList<Waypoint>();
+            for (Cargo cargo : cargoList) {
+                waypointList.addAll(cargo.getWaypoints());
+            }
+            // end of waypoints list
+
+            // get truck to add in order
+            Truck truck = new Truck();
+            truck.setId(truckDTO.getId());
+            truck.setRegNum(truckDTO.getRegNum());
+            truck.setDriverCount(truckDTO.getDriverCount());
+            truck.setCapacity(truckDTO.getCapacity());
+            truck.setTruckStatus(truckDTO.getTruckStatus());
+            truck.setCity(truckDTO.getCity());
+            // creating drivers list if it's still empty for any reason
+            if (truck.getDrivers() == null || truck.getDrivers().isEmpty()) {
+                truck.setDrivers(userList);
+            } else {
+                truck.getDrivers().addAll(userList);
+            }
+            truck.setOrders(truckDTO.getOrders());
+            // end of truck creating
+
+            // create order
+            Order order = new Order();
+            order.setOrderStatus((byte) 2);
+            order.setWaypoints(waypointList);
+            order.setTruck(truck);
+            order.setDrivers(userList);
+
+            // begin transaction
+            orderDao.getEm().getTransaction().begin();
+            // 1. creating order in db
+            Order orderNew = orderDao.create(order);
+
+            // 2. update all waypoints
+            for (Waypoint waypoint : orderNew.getWaypoints()) {
+                // create link
+                waypoint.setOrder(orderNew);
+                // and update in db
+                Waypoint tmpWay = waypointDao.update(waypoint);
+            }
+
+            // 3. update truck
+            // creating orders list if it's still empty for any reason
+            if (truck.getOrders() == null) {
+                truck.setOrders(new ArrayList<Order>());
+            }
+            // links to new order
+            truck.getOrders().add(orderNew);
+            Truck tmpTruck = truckDao.update(truck);
+
+            // 4. update drivers
+            for (User user : userList) {
+                if (user.getOrders() == null) {
+                    user.setOrders(new ArrayList<Order>());
+                }
+                // set order
+                user.getOrders().add(orderNew);
+                // set truck
+                user.setTruck(tmpTruck);
+                // update on database
+                User tmpUser = userDao.update(user);
+            }
+            // transaction ends
+            orderDao.getEm().getTransaction().commit();
+
+            // list of users ids long for dto object
+            Set<Long> userLongs = new HashSet<Long>();
+            for (User user : orderNew.getDrivers()) {
+                userLongs.add(user.getId());
+            }
+
+            // list of waypoints for user
+            Set<Long> wayslong = new HashSet<Long>();
+            for (Waypoint waypoint : order.getWaypoints()) {
+                wayslong.add(waypoint.getId());
+            }
+
+            OrderDTO orderDTO = new OrderDTO(orderNew.getId(), orderNew.getOrderStatus(),
+                    wayslong, orderNew.getTruck(), userLongs, (byte) 0);
+
+            return orderDTO;
+        } catch (Exception e) {
+            LOG.error("add order", e);
+            return null;
+        } finally {
+            // rollback transaction in case of any error
+            if (orderDao.getEm().getTransaction().isActive()) {
+                orderDao.getEm().getTransaction().rollback();
+            }
+
+            if (orderDao.getEm().isOpen()) {
+                orderDao.getEm().close();
+            }
+        }
+    }
 }
