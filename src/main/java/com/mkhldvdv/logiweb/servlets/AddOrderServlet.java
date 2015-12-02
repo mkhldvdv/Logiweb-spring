@@ -1,6 +1,7 @@
 package com.mkhldvdv.logiweb.servlets;
 
 import com.mkhldvdv.logiweb.dto.CargoDTO;
+import com.mkhldvdv.logiweb.dto.TruckDTO;
 import com.mkhldvdv.logiweb.services.impl.AdminServicesImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -45,8 +48,20 @@ public class AddOrderServlet extends HttpServlet {
         // step 1: get the truck for order
         // after step 1 redirect to /addOrderTruck.jsp
         if (step == 1) {
+            // massive of cargos ids should exists here
+            List<String> cargos = Arrays.asList(req.getParameterValues("cargos"));
+            LOG.error("List of selected cargos: " + cargos);
+            List<Long> cargosIds = new ArrayList<Long>();
+            for (String cargo : cargos) {
+                cargosIds.add(Long.parseLong(cargo));
+            }
 
-            // redirect to the next step page
+            // get the list of trucks: not broken, with no order, appropriate capacity
+            List<TruckDTO> truckDTOs = adminServices.getAllAvailableTrucks(cargosIds);
+
+            // set parameter...
+            req.getSession().setAttribute("truckList", truckDTOs);
+            // ...and redirect to the next step page
             resp.sendRedirect("/addOrderTruck.jsp");
         }
 

@@ -27,8 +27,19 @@ public class TruckDaoImpl extends GenericDaoImpl<Truck> {
      */
     public List<Truck> getAllNotDeletedTrucks() {
         return em.createQuery("select t from Truck t " +
-                "where t.isDeleted = :deleted")
+                "where t.deleted = :deleted")
                 .setParameter("deleted", false)
+                .getResultList();
+    }
+
+    /**
+     * get the list of trucks, not broken and with no current active orders
+     * @return  list of trucks
+     */
+    public List<Truck> getAllAvailableTrucks() {
+        return em.createQuery("select t from Truck t where t.truckStatus = 1 " +
+                "and not exists (select 1 from Order o " +
+                "where o.orderStatus = 2 and o.truck = t)", Truck.class)
                 .getResultList();
     }
 }

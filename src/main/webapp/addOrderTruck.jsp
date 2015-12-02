@@ -162,7 +162,10 @@
                                     <label>Select Truck</label>
                                     <select name="truck" class="form-control">
                                         <!-- get the list of cargos -->
-                                        <c:forEach var="truck" items="${truckList}"><option>${truck}</option>
+                                        <c:forEach var="truck" items="${truckList}">
+                                            <option>
+                                                ${truck.id}&nbsp;&nbsp;&nbsp;regnum: ${truck.regNum}&nbsp;&nbsp;capacity: ${truck.capacity}&nbsp;&nbsp;shift: ${truck.driverCount}
+                                            </option>
                                         </c:forEach>
                                     </select>
                                 </div>

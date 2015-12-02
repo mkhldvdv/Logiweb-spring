@@ -112,7 +112,7 @@
                         <a href="#"><i class="fa fa-fw"></i> Order<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="addOrder.jsp">Add...</a>
+                                <a href="/addOrder">Add...</a>
                             </li>
                             <li>
                                 <a href="findOrder.jsp">Find...</a>

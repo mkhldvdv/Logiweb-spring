@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "WAYPOINTS")
-public class Waypoint implements Serializable {
+public class Waypoint implements Serializable, Comparable<Waypoint> {
     @Id
     @Column(name = "WAYPOINT_ID")
     @TableGenerator(name = "TABLE_GEN", table = "SEQUENCES", pkColumnName = "SEQ_NAME",
@@ -98,5 +98,9 @@ public class Waypoint implements Serializable {
                 ", cargo=" + cargo +
                 ", cargoType='" + cargoType + '\'' +
                 '}';
+    }
+
+    public int compareTo(Waypoint waypoint) {
+        return (int) (this.id - waypoint.getId());
     }
 }

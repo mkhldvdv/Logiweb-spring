@@ -1,5 +1,9 @@
 package com.mkhldvdv.logiweb.dto;
 
+import com.mkhldvdv.logiweb.entities.Order;
+
+import java.util.List;
+
 /**
  * Created by mkhldvdv on 25.11.2015.
  */
@@ -16,6 +20,8 @@ public class TruckDTO {
     private byte truckStatus;
 
     private long city;
+
+    private List<Order> orders;
 
     private byte deleted;
 
@@ -65,6 +71,14 @@ public class TruckDTO {
 
     public void setCity(long city) {
         this.city = city;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     public byte getDeleted() {

@@ -104,4 +104,17 @@ public interface AdminServices {
      * @return          added cargo
      */
     CargoDTO addCargo(CargoDTO cargoDTO);
+
+    /**
+     * get the list of all unassigned cargos to add in the order
+     * @return  list of cargos
+     */
+    List<CargoDTO> getAllUnassignedCargos();
+
+    /**
+     * get the list of trucks available for delivery
+     * @param cargosIds list of cargos for truck to deliver
+     * @return  list of trucks
+     */
+    List<TruckDTO> getAllAvailableTrucks(List<Long> cargosIds);
 }

@@ -6,9 +6,7 @@ import com.mkhldvdv.logiweb.dto.OrderDTO;
 import com.mkhldvdv.logiweb.dto.TruckDTO;
 import com.mkhldvdv.logiweb.dto.UserDTO;
 import com.mkhldvdv.logiweb.entities.*;
-import com.mkhldvdv.logiweb.exceptions.RegNumNotMatchException;
 import com.mkhldvdv.logiweb.exceptions.WrongIdException;
-import com.mkhldvdv.logiweb.exceptions.WrongLoginPass;
 import com.mkhldvdv.logiweb.services.AdminServices;
 import com.mkhldvdv.logiweb.services.PersistenceManager;
 import org.apache.logging.log4j.LogManager;
@@ -17,7 +15,6 @@ import org.apache.logging.log4j.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.util.*;
-import java.util.regex.Pattern;
 
 /**
  * Created by mkhldvdv on 25.11.2015.
@@ -599,6 +596,149 @@ public class AdminServicesImpl implements AdminServices {
             if (cargoDao.getEm().isOpen()) {
                 cargoDao.getEm().close();
             }
+        }
+    }
+
+    /**
+     * get the list of all unassigned cargos to add in the order
+     *
+     * @return list of cargos
+     */
+    @Override
+    public List<CargoDTO> getAllUnassignedCargos() {
+        LOG.info("get all unassigned cargos");
+
+        try {
+            List<Cargo> cargos = cargoDao.getAllUnassigned();
+            List<CargoDTO> cargoDTOs = new ArrayList<CargoDTO>();
+            for (Cargo cargo : cargos) {
+                CargoDTO cargoDTO = new CargoDTO();
+                cargoDTO.setId(cargo.getId());
+                cargoDTO.setCargoName(cargo.getCargoName());
+                cargoDTO.setWeight(cargo.getWeight());
+                cargoDTO.setCargoStatus(cargo.getCargoStatus());
+                cargoDTO.setFullWaypoints(cargo.getWaypoints());
+                cargoDTO.setWaypoints(new ArrayList<Long>());
+                for (Waypoint waypoint : cargo.getWaypoints()) {
+                    cargoDTO.getWaypoints().add(waypoint.getId());
+                }
+                cargoDTOs.add(cargoDTO);
+            }
+
+            return cargoDTOs;
+        } catch (Exception e) {
+            LOG.error("get all unassigned cargos", e);
+            return null;
+        } finally {
+            if (cargoDao.getEm().isOpen()) {
+                cargoDao.getEm().close();
+            }
+        }
+    }
+
+    /**
+     * get the list of trucks available for delivery
+     *
+     * @param cargosIds list of cargos for truck to deliver
+     * @return list of trucks
+     */
+    @Override
+    public List<TruckDTO> getAllAvailableTrucks(List<Long> cargosIds) {
+        LOG.info("get all available trucks");
+
+        try {
+            // creating map of cargos weight balance for the city
+            Map<Byte, Integer> waypointWeightMap = new HashMap<Byte, Integer>();
+            for (Long cargoId : cargosIds) {
+                // find cargo
+                Cargo cargo = cargoDao.getById(cargoId);
+                int cargoWeight = cargo.getWeight();
+                // get waypoints for cargo
+                List<Waypoint> waypoints = waypointDao.getByCargoId(cargoId);
+                // sorting it
+                Collections.sort(waypoints);
+                LOG.error("size of waypoints for cargo: " + waypoints.size());
+                // adding info for cargo to map
+                waypointWeightMap = fillMapCityWeight(waypointWeightMap, cargoWeight, waypoints);
+            }
+
+            Map<Byte, Integer> tmpMap = new HashMap<Byte, Integer>();
+            tmpMap.putAll(waypointWeightMap);
+            int commonweight = 0;
+            for (Map.Entry<Byte, Integer> entry : waypointWeightMap.entrySet()) {
+                commonweight += entry.getValue();
+                tmpMap.put(entry.getKey(), commonweight);
+            }
+            // check the map
+//        LOG.error("waypointWeightMap: " + waypointWeightMap);
+            LOG.error("tmpMap: " + tmpMap);
+            waypointWeightMap = tmpMap;
+
+            List<TruckDTO> truckDTOs = new ArrayList<TruckDTO>();
+            // not broken and no active order
+            List<Truck> trucks = truckDao.getAllAvailableTrucks();
+            // try to find suitable trucks for deliver
+            for (Truck truck : trucks) {
+                boolean flag = true;
+                // capacity of the truck in tons, should be in kilos for comparison
+                int capacity = truck.getCapacity() *  1000;
+                // select only available trucks for order
+                for (Integer cityWeight : waypointWeightMap.values()) {
+                    if (capacity - cityWeight < 0) {
+                        flag = false;
+                    }
+                }
+                // if flag is true, add truck to truck list for order
+                if (flag) {
+                    TruckDTO truckDTO = new TruckDTO();
+                    truckDTO.setId(truck.getId());
+                    truckDTO.setRegNum(truck.getRegNum());
+                    truckDTO.setDriverCount(truck.getDriverCount());
+                    truckDTO.setCapacity(truck.getCapacity());
+                    truckDTO.setTruckStatus(truck.getTruckStatus());
+                    truckDTO.setCity(truck.getCity());
+                    truckDTO.setOrders(truck.getOrders());
+
+                    truckDTOs.add(truckDTO);
+                    LOG.error("truck ID added: " + truckDTO.getId());
+                }
+            }
+
+            // return available for order trucks
+            return truckDTOs;
+        } catch (Exception e) {
+            LOG.error("get all available trucks", e);
+            return null;
+        } finally {
+            if (cargoDao.getEm().isOpen()) {
+                cargoDao.getEm().close();
+            }
+        }
+    }
+
+    /**
+     *
+     * fill the map with cities and weight balance
+     */
+    private Map<Byte, Integer> fillMapCityWeight(Map<Byte, Integer> waypointWeightMap, int cargoWeight, List<Waypoint> waypoints) {
+        LOG.info("get all available trucks: fill the map");
+        try {
+            for (Waypoint waypoint : waypoints) {
+                //
+                LOG.error(waypoint.getId());
+                //
+                byte city = waypoint.getCity();
+                // if load then add it to the map with plus
+                if (waypoint.getCargoType() == 1) {
+                    waypointWeightMap.put(city, waypointWeightMap.get(city) == null ? cargoWeight : waypointWeightMap.get(city) + cargoWeight);
+                } else {
+                    waypointWeightMap.put(city, waypointWeightMap.get(city) == null ? -cargoWeight : waypointWeightMap.get(city) - cargoWeight);
+                }
+            }
+            return waypointWeightMap;
+        } catch (Exception e) {
+            LOG.error("get all available trucks: fill the map", e);
+            return null;
         }
     }
 }
