@@ -60,7 +60,7 @@
                         <li><a href="driverProfile.jsp"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Sign out</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -74,6 +74,9 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h3 class="page-header"> Get Info</h3>
+                    You can find all of your assignments by submiting the form fulfilled with you User ID.
+                    You can easily find your User ID in "User Profile" page at the right top corner by clicking the button with your name and then choosing "User Profile" link in dropdown menu.
+                    "Sign out" button is also there, if you will decide to leave the site.
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

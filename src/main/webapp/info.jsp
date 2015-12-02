@@ -60,7 +60,7 @@
                         <li><a href="userProfile.jsp"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Sign out</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -91,7 +91,7 @@
                             <!-- /.nav-second-level -->
                         </li>
 						<li>
-                            <a href="#"><i class="fa fa-fw"></i> Driver<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-fw"></i> User/Driver<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="addDriver.jsp">Add...</a>
@@ -157,7 +157,20 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            here is some description of what could be done with buttons to the left from current panel
+                            Here you can find the short description of what could be done on the site.
+                            On the left panel you can see "directories" with main objects.
+                            Click on any of them and you will see the available actions which could be performed against objects and database.
+
+                            0. The first button is in the left top corner called "Logiweb". That is a link on the current page with instructions. That button presents on every page of the site.
+                            Below are the links with objects and actions.
+                            1. "Truck" menu:
+                            here you can "Add", "Edit", "Delete" trucks and call the "List" of all available trucks.
+                            2. "User/Driver" menu:
+                            here you can "Add", "Edit", "Delete" operators and drivers (both are users) into the system and call the "List" of all available drivers (not operators).
+                            3. "Order" menu:
+                            here you can "Add" order, "Find" specified order (to get the full info about it) and call the "List" of all orders.
+                            4. "Cargo" menu:
+                            here you can "Add" new cargo and "Find" sepcified cargo (to get the full info about it).
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -171,7 +184,8 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            here is some description of what could be done with the top button
+                            Button at the top can be used to see the details of "User Profile".
+                            "Sign out" button is also there, if you will decide to leave the site.
                         </div>
                         <!-- /.panel-body -->
                     </div>

@@ -58,7 +58,7 @@
                     <li><a href="userProfile.jsp"><i class="fa fa-user fa-fw"></i> User Profile</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                    <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Sign out</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -89,7 +89,7 @@
                         <!-- /.nav-second-level -->
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-fw"></i> Driver<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-fw"></i> User/Driver<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="addDriver.jsp">Add...</a>

@@ -80,4 +80,16 @@ public class OrderDTO {
     public void setDeleted(byte deleted) {
         this.deleted = deleted;
     }
+
+    @Override
+    public String toString() {
+        return "OrderDTO{" +
+                "id=" + id +
+                ", orderStatus=" + orderStatus +
+                ", waypoints=" + waypoints +
+                ", truck=" + truck +
+                ", drivers=" + drivers +
+                ", deleted=" + deleted +
+                '}';
+    }
 }
