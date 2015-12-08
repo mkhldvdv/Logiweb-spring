@@ -39,7 +39,7 @@ public class TruckDaoImpl extends GenericDaoImpl<Truck> {
     public List<Truck> getAllAvailableTrucks() {
         return em.createQuery("select t from Truck t where t.truckStatus = 1 " +
                 "and not exists (select 1 from Order o " +
-                "where o.orderStatus = 2 and o.truck = t)", Truck.class)
+                "where o.orderStatus = 2 and o.truck = t) order by t.id desc", Truck.class)
                 .getResultList();
     }
 }

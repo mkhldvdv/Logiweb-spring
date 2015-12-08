@@ -123,7 +123,7 @@ public class AddOrderServlet extends HttpServlet {
                 }
 
                 // set parameter...
-                req.getSession().setAttribute("object", orderDTO);
+                req.getSession().setAttribute("object", orderDTO.getId());
                 // redirect to the next step page
                 resp.sendRedirect("/success.jsp");
             }

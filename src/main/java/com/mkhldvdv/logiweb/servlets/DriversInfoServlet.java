@@ -33,7 +33,7 @@ public class DriversInfoServlet extends HttpServlet {
             resp.sendRedirect("/infoForDriver.jsp");
         } catch (Exception e) {
             e.printStackTrace();
-            req.getSession().setAttribute("error", e);
+            req.getSession().setAttribute("error", "\nYou are not allowed for this operation");
             resp.sendRedirect("/errorDriver.jsp");
         }
     }

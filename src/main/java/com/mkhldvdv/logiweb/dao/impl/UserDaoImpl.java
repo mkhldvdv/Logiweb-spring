@@ -137,7 +137,8 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
      */
     public List<User> getAllAvailableDrivers(Truck truck) {
         // order status "not completed", driver.city == truck.city
-        return em.createQuery("select u from User u where u.city = :city and u.role = :driver", User.class)
+        return em.createQuery("select u from User u where u.city = :city and u.role = :driver " +
+                "order by u.id desc", User.class)
                 .setParameter("city", truck.getCity())
                 .setParameter("driver", DRIVER_ROLE)
                 .getResultList();

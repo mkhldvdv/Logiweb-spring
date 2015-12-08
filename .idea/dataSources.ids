@@ -9,31 +9,31 @@
     <database-model serializer="dbm" rdbms="ORACLE" format-version="2.2">
       <schema id="1" name="LOGIWEB">
         <created-timestamp>2015-11-19.12:09:25</created-timestamp>
-        <modified-timestamp>2015-11-26.20:47:36</modified-timestamp>
-        <introspection-timestamp>2015-11-26.20:54:44</introspection-timestamp>
+        <modified-timestamp>2015-12-02.22:44:25</modified-timestamp>
+        <introspection-timestamp>2015-12-06.21:02:23</introspection-timestamp>
       </schema>
       <table id="2" parent="1" name="CARGO_STATUSES">
         <object-id>20562</object-id>
         <created-timestamp>2015-11-19.12:09:25</created-timestamp>
-        <modified-timestamp>2015-11-19.12:09:25</modified-timestamp>
+        <modified-timestamp>2015-11-29.23:13:20</modified-timestamp>
         <organization>HEAP</organization>
       </table>
       <table id="3" parent="1" name="CARGO_TYPES">
         <object-id>20567</object-id>
         <created-timestamp>2015-11-19.12:09:26</created-timestamp>
-        <modified-timestamp>2015-11-19.12:09:26</modified-timestamp>
+        <modified-timestamp>2015-11-29.23:13:16</modified-timestamp>
         <organization>HEAP</organization>
       </table>
       <table id="4" parent="1" name="CARGOS">
         <object-id>20564</object-id>
         <created-timestamp>2015-11-19.12:09:25</created-timestamp>
-        <modified-timestamp>2015-11-26.20:47:36</modified-timestamp>
+        <modified-timestamp>2015-11-29.23:13:25</modified-timestamp>
         <organization>HEAP</organization>
       </table>
       <table id="5" parent="1" name="CITIES">
         <object-id>20569</object-id>
         <created-timestamp>2015-11-19.12:09:26</created-timestamp>
-        <modified-timestamp>2015-11-19.22:38:20</modified-timestamp>
+        <modified-timestamp>2015-11-29.23:13:12</modified-timestamp>
         <organization>HEAP</organization>
       </table>
       <table id="6" parent="1" name="DRIVER_STATUSES">
@@ -45,31 +45,31 @@
       <table id="7" parent="1" name="MAP">
         <object-id>20591</object-id>
         <created-timestamp>2015-11-19.12:09:28</created-timestamp>
-        <modified-timestamp>2015-11-25.00:22:18</modified-timestamp>
+        <modified-timestamp>2015-11-30.18:02:54</modified-timestamp>
         <organization>HEAP</organization>
       </table>
       <table id="8" parent="1" name="ORDER_DRIVER">
         <object-id>20602</object-id>
         <created-timestamp>2015-11-19.12:09:29</created-timestamp>
-        <modified-timestamp>2015-11-25.00:22:32</modified-timestamp>
+        <modified-timestamp>2015-12-02.22:44:25</modified-timestamp>
         <organization>HEAP</organization>
       </table>
       <table id="9" parent="1" name="ORDER_STATUSES">
         <object-id>20596</object-id>
         <created-timestamp>2015-11-19.12:09:28</created-timestamp>
-        <modified-timestamp>2015-11-19.12:09:28</modified-timestamp>
+        <modified-timestamp>2015-11-29.23:12:51</modified-timestamp>
         <organization>HEAP</organization>
       </table>
       <table id="10" parent="1" name="ORDERS">
         <object-id>20598</object-id>
         <created-timestamp>2015-11-19.12:09:29</created-timestamp>
-        <modified-timestamp>2015-11-26.20:47:09</modified-timestamp>
+        <modified-timestamp>2015-11-30.18:02:40</modified-timestamp>
         <organization>HEAP</organization>
       </table>
       <table id="11" parent="1" name="ROLES">
         <object-id>20580</object-id>
         <created-timestamp>2015-11-19.12:09:27</created-timestamp>
-        <modified-timestamp>2015-11-19.12:09:27</modified-timestamp>
+        <modified-timestamp>2015-11-29.23:12:46</modified-timestamp>
         <organization>HEAP</organization>
       </table>
       <table id="12" parent="1" name="SEQUENCES">
@@ -87,25 +87,25 @@
       <table id="14" parent="1" name="TRUCKS">
         <object-id>20575</object-id>
         <created-timestamp>2015-11-19.12:09:26</created-timestamp>
-        <modified-timestamp>2015-11-26.20:46:00</modified-timestamp>
+        <modified-timestamp>2015-11-29.23:12:37</modified-timestamp>
         <organization>HEAP</organization>
       </table>
       <table id="15" parent="1" name="USER_STATUSES">
         <object-id>20571</object-id>
         <created-timestamp>2015-11-19.12:09:26</created-timestamp>
-        <modified-timestamp>2015-11-24.21:45:10</modified-timestamp>
+        <modified-timestamp>2015-11-29.23:11:53</modified-timestamp>
         <organization>HEAP</organization>
       </table>
       <table id="16" parent="1" name="USERS">
         <object-id>20824</object-id>
         <created-timestamp>2015-11-24.21:48:47</created-timestamp>
-        <modified-timestamp>2015-11-26.20:46:48</modified-timestamp>
+        <modified-timestamp>2015-11-30.18:02:17</modified-timestamp>
         <organization>HEAP</organization>
       </table>
       <table id="17" parent="1" name="WAYPOINTS">
         <object-id>20608</object-id>
         <created-timestamp>2015-11-19.12:09:30</created-timestamp>
-        <modified-timestamp>2015-11-26.20:46:33</modified-timestamp>
+        <modified-timestamp>2015-11-29.23:11:43</modified-timestamp>
         <organization>HEAP</organization>
       </table>
       <column id="18" parent="2" name="CARGO_STATUS_ID">
@@ -113,7 +113,6 @@
         <data-type>NUMBER(*)</data-type>
       </column>
       <column id="19" parent="2" name="CARGO_STATUS_NAME">
-        <mandatory>1</mandatory>
         <data-type>VARCHAR2(30)</data-type>
       </column>
       <index id="20" parent="2" name="CARGO_STATUS_PK">
@@ -136,7 +135,6 @@
         <data-type>NUMBER(*)</data-type>
       </column>
       <column id="23" parent="3" name="CARGO_TYPE_NAME">
-        <mandatory>1</mandatory>
         <data-type>VARCHAR2(30)</data-type>
       </column>
       <index id="24" parent="3" name="CARGO_TYPE_PK">
@@ -159,19 +157,15 @@
         <data-type>NUMBER(*)</data-type>
       </column>
       <column id="27" parent="4" name="CARGO_NAME">
-        <mandatory>1</mandatory>
         <data-type>VARCHAR2(50)</data-type>
       </column>
       <column id="28" parent="4" name="WEIGHT">
-        <mandatory>1</mandatory>
         <data-type>NUMBER(*)</data-type>
       </column>
       <column id="29" parent="4" name="CARGO_STATUS_ID">
-        <mandatory>1</mandatory>
         <data-type>NUMBER(*)</data-type>
       </column>
       <column id="30" parent="4" name="DELETED">
-        <mandatory>1</mandatory>
         <data-type>NUMBER(1)</data-type>
         <default-expression>0</default-expression>
       </column>
@@ -210,7 +204,6 @@
         <data-type>NUMBER(*)</data-type>
       </column>
       <column id="36" parent="5" name="CITY_NAME">
-        <mandatory>1</mandatory>
         <data-type>VARCHAR2(50)</data-type>
       </column>
       <index id="37" parent="5" name="CITY_PK">
@@ -247,7 +240,6 @@
         <data-type>NUMBER(*)</data-type>
       </column>
       <column id="42" parent="6" name="USER_STATUS_NAME">
-        <mandatory>1</mandatory>
         <data-type>VARCHAR2(30)</data-type>
       </column>
       <key id="43" parent="6" name="DRIVER_STATUS_PK">
@@ -261,15 +253,12 @@
         <data-type>NUMBER(*)</data-type>
       </column>
       <column id="45" parent="7" name="CITY_ID1">
-        <mandatory>1</mandatory>
         <data-type>NUMBER(*)</data-type>
       </column>
       <column id="46" parent="7" name="CITY_ID2">
-        <mandatory>1</mandatory>
         <data-type>NUMBER(*)</data-type>
       </column>
       <column id="47" parent="7" name="DISTANCE">
-        <mandatory>1</mandatory>
         <data-type>NUMBER(*)</data-type>
       </column>
       <index id="48" parent="7" name="MAP_PK">
@@ -318,85 +307,65 @@ CITY_ID2</columns>
         <underlying-index>MAP_CITY1_CITY2_UK</underlying-index>
       </key>
       <foreign-key id="54" parent="7" name="MAP_CITY_ID1_FK">
-        <modified-timestamp>2015-11-25.00:22:18</modified-timestamp>
+        <modified-timestamp>2015-11-30.18:02:54</modified-timestamp>
         <columns>CITY_ID1</columns>
         <initially-deferred>1</initially-deferred>
         <ref-key>CITIES.CITY_PK</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>delete</cascade-delete-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
       <foreign-key id="55" parent="7" name="MAP_CITY_ID2_FK">
-        <modified-timestamp>2015-11-25.00:22:18</modified-timestamp>
+        <modified-timestamp>2015-11-30.18:02:54</modified-timestamp>
         <columns>CITY_ID2</columns>
         <initially-deferred>1</initially-deferred>
         <ref-key>CITIES.CITY_PK</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>delete</cascade-delete-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="56" parent="8" name="ORDER_DRIVER_ID">
-        <mandatory>1</mandatory>
+      <column id="56" parent="8" name="ORDER_ID">
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="57" parent="8" name="ORDER_ID">
-        <mandatory>1</mandatory>
+      <column id="57" parent="8" name="USER_ID">
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="58" parent="8" name="USER_ID">
-        <mandatory>1</mandatory>
-        <data-type>NUMBER(*)</data-type>
-      </column>
-      <index id="59" parent="8" name="ORDER_DRIVER_PK">
-        <object-id>20603</object-id>
-        <created-timestamp>2015-11-19.12:09:29</created-timestamp>
-        <modified-timestamp>2015-11-19.12:09:29</modified-timestamp>
-        <columns>ORDER_DRIVER_ID</columns>
-        <unique>1</unique>
-        <tablespace-name>USERS</tablespace-name>
-      </index>
-      <index id="60" parent="8" name="ORDER_IDX">
+      <index id="58" parent="8" name="ORDER_IDX">
         <object-id>20605</object-id>
         <created-timestamp>2015-11-19.12:09:29</created-timestamp>
         <modified-timestamp>2015-11-19.12:09:29</modified-timestamp>
         <columns>ORDER_ID</columns>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <index id="61" parent="8" name="ORDER_USER_IDX">
+      <index id="59" parent="8" name="ORDER_USER_IDX">
         <object-id>20833</object-id>
         <created-timestamp>2015-11-24.22:59:34</created-timestamp>
         <modified-timestamp>2015-11-24.22:59:34</modified-timestamp>
         <columns>USER_ID</columns>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <key id="62" parent="8" name="ORDER_DRIVER_PK">
-        <modified-timestamp>2015-11-19.12:09:29</modified-timestamp>
-        <columns>ORDER_DRIVER_ID</columns>
-        <initially-deferred>1</initially-deferred>
-        <underlying-index>ORDER_DRIVER_PK</underlying-index>
-        <primary>1</primary>
-      </key>
-      <foreign-key id="63" parent="8" name="ORDER_ID_FK">
-        <modified-timestamp>2015-11-25.00:22:32</modified-timestamp>
+      <foreign-key id="60" parent="8" name="ORDER_ID_FK">
+        <modified-timestamp>2015-11-30.18:02:48</modified-timestamp>
         <columns>ORDER_ID</columns>
         <initially-deferred>1</initially-deferred>
+        <ref-key>ORDERS.ORDER_PK</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>delete</cascade-delete-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="64" parent="8" name="ORDER_USER_FK">
-        <modified-timestamp>2015-11-25.00:22:32</modified-timestamp>
+      <foreign-key id="61" parent="8" name="ORDER_USER_FK">
+        <modified-timestamp>2015-11-30.18:02:48</modified-timestamp>
         <columns>USER_ID</columns>
         <initially-deferred>1</initially-deferred>
+        <ref-key>USERS.USER_PK</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
-        <cascade-delete-rule>delete</cascade-delete-rule>
+        <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="65" parent="9" name="ORDER_STATUS_ID">
+      <column id="62" parent="9" name="ORDER_STATUS_ID">
         <mandatory>1</mandatory>
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="66" parent="9" name="ORDER_STATUS_NAME">
-        <mandatory>1</mandatory>
+      <column id="63" parent="9" name="ORDER_STATUS_NAME">
         <data-type>VARCHAR2(30)</data-type>
       </column>
-      <index id="67" parent="9" name="ORDER_STATUS_PK">
+      <index id="64" parent="9" name="ORDER_STATUS_PK">
         <object-id>20597</object-id>
         <created-timestamp>2015-11-19.12:09:28</created-timestamp>
         <modified-timestamp>2015-11-19.12:09:28</modified-timestamp>
@@ -404,31 +373,28 @@ CITY_ID2</columns>
         <unique>1</unique>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <key id="68" parent="9" name="ORDER_STATUS_PK">
+      <key id="65" parent="9" name="ORDER_STATUS_PK">
         <modified-timestamp>2015-11-19.12:09:28</modified-timestamp>
         <columns>ORDER_STATUS_ID</columns>
         <initially-deferred>1</initially-deferred>
         <underlying-index>ORDER_STATUS_PK</underlying-index>
         <primary>1</primary>
       </key>
-      <column id="69" parent="10" name="ORDER_ID">
+      <column id="66" parent="10" name="ORDER_ID">
         <mandatory>1</mandatory>
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="70" parent="10" name="ORDER_STATUS_ID">
-        <mandatory>1</mandatory>
+      <column id="67" parent="10" name="ORDER_STATUS_ID">
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="71" parent="10" name="TRUCK_ID">
-        <mandatory>1</mandatory>
+      <column id="68" parent="10" name="TRUCK_ID">
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="72" parent="10" name="DELETED">
-        <mandatory>1</mandatory>
+      <column id="69" parent="10" name="DELETED">
         <data-type>NUMBER(1)</data-type>
         <default-expression>0</default-expression>
       </column>
-      <index id="73" parent="10" name="ORDER_PK">
+      <index id="70" parent="10" name="ORDER_PK">
         <object-id>20599</object-id>
         <created-timestamp>2015-11-19.12:09:29</created-timestamp>
         <modified-timestamp>2015-11-19.12:09:29</modified-timestamp>
@@ -436,52 +402,51 @@ CITY_ID2</columns>
         <unique>1</unique>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <index id="74" parent="10" name="ORDER_STATUS_IDX">
+      <index id="71" parent="10" name="ORDER_STATUS_IDX">
         <object-id>20600</object-id>
         <created-timestamp>2015-11-19.12:09:29</created-timestamp>
         <modified-timestamp>2015-11-19.12:09:29</modified-timestamp>
         <columns>ORDER_STATUS_ID</columns>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <index id="75" parent="10" name="ORDER_TRUCK_IDX">
+      <index id="72" parent="10" name="ORDER_TRUCK_IDX">
         <object-id>20601</object-id>
         <created-timestamp>2015-11-19.12:09:29</created-timestamp>
         <modified-timestamp>2015-11-19.12:09:29</modified-timestamp>
         <columns>TRUCK_ID</columns>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <key id="76" parent="10" name="ORDER_PK">
+      <key id="73" parent="10" name="ORDER_PK">
         <modified-timestamp>2015-11-19.12:09:29</modified-timestamp>
         <columns>ORDER_ID</columns>
         <initially-deferred>1</initially-deferred>
         <underlying-index>ORDER_PK</underlying-index>
         <primary>1</primary>
       </key>
-      <foreign-key id="77" parent="10" name="ORDER_STATUS_FK">
-        <modified-timestamp>2015-11-26.20:47:09</modified-timestamp>
+      <foreign-key id="74" parent="10" name="ORDER_STATUS_FK">
+        <modified-timestamp>2015-11-30.18:02:40</modified-timestamp>
         <columns>ORDER_STATUS_ID</columns>
         <initially-deferred>1</initially-deferred>
         <ref-key>ORDER_STATUSES.ORDER_STATUS_PK</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="78" parent="10" name="ORDER_TRUCK_FK">
-        <modified-timestamp>2015-11-26.20:47:09</modified-timestamp>
+      <foreign-key id="75" parent="10" name="ORDER_TRUCK_FK">
+        <modified-timestamp>2015-11-30.18:02:40</modified-timestamp>
         <columns>TRUCK_ID</columns>
         <initially-deferred>1</initially-deferred>
         <ref-key>TRUCKS.TRUCK_PK</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="79" parent="11" name="ROLE_ID">
+      <column id="76" parent="11" name="ROLE_ID">
         <mandatory>1</mandatory>
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="80" parent="11" name="ROLE_NAME">
-        <mandatory>1</mandatory>
+      <column id="77" parent="11" name="ROLE_NAME">
         <data-type>VARCHAR2(30)</data-type>
       </column>
-      <index id="81" parent="11" name="ROLE_PK">
+      <index id="78" parent="11" name="ROLE_PK">
         <object-id>20581</object-id>
         <created-timestamp>2015-11-19.12:09:27</created-timestamp>
         <modified-timestamp>2015-11-19.12:09:27</modified-timestamp>
@@ -489,21 +454,21 @@ CITY_ID2</columns>
         <unique>1</unique>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <key id="82" parent="11" name="ROLE_PK">
+      <key id="79" parent="11" name="ROLE_PK">
         <modified-timestamp>2015-11-19.12:09:27</modified-timestamp>
         <columns>ROLE_ID</columns>
         <initially-deferred>1</initially-deferred>
         <underlying-index>ROLE_PK</underlying-index>
         <primary>1</primary>
       </key>
-      <column id="83" parent="12" name="SEQ_NAME">
+      <column id="80" parent="12" name="SEQ_NAME">
         <mandatory>1</mandatory>
         <data-type>VARCHAR2(30)</data-type>
       </column>
-      <column id="84" parent="12" name="SEQ_VALUE">
+      <column id="81" parent="12" name="SEQ_VALUE">
         <data-type>NUMBER(*)</data-type>
       </column>
-      <index id="85" parent="12" name="SEQ_PK">
+      <index id="82" parent="12" name="SEQ_PK">
         <object-id>20607</object-id>
         <created-timestamp>2015-11-19.12:09:29</created-timestamp>
         <modified-timestamp>2015-11-19.12:09:29</modified-timestamp>
@@ -511,21 +476,21 @@ CITY_ID2</columns>
         <unique>1</unique>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <key id="86" parent="12" name="SEQ_PK">
+      <key id="83" parent="12" name="SEQ_PK">
         <modified-timestamp>2015-11-19.12:09:29</modified-timestamp>
         <columns>SEQ_NAME</columns>
         <initially-deferred>1</initially-deferred>
         <underlying-index>SEQ_PK</underlying-index>
         <primary>1</primary>
       </key>
-      <column id="87" parent="13" name="TRUCK_STATUS_ID">
+      <column id="84" parent="13" name="TRUCK_STATUS_ID">
         <mandatory>1</mandatory>
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="88" parent="13" name="TRUCK_STATUS_NAME">
+      <column id="85" parent="13" name="TRUCK_STATUS_NAME">
         <data-type>VARCHAR2(30)</data-type>
       </column>
-      <index id="89" parent="13" name="TRUCK_STATUS_PK">
+      <index id="86" parent="13" name="TRUCK_STATUS_PK">
         <object-id>20574</object-id>
         <created-timestamp>2015-11-19.12:09:26</created-timestamp>
         <modified-timestamp>2015-11-19.12:09:26</modified-timestamp>
@@ -533,43 +498,37 @@ CITY_ID2</columns>
         <unique>1</unique>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <key id="90" parent="13" name="TRUCK_STATUS_PK">
+      <key id="87" parent="13" name="TRUCK_STATUS_PK">
         <modified-timestamp>2015-11-19.12:09:26</modified-timestamp>
         <columns>TRUCK_STATUS_ID</columns>
         <initially-deferred>1</initially-deferred>
         <underlying-index>TRUCK_STATUS_PK</underlying-index>
         <primary>1</primary>
       </key>
-      <column id="91" parent="14" name="TRUCK_ID">
+      <column id="88" parent="14" name="TRUCK_ID">
         <mandatory>1</mandatory>
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="92" parent="14" name="REG_NUM">
-        <mandatory>1</mandatory>
+      <column id="89" parent="14" name="REG_NUM">
         <data-type>VARCHAR2(7)</data-type>
       </column>
-      <column id="93" parent="14" name="DRIVER_COUNT">
-        <mandatory>1</mandatory>
+      <column id="90" parent="14" name="DRIVER_COUNT">
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="94" parent="14" name="CAPACITY">
-        <mandatory>1</mandatory>
+      <column id="91" parent="14" name="CAPACITY">
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="95" parent="14" name="TRUCK_STATUS_ID">
-        <mandatory>1</mandatory>
+      <column id="92" parent="14" name="TRUCK_STATUS_ID">
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="96" parent="14" name="CITY_ID">
-        <mandatory>1</mandatory>
+      <column id="93" parent="14" name="CITY_ID">
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="97" parent="14" name="DELETED">
-        <mandatory>1</mandatory>
+      <column id="94" parent="14" name="DELETED">
         <data-type>NUMBER(1)</data-type>
         <default-expression>0</default-expression>
       </column>
-      <index id="98" parent="14" name="TRUCK_PK">
+      <index id="95" parent="14" name="TRUCK_PK">
         <object-id>20576</object-id>
         <created-timestamp>2015-11-19.12:09:26</created-timestamp>
         <modified-timestamp>2015-11-19.12:09:26</modified-timestamp>
@@ -577,7 +536,7 @@ CITY_ID2</columns>
         <unique>1</unique>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <index id="99" parent="14" name="REG_NUM_UK">
+      <index id="96" parent="14" name="REG_NUM_UK">
         <object-id>20577</object-id>
         <created-timestamp>2015-11-19.12:09:26</created-timestamp>
         <modified-timestamp>2015-11-19.12:09:26</modified-timestamp>
@@ -585,34 +544,34 @@ CITY_ID2</columns>
         <unique>1</unique>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <index id="100" parent="14" name="TRUCK_STATUS_IDX">
+      <index id="97" parent="14" name="TRUCK_STATUS_IDX">
         <object-id>20579</object-id>
         <created-timestamp>2015-11-19.12:09:27</created-timestamp>
         <modified-timestamp>2015-11-19.12:09:27</modified-timestamp>
         <columns>TRUCK_STATUS_ID</columns>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <index id="101" parent="14" name="TRUCK_CITY_IDX">
+      <index id="98" parent="14" name="TRUCK_CITY_IDX">
         <object-id>20578</object-id>
         <created-timestamp>2015-11-19.12:09:27</created-timestamp>
         <modified-timestamp>2015-11-19.12:09:27</modified-timestamp>
         <columns>CITY_ID</columns>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <key id="102" parent="14" name="TRUCK_PK">
+      <key id="99" parent="14" name="TRUCK_PK">
         <modified-timestamp>2015-11-19.12:09:26</modified-timestamp>
         <columns>TRUCK_ID</columns>
         <initially-deferred>1</initially-deferred>
         <underlying-index>TRUCK_PK</underlying-index>
         <primary>1</primary>
       </key>
-      <key id="103" parent="14" name="REG_NUM_UK">
+      <key id="100" parent="14" name="REG_NUM_UK">
         <modified-timestamp>2015-11-19.12:09:26</modified-timestamp>
         <columns>REG_NUM</columns>
         <initially-deferred>1</initially-deferred>
         <underlying-index>REG_NUM_UK</underlying-index>
       </key>
-      <foreign-key id="104" parent="14" name="TRUCK_STATUS_FK">
+      <foreign-key id="101" parent="14" name="TRUCK_STATUS_FK">
         <modified-timestamp>2015-11-26.20:46:00</modified-timestamp>
         <columns>TRUCK_STATUS_ID</columns>
         <initially-deferred>1</initially-deferred>
@@ -620,7 +579,7 @@ CITY_ID2</columns>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="105" parent="14" name="TRUCK_CITY_FK">
+      <foreign-key id="102" parent="14" name="TRUCK_CITY_FK">
         <modified-timestamp>2015-11-26.20:45:59</modified-timestamp>
         <columns>CITY_ID</columns>
         <initially-deferred>1</initially-deferred>
@@ -628,7 +587,7 @@ CITY_ID2</columns>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <index id="106" parent="15" name="USER_STATUS_PK">
+      <index id="103" parent="15" name="USER_STATUS_PK">
         <object-id>20823</object-id>
         <created-timestamp>2015-11-24.21:45:11</created-timestamp>
         <modified-timestamp>2015-11-24.21:45:11</modified-timestamp>
@@ -636,55 +595,49 @@ CITY_ID2</columns>
         <unique>1</unique>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <key id="107" parent="15" name="USER_STATUS_PK">
+      <key id="104" parent="15" name="USER_STATUS_PK">
         <modified-timestamp>2015-11-24.21:45:11</modified-timestamp>
         <columns>USER_STATUS_ID</columns>
         <initially-deferred>1</initially-deferred>
         <underlying-index>USER_STATUS_PK</underlying-index>
         <primary>1</primary>
       </key>
-      <column id="108" parent="16" name="USER_ID">
+      <column id="105" parent="16" name="USER_ID">
         <mandatory>1</mandatory>
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="109" parent="16" name="FIRST_NAME">
-        <mandatory>1</mandatory>
+      <column id="106" parent="16" name="FIRST_NAME">
         <data-type>VARCHAR2(30)</data-type>
       </column>
-      <column id="110" parent="16" name="LAST_NAME">
-        <mandatory>1</mandatory>
+      <column id="107" parent="16" name="LAST_NAME">
         <data-type>VARCHAR2(30)</data-type>
       </column>
-      <column id="111" parent="16" name="LOGIN">
-        <mandatory>1</mandatory>
-        <data-type>VARCHAR2(8)</data-type>
+      <column id="108" parent="16" name="LOGIN">
+        <data-type>VARCHAR2(10)</data-type>
       </column>
-      <column id="112" parent="16" name="PASSWORD">
-        <mandatory>1</mandatory>
+      <column id="109" parent="16" name="PASSWORD">
         <data-type>VARCHAR2(256)</data-type>
       </column>
-      <column id="113" parent="16" name="ROLE_ID">
-        <mandatory>1</mandatory>
+      <column id="110" parent="16" name="ROLE_ID">
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="114" parent="16" name="HOURS">
+      <column id="111" parent="16" name="HOURS">
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="115" parent="16" name="USER_STATUS_ID">
+      <column id="112" parent="16" name="USER_STATUS_ID">
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="116" parent="16" name="CITY_ID">
+      <column id="113" parent="16" name="CITY_ID">
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="117" parent="16" name="TRUCK_ID">
+      <column id="114" parent="16" name="TRUCK_ID">
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="118" parent="16" name="DELETED">
-        <mandatory>1</mandatory>
+      <column id="115" parent="16" name="DELETED">
         <data-type>NUMBER(1)</data-type>
         <default-expression>0</default-expression>
       </column>
-      <index id="119" parent="16" name="USER_PK">
+      <index id="116" parent="16" name="USER_PK">
         <object-id>20825</object-id>
         <created-timestamp>2015-11-24.21:48:47</created-timestamp>
         <modified-timestamp>2015-11-24.21:48:47</modified-timestamp>
@@ -692,7 +645,7 @@ CITY_ID2</columns>
         <unique>1</unique>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <index id="120" parent="16" name="USER_LOGIN_UK">
+      <index id="117" parent="16" name="USER_LOGIN_UK">
         <object-id>20838</object-id>
         <created-timestamp>2015-11-25.15:09:47</created-timestamp>
         <modified-timestamp>2015-11-25.15:09:47</modified-timestamp>
@@ -700,100 +653,96 @@ CITY_ID2</columns>
         <unique>1</unique>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <index id="121" parent="16" name="USER_ROLE_IDX">
+      <index id="118" parent="16" name="USER_ROLE_IDX">
         <object-id>20826</object-id>
         <created-timestamp>2015-11-24.21:48:47</created-timestamp>
         <modified-timestamp>2015-11-24.21:48:47</modified-timestamp>
         <columns>ROLE_ID</columns>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <index id="122" parent="16" name="USER_USER_STATUS_IDX">
+      <index id="119" parent="16" name="USER_USER_STATUS_IDX">
         <object-id>20827</object-id>
         <created-timestamp>2015-11-24.21:48:47</created-timestamp>
         <modified-timestamp>2015-11-24.21:48:47</modified-timestamp>
         <columns>USER_STATUS_ID</columns>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <index id="123" parent="16" name="USER_CITY_IDX">
+      <index id="120" parent="16" name="USER_CITY_IDX">
         <object-id>20828</object-id>
         <created-timestamp>2015-11-24.21:48:47</created-timestamp>
         <modified-timestamp>2015-11-24.21:48:47</modified-timestamp>
         <columns>CITY_ID</columns>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <index id="124" parent="16" name="USER_TRUCK_IDX">
+      <index id="121" parent="16" name="USER_TRUCK_IDX">
         <object-id>20829</object-id>
         <created-timestamp>2015-11-24.21:48:47</created-timestamp>
         <modified-timestamp>2015-11-24.21:48:47</modified-timestamp>
         <columns>TRUCK_ID</columns>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <key id="125" parent="16" name="USER_PK">
+      <key id="122" parent="16" name="USER_PK">
         <modified-timestamp>2015-11-24.21:48:47</modified-timestamp>
         <columns>USER_ID</columns>
         <initially-deferred>1</initially-deferred>
         <underlying-index>USER_PK</underlying-index>
         <primary>1</primary>
       </key>
-      <key id="126" parent="16" name="USER_LOGIN_UK">
+      <key id="123" parent="16" name="USER_LOGIN_UK">
         <modified-timestamp>2015-11-25.15:09:47</modified-timestamp>
         <columns>LOGIN</columns>
         <initially-deferred>1</initially-deferred>
         <underlying-index>USER_LOGIN_UK</underlying-index>
       </key>
-      <foreign-key id="127" parent="16" name="USER_ROLE_FK">
-        <modified-timestamp>2015-11-26.20:46:48</modified-timestamp>
+      <foreign-key id="124" parent="16" name="USER_ROLE_FK">
+        <modified-timestamp>2015-11-30.18:02:17</modified-timestamp>
         <columns>ROLE_ID</columns>
         <initially-deferred>1</initially-deferred>
         <ref-key>ROLES.ROLE_PK</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="128" parent="16" name="USER_USER_STATUS_FK">
-        <modified-timestamp>2015-11-26.20:46:48</modified-timestamp>
+      <foreign-key id="125" parent="16" name="USER_USER_STATUS_FK">
+        <modified-timestamp>2015-11-30.18:02:17</modified-timestamp>
         <columns>USER_STATUS_ID</columns>
         <initially-deferred>1</initially-deferred>
         <ref-key>USER_STATUSES.USER_STATUS_PK</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="129" parent="16" name="USER_CITY_FK">
-        <modified-timestamp>2015-11-26.20:46:48</modified-timestamp>
+      <foreign-key id="126" parent="16" name="USER_CITY_FK">
+        <modified-timestamp>2015-11-30.18:02:17</modified-timestamp>
         <columns>CITY_ID</columns>
         <initially-deferred>1</initially-deferred>
         <ref-key>CITIES.CITY_PK</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="130" parent="16" name="USER_TRUCK_FK">
-        <modified-timestamp>2015-11-26.20:46:48</modified-timestamp>
+      <foreign-key id="127" parent="16" name="USER_TRUCK_FK">
+        <modified-timestamp>2015-11-30.18:02:17</modified-timestamp>
         <columns>TRUCK_ID</columns>
         <initially-deferred>1</initially-deferred>
         <ref-key>TRUCKS.TRUCK_PK</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="131" parent="17" name="WAYPOINT_ID">
+      <column id="128" parent="17" name="WAYPOINT_ID">
         <mandatory>1</mandatory>
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="132" parent="17" name="ORDER_ID">
-        <mandatory>1</mandatory>
+      <column id="129" parent="17" name="ORDER_ID">
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="133" parent="17" name="CITY_ID">
-        <mandatory>1</mandatory>
+      <column id="130" parent="17" name="CITY_ID">
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="134" parent="17" name="CARGO_ID">
-        <mandatory>1</mandatory>
+      <column id="131" parent="17" name="CARGO_ID">
         <data-type>NUMBER(*)</data-type>
       </column>
-      <column id="135" parent="17" name="CARGO_TYPE_ID">
-        <mandatory>1</mandatory>
+      <column id="132" parent="17" name="CARGO_TYPE_ID">
         <data-type>NUMBER(*)</data-type>
       </column>
-      <index id="136" parent="17" name="WAYPOINT_PK">
+      <index id="133" parent="17" name="WAYPOINT_PK">
         <object-id>20609</object-id>
         <created-timestamp>2015-11-19.12:09:30</created-timestamp>
         <modified-timestamp>2015-11-19.12:09:30</modified-timestamp>
@@ -801,42 +750,42 @@ CITY_ID2</columns>
         <unique>1</unique>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <index id="137" parent="17" name="WAYPOINT_ORDER_IDX">
+      <index id="134" parent="17" name="WAYPOINT_ORDER_IDX">
         <object-id>20613</object-id>
         <created-timestamp>2015-11-19.12:09:30</created-timestamp>
         <modified-timestamp>2015-11-19.12:09:30</modified-timestamp>
         <columns>ORDER_ID</columns>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <index id="138" parent="17" name="WAYPOINT_CITY_IDX">
+      <index id="135" parent="17" name="WAYPOINT_CITY_IDX">
         <object-id>20612</object-id>
         <created-timestamp>2015-11-19.12:09:30</created-timestamp>
         <modified-timestamp>2015-11-19.12:09:30</modified-timestamp>
         <columns>CITY_ID</columns>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <index id="139" parent="17" name="WAYPOINT_CARGO_IDX">
+      <index id="136" parent="17" name="WAYPOINT_CARGO_IDX">
         <object-id>20610</object-id>
         <created-timestamp>2015-11-19.12:09:30</created-timestamp>
         <modified-timestamp>2015-11-19.12:09:30</modified-timestamp>
         <columns>CARGO_ID</columns>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <index id="140" parent="17" name="WAYPOINT_CARGO_TYPE_IDX">
+      <index id="137" parent="17" name="WAYPOINT_CARGO_TYPE_IDX">
         <object-id>20611</object-id>
         <created-timestamp>2015-11-19.12:09:30</created-timestamp>
         <modified-timestamp>2015-11-19.12:09:30</modified-timestamp>
         <columns>CARGO_TYPE_ID</columns>
         <tablespace-name>USERS</tablespace-name>
       </index>
-      <key id="141" parent="17" name="WAYPOINT_PK">
+      <key id="138" parent="17" name="WAYPOINT_PK">
         <modified-timestamp>2015-11-19.12:09:30</modified-timestamp>
         <columns>WAYPOINT_ID</columns>
         <initially-deferred>1</initially-deferred>
         <underlying-index>WAYPOINT_PK</underlying-index>
         <primary>1</primary>
       </key>
-      <foreign-key id="142" parent="17" name="WAYPOINT_ORDER_FK">
+      <foreign-key id="139" parent="17" name="WAYPOINT_ORDER_FK">
         <modified-timestamp>2015-11-26.20:46:33</modified-timestamp>
         <columns>ORDER_ID</columns>
         <initially-deferred>1</initially-deferred>
@@ -844,7 +793,7 @@ CITY_ID2</columns>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="143" parent="17" name="WAYPOINT_CITY_FK">
+      <foreign-key id="140" parent="17" name="WAYPOINT_CITY_FK">
         <modified-timestamp>2015-11-26.20:46:33</modified-timestamp>
         <columns>CITY_ID</columns>
         <initially-deferred>1</initially-deferred>
@@ -852,7 +801,7 @@ CITY_ID2</columns>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="144" parent="17" name="WAYPOINT_CARGO_FK">
+      <foreign-key id="141" parent="17" name="WAYPOINT_CARGO_FK">
         <modified-timestamp>2015-11-26.20:46:33</modified-timestamp>
         <columns>CARGO_ID</columns>
         <initially-deferred>1</initially-deferred>
@@ -860,7 +809,7 @@ CITY_ID2</columns>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="145" parent="17" name="WAYPOINT_CARGO_TYPE_FK">
+      <foreign-key id="142" parent="17" name="WAYPOINT_CARGO_TYPE_FK">
         <modified-timestamp>2015-11-26.20:46:33</modified-timestamp>
         <columns>CARGO_TYPE_ID</columns>
         <initially-deferred>1</initially-deferred>
