@@ -1,10 +1,6 @@
 package com.mkhldvdv.logiweb.services;
 
-import com.mkhldvdv.logiweb.dto.UserDTO;
-import com.mkhldvdv.logiweb.entities.Order;
 import com.mkhldvdv.logiweb.entities.User;
-import com.mkhldvdv.logiweb.entities.Waypoint;
-import com.mkhldvdv.logiweb.exceptions.WrongIdException;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -22,14 +18,14 @@ public interface UserServices {
      * @param pass  password
      * @return      specified user
      */
-    public UserDTO getUser(String login, String pass) throws UnsupportedEncodingException, NoSuchAlgorithmException;
+    public User getUser(String login, String pass) throws UnsupportedEncodingException, NoSuchAlgorithmException;
 
     /**
      * returns the specified user
      * @param userId        specified userId, long
      * @return              specified user
      */
-    public UserDTO getUser(long userId);
+    public User getUser(long userId);
 
     /**
      * gets all co-drivers for the driver with his id

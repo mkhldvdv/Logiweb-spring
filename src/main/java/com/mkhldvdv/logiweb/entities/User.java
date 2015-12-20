@@ -1,6 +1,6 @@
 package com.mkhldvdv.logiweb.entities;
 
-import com.sun.istack.internal.Nullable;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -31,41 +31,35 @@ public class User implements Serializable {
     @Column(name = "PASSWORD")
     private String password;
 
-    @Column(name = "ROLE_ID")
-    private byte role;
+    @Formula("(select r.ROLE_NAME from ROLES r where r.ROLE_ID = ROLE_ID)")
+    private String role;
 
-    @Nullable
     @Column(name = "HOURS")
     private short hours;
 
-    @Nullable
-    @Column(name = "USER_STATUS_ID")
-//    @JoinColumn(name = "USER_STATUS_ID", table = "USER_STATUSES", referencedColumnName = "USER_STATUS_NAME")
-    private byte userStatus;
+    @Formula("(select r.USER_STATUS_NAME from USER_STATUSES r where r.USER_STATUS_ID = USER_STATUS_ID)")
+    private String userStatus;
 
-    @Nullable
-    @Column(name = "CITY_ID")
-    private long city;
+    @Formula("(select r.CITY_NAME from CITIES r where r.CITY_ID = CITY_ID)")
+    private String city;
 
-    @Nullable
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "TRUCK_ID")
     private Truck truck;
 
-    @Nullable
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "ORDER_DRIVER", joinColumns = {@JoinColumn(name = "USER_ID")},
-    inverseJoinColumns = {@JoinColumn(name = "ORDER_ID")})
+            inverseJoinColumns = {@JoinColumn(name = "ORDER_ID")})
     private List<Order> orders;
 
     @Column(name = "DELETED")
-    private byte deleted;
+    private short deleted;
 
     protected User() {
     }
 
-    public User(String firstName, String lastName, String login, String password, byte role, short hours,
-                byte userStatus, long city, Truck truck, List<Order> orders, byte deleted) {
+    public User(String firstName, String lastName, String login, String password, String role, short hours,
+                   String userStatus, String city, Truck truck, List<Order> orders) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.login = login;
@@ -76,7 +70,6 @@ public class User implements Serializable {
         this.city = city;
         this.truck = truck;
         this.orders = orders;
-        this.deleted = deleted;
     }
 
     public long getId() {
@@ -119,11 +112,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public byte getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(byte role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
@@ -135,19 +128,19 @@ public class User implements Serializable {
         this.hours = hours;
     }
 
-    public byte getUserStatus() {
+    public String getUserStatus() {
         return userStatus;
     }
 
-    public void setUserStatus(byte userStatus) {
+    public void setUserStatus(String userStatus) {
         this.userStatus = userStatus;
     }
 
-    public long getCity() {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(long city) {
+    public void setCity(String city) {
         this.city = city;
     }
 
@@ -167,11 +160,11 @@ public class User implements Serializable {
         this.orders = orders;
     }
 
-    public byte getDeleted() {
+    public short getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(byte deleted) {
+    public void setDeleted(short deleted) {
         this.deleted = deleted;
     }
 
@@ -205,7 +198,6 @@ public class User implements Serializable {
                 ", city=" + city +
                 ", truck=" + truck +
                 ", orders=" + orders +
-                ", deleted=" + deleted +
                 '}';
     }
 }

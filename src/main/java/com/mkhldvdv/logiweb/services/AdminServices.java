@@ -1,14 +1,9 @@
 package com.mkhldvdv.logiweb.services;
 
-import com.mkhldvdv.logiweb.dto.CargoDTO;
-import com.mkhldvdv.logiweb.dto.OrderDTO;
-import com.mkhldvdv.logiweb.dto.TruckDTO;
-import com.mkhldvdv.logiweb.dto.UserDTO;
 import com.mkhldvdv.logiweb.entities.Cargo;
 import com.mkhldvdv.logiweb.entities.Order;
 import com.mkhldvdv.logiweb.entities.Truck;
 import com.mkhldvdv.logiweb.entities.User;
-import com.mkhldvdv.logiweb.exceptions.RegNumNotMatchException;
 import com.mkhldvdv.logiweb.exceptions.WrongIdException;
 
 import java.util.List;
@@ -22,48 +17,48 @@ public interface AdminServices {
      * get the list of all trucks
      * @return  list of trucks
      */
-    public List<TruckDTO> getTrucks();
+    public List<Truck> getTrucks();
 
     /**
      * get the list of all drivers
      * @return
      */
-    public List<UserDTO> getDrivers();
+    public List<User> getDrivers();
 
     /**
      * get the list of all orders
      * @return  orders
      */
-    public List<OrderDTO> getOrders();
+    public List<Order> getOrders();
 
     /**
      * get the full info of order
      * @param orderId   order id
      * @return  specified order
      */
-    public OrderDTO getOrder(long orderId) throws WrongIdException;
+    public Order getOrder(long orderId) throws WrongIdException;
 
     /**
      * get the full info about the cargo
      * @param cargoId   cargo id
      * @return  specified cargo
      */
-    public CargoDTO getCargo(long cargoId) throws WrongIdException;
+    public Cargo getCargo(long cargoId) throws WrongIdException;
 
     /**
      * adds new user/driver
-     * @param userDTO   new user to add
+     * @param user   new user to add
      * @return          id number of added user
      */
-    UserDTO addUser(UserDTO userDTO);
+    User addUser(User user);
 
 
     /**
      * updates existing user
-     * @param userDTO   user to update
+     * @param user   user to update
      * @return          updated user
      */
-    UserDTO updateUser(UserDTO userDTO, boolean hashed);
+    User updateUser(User user, boolean hashed);
 
     /**
      * deletes specified user
@@ -73,10 +68,10 @@ public interface AdminServices {
 
     /**
      * adds new truck
-     * @param truckDTO  truck to add
+     * @param truck  truck to add
      * @return  added truck
      */
-    TruckDTO addTruck(TruckDTO truckDTO);
+    Truck addTruck(Truck truck);
 
     /**
      * deletes specified truck
@@ -89,34 +84,34 @@ public interface AdminServices {
      * @param truckId   truck id
      * @return          specified truck
      */
-    TruckDTO getTruck(long truckId);
+    Truck getTruck(long truckId);
 
     /**
      * updates specified truck
-     * @param truckDTO  truck id to update
+     * @param truck  truck id to update
      * @return         specified truck int DTO object
      */
-    TruckDTO updateTruck(TruckDTO truckDTO);
+    Truck updateTruck(Truck truck);
 
     /**
      * creating new cargo with its waypoints
-     * @param cargoDTO  cargo to add, contains the list of its waypoints
+     * @param cargo  cargo to add, contains the list of its waypoints
      * @return          added cargo
      */
-    CargoDTO addCargo(CargoDTO cargoDTO);
+    Cargo addCargo(Cargo cargo);
 
     /**
      * get the list of all unassigned cargos to add in the order
      * @return  list of cargos
      */
-    List<CargoDTO> getAllUnassignedCargos();
+    List<Cargo> getAllUnassignedCargos();
 
     /**
      * get the list of trucks available for delivery
      * @param cargosIds list of cargos for truck to deliver
      * @return  list of trucks
      */
-    List<TruckDTO> getAllAvailableTrucks(List<Long> cargosIds);
+    List<Truck> getAllAvailableTrucks(List<Long> cargosIds);
 
     /**
      * get the list of drivers available for the order and truck
@@ -124,14 +119,14 @@ public interface AdminServices {
      * @param cargosIds
      * @return          list of drivers
      */
-    List<UserDTO> getAllAvailableDrivers(long truckId, List<Long> cargosIds);
+    List<User> getAllAvailableDrivers(long truckId, List<Long> cargosIds);
 
     /**
      * add order into the database with all dependencies
      * @param cargoIds  list of cargos to update with order id
-     * @param truckDTO  truck to update with order id
+     * @param truck  truck to update with order id
      * @param userIds   list of users to update with order id
      * @return          new added order object
      */
-    OrderDTO addOrder(List<Long> cargoIds, TruckDTO truckDTO, List<Long> userIds);
+    Order addOrder(List<Long> cargoIds, Truck truck, List<Long> userIds);
 }
