@@ -1,5 +1,6 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html lang="en">
 
 <head>
@@ -43,63 +44,25 @@
                         <h3 class="panel-title">Logiweb: Welcome</h3>
                     </div>
                     <div class="panel-body">
-                        <form role="form" method="post" action="login" onsubmit="return checkForm(this);">
+                        <form:form role="form" commandName="loginForm" method="post" action="login">
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Enter login..." name="login" autofocus>
+                                    <form:input path="login" class="form-control" placeholder="Enter login" autofocus="true" />
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Enter password" name="password" type="password" value="">
+                                    <form:errors path="login" cssClass="error" />
+                                </div>
+                                <div class="form-group">
+                                    <form:input path="password" class="form-control" placeholder="Enter password" type="password" />
+                                </div>
+                                <div class="form-group">
+                                    <form:errors path="password" cssClass="error" />
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <!-- a href="info.jsp" class="btn btn-md btn-success btn-block">Login</a-->
                                 <input type="submit" class="btn btn-md btn-success btn-block" value="Sign in">
                             </fieldset>
-                        </form>
-                        <script>
-
-                            function checkForm(form)
-                            {
-                                // regular expression to match only alphanumeric characters and spaces
-                                var re = /^[\w.]{5,10}$/;
-
-                                // validation fails if the input is blank
-                                if(form.login.value == "" || form.login.value == null) {
-                                    alert("Error: Login should not be empty");
-                                    form.login.focus();
-                                    return false;
-                                }
-
-                                // validation fails if the input doesn't match our regular expression
-                                if(!re.test(form.login.value)) {
-                                    alert("Error: Login should be between 5 and 10 symbols " +
-                                            "and alphanumeric (dot is also acceptible)");
-                                    form.login.focus();
-                                    return false;
-                                }
-
-                                // regular expression to match only alphanumeric characters and spaces
-                                re = /^.{5,10}$/;
-
-                                // validation fails if the input is blank
-                                if(form.password.value == "" || form.password.value == null) {
-                                    alert("Error: Password should not be empty");
-                                    form.password.focus();
-                                    return false;
-                                }
-
-                                // validation fails if the input doesn't match our regular expression
-                                if(!re.test(form.password.value)) {
-                                    alert("Error: Password should be between 5 and 10 symbols");
-                                    form.password.focus();
-                                    return false;
-                                }
-
-                                // validation was successful
-                                return true;
-                            }
-
-                        </script>
+                        </form:form>
                     </div>
                 </div>
             </div>

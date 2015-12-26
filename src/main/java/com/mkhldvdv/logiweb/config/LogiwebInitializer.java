@@ -1,4 +1,4 @@
-package com.mkhldvdv.logiweb.initializer;
+package com.mkhldvdv.logiweb.config;
 
 import com.mkhldvdv.logiweb.config.RootConfig;
 import com.mkhldvdv.logiweb.config.WebConfig;

@@ -1,8 +1,10 @@
 package com.mkhldvdv.logiweb.entities;
 
 import org.hibernate.annotations.Formula;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
@@ -26,9 +28,13 @@ public class User implements Serializable {
     private String lastName;
 
     @Column(name = "LOGIN")
+    @NotEmpty(message = "Please enter your login name.")
+    @Size(min = 5, max = 10, message = "login name should be between 5 and 10 characters")
     private String login;
 
     @Column(name = "PASSWORD")
+    @NotEmpty(message = "Please enter your password.")
+    @Size(min = 5, max = 30, message = "password should be between 5 and 30 characters")
     private String password;
 
     @Formula("(select r.ROLE_NAME from ROLES r where r.ROLE_ID = ROLE_ID)")
@@ -55,7 +61,7 @@ public class User implements Serializable {
     @Column(name = "DELETED")
     private short deleted;
 
-    protected User() {
+    public User() {
     }
 
     public User(String firstName, String lastName, String login, String password, String role, short hours,
