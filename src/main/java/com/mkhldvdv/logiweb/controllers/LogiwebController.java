@@ -17,13 +17,13 @@ import javax.validation.Valid;
 @Controller
 public class LogiwebController {
 
-    @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/goLogin"}, method = RequestMethod.GET)
     public String viewLogin(Model model) {
         model.addAttribute("loginForm", new User());
         return "login";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/info", method = RequestMethod.POST)
     public String doLogin(@ModelAttribute("loginForm") @Valid User user,
                           BindingResult result, Model model) {
 

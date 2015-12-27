@@ -60,7 +60,7 @@
                         <li><a href="userProfile"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Sign out</a>
+                        <li><a href="<c:url value="/logout" />"><i class="fa fa-sign-out fa-fw"></i> Sign out</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->

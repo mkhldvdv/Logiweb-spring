@@ -44,7 +44,8 @@
                         <h3 class="panel-title">Logiweb: Welcome</h3>
                     </div>
                     <div class="panel-body">
-                        <form:form role="form" commandName="loginForm" method="post" action="login">
+                        <form:form role="form" commandName="loginForm" method="post" action="info">
+                        <%--<form:form role="form" commandName="loginForm" method="post" action="<c:url value='/j_spring_security_check' />">--%>
                             <fieldset>
                                 <div class="form-group">
                                     <form:input path="login" class="form-control" placeholder="Enter login" autofocus="true" />
