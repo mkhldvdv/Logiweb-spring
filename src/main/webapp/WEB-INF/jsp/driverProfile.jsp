@@ -19,10 +19,10 @@
     <link href="<c:url value="/resources/bower_components/metisMenu/dist/metisMenu.min.css" />" rel="stylesheet">
 
     <!-- DataTables CSS -->
-    <link href="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="<c:url value="/resources/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" />" rel="stylesheet">
 
     <!-- DataTables Responsive CSS -->
-    <link href="../bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+    <link href="<c:url value="/resources/bower_components/datatables-responsive/css/dataTables.responsive.css" />" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="<c:url value="/resources/dist/css/sb-admin-2.css" />" rel="stylesheet">
@@ -61,7 +61,7 @@
                     <i class="fa fa-user fa-fw"></i><c:set var="username" value="${myUser.firstName}"/> ${username} <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="userProfile.jsp"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <li><a href="userProfile"><i class="fa fa-user fa-fw"></i> User Profile</a>
                     </li>
                     <li class="divider"></li>
                     <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Sign out</a>
@@ -145,8 +145,8 @@
 <script src="<c:url value="/resources/bower_components/metisMenu/dist/metisMenu.min.js" />"></script>
 
 <!-- DataTables JavaScript -->
-<script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-<script src="../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+<script src="<c:url value="/resources/bower_components/datatables/media/js/jquery.dataTables.min.js" />"></script>
+<script src="<c:url value="/resources/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js" />"></script>
 
 <!-- Custom Theme JavaScript -->
 <script src="<c:url value="/resources/dist/js/sb-admin-2.js" />"></script>

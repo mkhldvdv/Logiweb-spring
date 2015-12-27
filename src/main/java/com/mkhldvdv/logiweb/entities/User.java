@@ -4,6 +4,7 @@ import org.hibernate.annotations.Formula;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
@@ -29,12 +30,13 @@ public class User implements Serializable {
 
     @Column(name = "LOGIN")
     @NotEmpty(message = "Please enter your login name.")
-    @Size(min = 5, max = 10, message = "login name should be between 5 and 10 characters")
+    @Size(min = 5, max = 10, message = "Login name should be between 5 and 10 characters")
+    @Pattern(regexp="[\\w.]+", message = "Login should contain letters, \".\"(dot) or \"_\"")
     private String login;
 
     @Column(name = "PASSWORD")
     @NotEmpty(message = "Please enter your password.")
-    @Size(min = 5, max = 30, message = "password should be between 5 and 30 characters")
+    @Size(min = 5, max = 30, message = "Password should be between 5 and 30 characters")
     private String password;
 
     @Formula("(select r.ROLE_NAME from ROLES r where r.ROLE_ID = ROLE_ID)")

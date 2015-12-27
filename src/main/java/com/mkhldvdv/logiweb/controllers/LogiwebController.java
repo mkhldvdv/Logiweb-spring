@@ -7,7 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 
@@ -17,11 +16,6 @@ import javax.validation.Valid;
 
 @Controller
 public class LogiwebController {
-
-//    @RequestMapping(value = "/", method = RequestMethod.GET)
-//    public String login() {
-//        return "login";
-//    }
 
     @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
     public String viewLogin(Model model) {
@@ -37,6 +31,11 @@ public class LogiwebController {
             return "login";
         }
 
-        return "LoginSuccess";
+        return "info";
+    }
+
+    @RequestMapping(value = {"/userProfile"}, method = RequestMethod.GET)
+    public String viewUserProfile() {
+        return "userProfile";
     }
 }

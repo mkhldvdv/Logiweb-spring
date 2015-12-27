@@ -81,10 +81,6 @@
     <!-- Custom Theme JavaScript -->
     <script src="<c:url value="/resources/dist/js/sb-admin-2.js" />"></script>
 
-    <c:set var="noUser" value="${noUser}"/>
-    <c:if test="${noUser}"><script>alert("Error: Invalid User/Password. Please try again");</script></c:if>
-    <c:remove var="noUser"/>
-
 </body>
 
 </html>
