@@ -1,6 +1,6 @@
 <%--<%@ page isELIgnored="false" %>--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html lang="en">
 
 <head>
@@ -44,25 +44,21 @@
                         <h3 class="panel-title">Logiweb: Welcome</h3>
                     </div>
                     <div class="panel-body">
-                        <c:if test="${param.error != null}">
-                            <div class="alert alert-danger">
-                                <p>Invalid username and password.</p>
+                        <c:if test="${param.logout != null}">
+                            <div class="alert alert-success">
+                                <p>You have been logged out successfully.</p>
                             </div>
                         </c:if>
-                        <form:form role="form" method="post" action="login">
+                        <form:form role="form" method="get" action="info">
                             <fieldset>
-                                <div class="form-group">
-                                    <%--<input name="j_username" class="form-control" placeholder="Enter login" autofocus />--%>
-                                    <input path="login" name="j_username" class="form-control" placeholder="Enter login" autofocus="true" />
-                                </div>
-                                <div class="form-group">
-                                    <%--<input name="j_password" class="form-control" placeholder="Enter password" type="password" />--%>
-                                    <input path="password" name="j_password" class="form-control" placeholder="Enter password" type="password" />
-                                </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <!-- a href="<c:url value="/info" />" class="btn btn-md btn-success btn-block">Login</a-->
-                                <input type="submit" class="btn btn-md btn-success btn-block" value="Sign in">
+                                <input type="submit" class="btn btn-md btn-default btn-block" value="OPERATOR: Sign in">
                                 <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />--%>
+                            </fieldset>
+                        </form:form>
+                        <form:form role="form" method="get" action="infoDriver">
+                            <fieldset>
+                                <input type="submit" class="btn btn-md btn-default btn-block" value="DRIVER: Sign in">
+                                    <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />--%>
                             </fieldset>
                         </form:form>
                     </div>
