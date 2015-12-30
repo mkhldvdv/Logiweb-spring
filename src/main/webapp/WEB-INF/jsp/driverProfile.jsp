@@ -52,7 +52,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="infoDriver.jsp">Logiweb</a>
+            <a class="navbar-brand" href="<c:url value="/infoDriver" />">Logiweb</a>
         </div>
         <!-- /.navbar-header -->
         <ul class="nav navbar-top-links navbar-right">
@@ -61,10 +61,10 @@
                     <i class="fa fa-user fa-fw"></i><c:set var="username" value="${myUser.firstName}"/> ${username} <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="userProfile"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <li><a href="<c:url value="/userProfile" />"><i class="fa fa-user fa-fw"></i> User Profile</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Sign out</a>
+                    <li><a href="<c:url value="/logout" />"><i class="fa fa-sign-out fa-fw"></i> Sign out</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->

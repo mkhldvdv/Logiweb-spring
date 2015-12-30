@@ -50,6 +50,9 @@
                             </div>
                         </c:if>
                         <form:form role="form" method="get" action="info">
+                            <p>
+                                Choose your destiny
+                            </p>
                             <fieldset>
                                 <input type="submit" class="btn btn-md btn-default btn-block" value="OPERATOR: Sign in">
                                 <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />--%>

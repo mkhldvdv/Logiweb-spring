@@ -46,7 +46,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="info.jsp">Logiweb</a>
+            <a class="navbar-brand" href="<c:url value="/info" />">Logiweb</a>
         </div>
         <!-- /.navbar-header -->
         <ul class="nav navbar-top-links navbar-right">
@@ -55,10 +55,10 @@
                     <i class="fa fa-user fa-fw"></i><c:set var="username" value="${myUser.firstName}"/> ${username} <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="userProfile"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <li><a href="<c:url value="/userProfile" />"><i class="fa fa-user fa-fw"></i> User Profile</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Sign out</a>
+                    <li><a href="<c:url value="/logout" />"><i class="fa fa-sign-out fa-fw"></i> Sign out</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -163,7 +163,7 @@
                                     </div>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <!-- a href="info.jsp" class="btn btn-md btn-success btn-block">Login</a-->
+                                <!-- a href="<c:url value="/info" />" class="btn btn-md btn-success btn-block">Login</a-->
                                 <button type="submit" class="btn btn-default">Submit</button>
                                 <button type="reset" class="btn btn-default">Reset</button>
                             </fieldset>

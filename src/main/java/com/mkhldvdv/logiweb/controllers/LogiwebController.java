@@ -3,6 +3,7 @@ package com.mkhldvdv.logiweb.controllers;
 import com.mkhldvdv.logiweb.entities.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,10 +38,10 @@ public class LogiwebController {
         return "login";
     }
 
-    @RequestMapping(value="/logout", method = RequestMethod.GET)
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
+        if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
 //        return "redirect:/welcome";
@@ -85,4 +86,21 @@ public class LogiwebController {
 //        return urlString;
 //    }
 
+    public static class PasswordEncoderGenerator {
+
+        public static void main(String[] args) {
+
+
+            String password = "admin";
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String hashedPassword = passwordEncoder.encode(password);
+
+            System.out.println(hashedPassword);
+
+            password = "driver";
+            hashedPassword = passwordEncoder.encode(password);
+
+            System.out.println(hashedPassword);
+        }
+    }
 }
