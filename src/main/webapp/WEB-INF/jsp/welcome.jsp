@@ -45,7 +45,7 @@
                     </div>
                     <div class="panel-body">
                         <c:if test="${param.logout != null}">
-                            <div class="alert alert-success">
+                            <div class="alert alert-info">
                                 <p>You have been logged out successfully.</p>
                             </div>
                         </c:if>
@@ -55,13 +55,11 @@
                             </p>
                             <fieldset>
                                 <input type="submit" class="btn btn-md btn-default btn-block" value="OPERATOR: Sign in">
-                                <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />--%>
                             </fieldset>
                         </form:form>
                         <form:form role="form" method="get" action="infoDriver">
                             <fieldset>
                                 <input type="submit" class="btn btn-md btn-default btn-block" value="DRIVER: Sign in">
-                                    <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />--%>
                             </fieldset>
                         </form:form>
                     </div>

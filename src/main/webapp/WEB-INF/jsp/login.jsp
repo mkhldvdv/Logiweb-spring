@@ -49,21 +49,62 @@
                                 <p>Invalid username and password.</p>
                             </div>
                         </c:if>
-                        <form:form role="form" method="post" action="login">
+                        <form:form role="form" method="post" action="login" onsubmit="return checkForm(this);">
                             <fieldset>
                                 <div class="form-group">
-                                    <%--<input name="j_username" class="form-control" placeholder="Enter login" autofocus />--%>
                                     <input path="login" name="j_username" class="form-control" placeholder="Enter login" autofocus="true" />
                                 </div>
                                 <div class="form-group">
-                                    <%--<input name="j_password" class="form-control" placeholder="Enter password" type="password" />--%>
                                     <input path="password" name="j_password" class="form-control" placeholder="Enter password" type="password" />
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <input type="submit" class="btn btn-md btn-success btn-block" value="Sign in">
-                                <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />--%>
                             </fieldset>
                         </form:form>
+                            <script>
+
+                                function checkForm(form)
+                                {
+                                    // regular expression to match only alphanumeric characters and spaces
+                                    var re = /^[\w.]{5,10}$/;
+
+                                    // validation fails if the input is blank
+                                    if(form.j_username.value == "" || form.j_username.value == null) {
+                                        alert("Error: Login should not be empty");
+                                        form.j_username.focus();
+                                        return false;
+                                    }
+
+                                    // validation fails if the input doesn't match our regular expression
+                                    if(!re.test(form.j_username.value)) {
+                                        alert("Error: Login should be between 5 and 10 symbols " +
+                                                "and alphanumeric (dot is also acceptible)");
+                                        form.j_username.focus();
+                                        return false;
+                                    }
+
+                                    // regular expression to match only alphanumeric characters and spaces
+                                    re = /^.{5,30}$/;
+
+                                    // validation fails if the input is blank
+                                    if(form.j_password.value == "" || form.j_password.value == null) {
+                                        alert("Error: Password should not be empty");
+                                        form.j_password.focus();
+                                        return false;
+                                    }
+
+                                    // validation fails if the input doesn't match our regular expression
+                                    if(!re.test(form.j_password.value)) {
+                                        alert("Error: Password should be between 5 and 10 symbols");
+                                        form.j_password.focus();
+                                        return false;
+                                    }
+
+                                    // validation was successful
+                                    return true;
+                                }
+
+                            </script>
                     </div>
                 </div>
             </div>
