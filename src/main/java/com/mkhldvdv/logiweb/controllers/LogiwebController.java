@@ -1,22 +1,15 @@
 package com.mkhldvdv.logiweb.controllers;
 
-import com.mkhldvdv.logiweb.entities.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 /**
  * Created by mkhldvdv on 25.12.2015.
@@ -48,6 +41,9 @@ public class LogiwebController {
         return "redirect:/welcome?logout";
     }
 
+    //
+    // users actions
+    //
     @RequestMapping(value = "/AccessDenied", method = RequestMethod.GET)
     public String accessDeniedPage() {
         return "AccessDenied";
@@ -58,19 +54,127 @@ public class LogiwebController {
         return "info";
     }
 
-    @RequestMapping(value = "/infoDriver", method = RequestMethod.GET)
-    public String veiwInfoDriver() {
-        return "infoDriver";
-    }
-
     @RequestMapping(value = {"/userProfile"}, method = RequestMethod.GET)
     public String viewUserProfile() {
         return "userProfile";
     }
 
+    @RequestMapping(value = {"/addCargo"}, method = RequestMethod.GET)
+    public String viewAddCargo() {
+        return "addCargo";
+    }
+
+    @RequestMapping(value = {"/addDriver"}, method = RequestMethod.GET)
+    public String viewAddDriver() {
+        return "addDriver";
+    }
+
+    @RequestMapping(value = {"/addOrder"}, method = RequestMethod.GET)
+    public String viewAddOrder() {
+        return "addOrder";
+    }
+
+    @RequestMapping(value = {"/addOrderDrivers"}, method = RequestMethod.GET)
+    public String viewAddOrderDrivers() {
+        return "addOrderDrivers";
+    }
+
+    @RequestMapping(value = {"/addOrderTruck"}, method = RequestMethod.GET)
+    public String viewAddOrderTruck() {
+        return "addOrderTruck";
+    }
+
+    @RequestMapping(value = {"/addTruck"}, method = RequestMethod.GET)
+    public String viewAddTruck() {
+        return "addTruck";
+    }
+
+    @RequestMapping(value = {"/deleteDriver"}, method = RequestMethod.GET)
+    public String viewDeleteDriver() {
+        return "deleteDriver";
+    }
+
+    @RequestMapping(value = {"/deleteTruck"}, method = RequestMethod.GET)
+    public String viewDeleteTruck() {
+        return "deleteTruck";
+    }
+
+    @RequestMapping(value = {"/editDriver"}, method = RequestMethod.GET)
+    public String viewEditDriver() {
+        return "editDriver";
+    }
+
+    @RequestMapping(value = {"/editTruck"}, method = RequestMethod.GET)
+    public String viewEditTruck() {
+        return "editTruck";
+    }
+
+    @RequestMapping(value = {"/error"}, method = RequestMethod.GET)
+    public String viewError() {
+        return "error";
+    }
+
+    @RequestMapping(value = {"/findCargo"}, method = RequestMethod.GET)
+    public String viewFindCargo() {
+        return "findCargo";
+    }
+
+    @RequestMapping(value = {"/findOrder"}, method = RequestMethod.GET)
+    public String viewFindOrder() {
+        return "findOrder";
+    }
+
+    @RequestMapping(value = {"/listCargo"}, method = RequestMethod.GET)
+    public String viewListCargo() {
+        return "listCargo";
+    }
+
+    @RequestMapping(value = {"/listDrivers"}, method = RequestMethod.GET)
+    public String viewListDrivers() {
+        return "listDrivers";
+    }
+
+    @RequestMapping(value = {"/listOneOrder"}, method = RequestMethod.GET)
+    public String viewListOneOrder() {
+        return "listOneOrder";
+    }
+
+    @RequestMapping(value = {"/listOrders"}, method = RequestMethod.GET)
+    public String viewListOrders() {
+        return "listOrders";
+    }
+
+    @RequestMapping(value = {"/listTrucks"}, method = RequestMethod.GET)
+    public String viewListTrucks() {
+        return "listTrucks";
+    }
+
+    @RequestMapping(value = {"/success"}, method = RequestMethod.GET)
+    public String viewSuccess() {
+        return "success";
+    }
+
+    //
+    // drivers actions
+    //
+    @RequestMapping(value = "/infoDriver", method = RequestMethod.GET)
+    public String veiwInfoDriver() {
+        return "infoDriver";
+    }
+
+    @RequestMapping(value = {"/infoForDriver"}, method = RequestMethod.GET)
+    public String viewInfoForDriver() {
+        return "infoForDriver";
+    }
+
     @RequestMapping(value = {"/driverProfile"}, method = RequestMethod.GET)
     public String viewDriverProfile() {
         return "driverProfile";
+    }
+
+    @RequestMapping(value = {"/errorDriver"}, method = RequestMethod.GET)
+    public String viewErrorDriver() {
+        return "errorDriver";
     }
 
 //    @RequestMapping(value = "/login", method = RequestMethod.POST)

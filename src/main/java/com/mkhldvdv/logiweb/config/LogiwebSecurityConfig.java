@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
 
@@ -22,12 +21,6 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 @Import({WebConfig.class})
 public class LogiwebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-//    @Autowired
-//    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("OPERATOR");
-//        auth.inMemoryAuthentication().withUser("login445").password("driver").roles("DRIVER");
-//    }
 
     @Autowired
     DataSource dataSource;
@@ -54,8 +47,33 @@ public class LogiwebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/", "/welcome").permitAll()
+                // operator pages
+                .antMatchers("/addCargo").access("hasRole('OPERATOR')")
+                .antMatchers("/addDriver").access("hasRole('OPERATOR')")
+                .antMatchers("/addOrder").access("hasRole('OPERATOR')")
+                .antMatchers("/addOrderDrivers").access("hasRole('OPERATOR')")
+                .antMatchers("/addOrderTruck").access("hasRole('OPERATOR')")
+                .antMatchers("/addTruck").access("hasRole('OPERATOR')")
+                .antMatchers("/deleteDriver").access("hasRole('OPERATOR')")
+                .antMatchers("/deleteTruck").access("hasRole('OPERATOR')")
+                .antMatchers("/editDriver").access("hasRole('OPERATOR')")
+                .antMatchers("/editTruck").access("hasRole('OPERATOR')")
+                .antMatchers("/error").access("hasRole('OPERATOR')")
+                .antMatchers("/findCargo").access("hasRole('OPERATOR')")
+                .antMatchers("/findOrder").access("hasRole('OPERATOR')")
                 .antMatchers("/info").access("hasRole('OPERATOR')")
+                .antMatchers("/listCargo").access("hasRole('OPERATOR')")
+                .antMatchers("/listDrivers").access("hasRole('OPERATOR')")
+                .antMatchers("/listOneOrder").access("hasRole('OPERATOR')")
+                .antMatchers("/listOrders").access("hasRole('OPERATOR')")
+                .antMatchers("/listTrucks").access("hasRole('OPERATOR')")
+                .antMatchers("/success").access("hasRole('OPERATOR')")
+                .antMatchers("/userProfile").access("hasRole('OPERATOR')")
+                // drivers pages
                 .antMatchers("/infoDriver").access("hasRole('DRIVER')")
+                .antMatchers("/infoForDriver").access("hasRole('DRIVER')")
+                .antMatchers("/driverProfile").access("hasRole('DRIVER')")
+                .antMatchers("/errorDriver").access("hasRole('DRIVER')")
                 .and()
 
                 // login form

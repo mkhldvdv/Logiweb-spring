@@ -74,16 +74,16 @@
                         <a href="#"><i class="fa fa-fw"></i> Truck<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="addTruck.jsp">Add...</a>
+                                <a href="<c:url value="/addTruck" />">Add...</a>
                             </li>
                             <li>
-                                <a href="editTruck.jsp">Edit...</a>
+                                <a href="<c:url value="/editTruck" />">Edit...</a>
                             </li>
                             <li>
-                                <a href="deleteTruck.jsp">Delete...</a>
+                                <a href="<c:url value="/deleteTruck" />">Delete...</a>
                             </li>
                             <li>
-                                <a href="/listTrucks">List...</a>
+                                <a href="<c:url value="/listTrucks" />">List...</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -92,16 +92,16 @@
                         <a href="#"><i class="fa fa-fw"></i> User/Driver<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="addDriver.jsp">Add...</a>
+                                <a href="<c:url value="/addDriver" />">Add...</a>
                             </li>
                             <li>
-                                <a href="editDriver.jsp">Edit...</a>
+                                <a href="<c:url value="/editDriver" />">Edit...</a>
                             </li>
                             <li>
-                                <a href="deleteDriver.jsp">Delete...</a>
+                                <a href="<c:url value="/deleteDriver" />">Delete...</a>
                             </li>
                             <li>
-                                <a href="/listDrivers">List...</a>
+                                <a href="<c:url value="/listDrivers" />">List...</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -110,13 +110,13 @@
                         <a href="#"><i class="fa fa-fw"></i> Order<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="/addOrder">Add...</a>
+                                <a href="<c:url value="/addOrder" />">Add...</a>
                             </li>
                             <li>
-                                <a href="findOrder.jsp">Find...</a>
+                                <a href="<c:url value="/findOrder" />">Find...</a>
                             </li>
                             <li>
-                                <a href="/listOrders">List...</a>
+                                <a href="<c:url value="/listOrders" />">List...</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -125,10 +125,10 @@
                         <a href="#"><i class="fa fa-fw"></i> Cargo<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="addCargo.jsp">Add...</a>
+                                <a href="<c:url value="/addCargo" />">Add...</a>
                             </li>
                             <li>
-                                <a href="findCargo.jsp">Find...</a>
+                                <a href="<c:url value="/findCargo" />">Find...</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->

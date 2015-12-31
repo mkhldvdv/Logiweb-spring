@@ -30,8 +30,6 @@ public class WebConfig extends WebMvcConfigurerAdapter{
     public DriverManagerDataSource dataSource() {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
         driverManagerDataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
-//        driverManagerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-//        driverManagerDataSource.setUrl("jdbc:mysql://localhost:3306/test");
         driverManagerDataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
         driverManagerDataSource.setUsername("logiweb");
         driverManagerDataSource.setPassword("logiweb");
