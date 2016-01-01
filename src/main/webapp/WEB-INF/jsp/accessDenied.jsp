@@ -41,14 +41,16 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Logiweb: Welcome</h3>
+                        <h3 class="panel-title">Logiweb: Permission Denied</h3>
                     </div>
                     <div class="panel-body">
-                        <form:form role="form" method="get" action="logout">
+                        <div class="alert alert-danger">
                             <p>
-                            You are not authorized to access this page. Please log out first and then log in
-                            with appropriate role.
+                                You are not authorized to access this page. Please log out first and then log in
+                                with appropriate role.
                             </p>
+                        </div>
+                        <form:form role="form" method="get" action="logout">
                             <fieldset>
                                 <input type="submit" class="btn btn-md btn-default btn-block" value="Log out">
                                 <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />--%>

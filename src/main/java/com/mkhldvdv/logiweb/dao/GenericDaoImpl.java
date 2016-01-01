@@ -13,6 +13,7 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
      * Field that describes any entity, using in this class.
      */
     protected Class entityClass;
+    @PersistenceContext
     protected EntityManager em;
 
     public GenericDaoImpl(){
@@ -24,32 +25,20 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 
     @Override
     public T create(T t) {
-        try {
-            em.persist(t);
-            return t;
-        } finally {
-//            em.close();
-        }
+        em.persist(t);
+        return t;
     }
 
     @Override
     public T update(T t) {
-        try {
-            em.merge(t);
-            return t;
-        } finally {
-//            em.close();
-        }
+        em.merge(t);
+        return t;
     }
 
     @Override
     public void remove(T t) {
-        try {
-            t = em.merge(t);
-            em.remove(t);
-        } finally {
-//            em.close();
-        }
+        t = em.merge(t);
+        em.remove(t);
     }
 
     @Override
@@ -63,13 +52,5 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
     public List<T> getAll() {
         TypedQuery<T> query = em.createQuery("from " + entityClass.getName(), entityClass);
         return query.getResultList();
-    }
-
-    public EntityManager getEm() {
-        return em;
-    }
-
-    public void setEm(EntityManager em) {
-        this.em = em;
     }
 }

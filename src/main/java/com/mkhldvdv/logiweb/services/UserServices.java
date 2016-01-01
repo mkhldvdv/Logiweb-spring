@@ -13,14 +13,6 @@ import java.util.Set;
 public interface UserServices {
 
     /**
-     * returns user by login name and password
-     * @param login login name
-     * @param pass  password
-     * @return      specified user
-     */
-    public User getUser(String login, String pass) throws UnsupportedEncodingException, NoSuchAlgorithmException;
-
-    /**
      * returns the specified user
      * @param userId        specified userId, long
      * @return              specified user
