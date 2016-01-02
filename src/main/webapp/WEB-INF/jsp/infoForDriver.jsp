@@ -105,11 +105,11 @@
                                 <tbody>
                                 <%--<c:forEach var="drivers" items="${driversList}">--%>
                                     <tr class="odd gradeA">
-                                        <td>${drivers.id}</td>
-                                        <td>${drivers.coDriversIds}</td>
-                                        <td>${drivers.regNum}</td>
-                                        <td>${drivers.orderId}</td>
-                                        <td>${drivers.cities}</td>
+                                        <td>${driver}</td>
+                                        <td>${coDrivers}</td>
+                                        <td>${regNum}</td>
+                                        <td>${orders}</td>
+                                        <td>${cities}</td>
                                     </tr>
                                 <%--</c:forEach>--%>
                                 </tbody>

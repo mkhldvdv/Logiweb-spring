@@ -34,10 +34,10 @@ public class Truck implements Serializable {
     @Column(name = "CITY_ID")
     private long city;
 
-    @OneToMany(mappedBy = "truck")
+    @OneToMany(mappedBy = "truck", fetch = FetchType.EAGER)
     private List<User> drivers;
 
-    @OneToMany(mappedBy = "truck")
+    @OneToMany(mappedBy = "truck", fetch = FetchType.EAGER)
     private List<Order> orders;
 
     @Column(name = "DELETED")

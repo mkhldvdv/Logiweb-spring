@@ -38,7 +38,7 @@ public interface UserServices {
      * @param driverId  specified driver
      * @return          list of orders
      */
-    public List<Long> getDriversOrders(long driverId);
+    public Set<Long> getDriversOrders(long driverId);
 
     /**
      * gets waypoint for the driver
@@ -47,4 +47,10 @@ public interface UserServices {
      */
     public Set<Byte> getDriversCities(long driverId);
 
+    /**
+     * get user by login name
+     * @param login login name of the user
+     * @return      user
+     */
+    User getUserByLogin(String login);
 }

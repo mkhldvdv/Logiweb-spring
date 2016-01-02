@@ -22,7 +22,7 @@ public class Order implements Serializable {
     @Column(name = "ORDER_STATUS_ID")
     private byte orderStatus;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Waypoint> waypoints;
 
     @Nullable

@@ -1,15 +1,25 @@
 package com.mkhldvdv.logiweb.controllers;
 
+import com.mkhldvdv.logiweb.entities.User;
+import com.mkhldvdv.logiweb.services.UserServices;
+import com.mkhldvdv.logiweb.services.impl.UserServicesImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by mkhldvdv on 25.12.2015.
@@ -17,6 +27,9 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class LogiwebController {
+
+    @Autowired
+    private UserServices userServices;
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String viewLoginPage() {
@@ -162,17 +175,35 @@ public class LogiwebController {
         return "infoDriver";
     }
 
-    @RequestMapping(value = {"/infoForDriver"}, method = RequestMethod.GET)
-    public String viewInfoForDriver() {
+    @RequestMapping(value = "/infoForDriver", method = RequestMethod.POST)
+    public String viewInfoForDriver(@RequestParam("driverId") long driverId, Model model) {
+
+//        long driverId = driver.getId();
+
+        List<Long> coDrivers = userServices.getCoDriversIds(driverId);
+        String regNum = userServices.getRegNum(driverId);
+        Set<Long> orders = userServices.getDriversOrders(driverId);
+        Set<Byte> cities = userServices.getDriversCities(driverId);
+
+        model.addAttribute("driver", driverId);
+        model.addAttribute("coDrivers", coDrivers);
+        model.addAttribute("regNum", regNum);
+        model.addAttribute("orders", orders);
+        model.addAttribute("cities", cities);
+
         return "infoForDriver";
     }
 
-    @RequestMapping(value = {"/driverProfile"}, method = RequestMethod.GET)
-    public String viewDriverProfile() {
+    @RequestMapping(value = "/driverProfile", method = RequestMethod.GET)
+    public String viewDriverProfile(HttpServletRequest request, Model model) {
+        // get drivers profile info
+        String login = request.getUserPrincipal().getName();
+        User driver = userServices.getUserByLogin(login);
+        model.addAttribute("myUser", driver);
         return "driverProfile";
     }
 
-    @RequestMapping(value = {"/errorDriver"}, method = RequestMethod.GET)
+    @RequestMapping(value = "/errorDriver", method = RequestMethod.GET)
     public String viewErrorDriver() {
         return "errorDriver";
     }

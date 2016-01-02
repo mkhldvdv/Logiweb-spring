@@ -55,7 +55,7 @@ public class User implements Serializable {
     @JoinColumn(name = "TRUCK_ID")
     private Truck truck;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "ORDER_DRIVER", joinColumns = {@JoinColumn(name = "USER_ID")},
             inverseJoinColumns = {@JoinColumn(name = "ORDER_ID")})
     private List<Order> orders;
