@@ -1,6 +1,9 @@
 package com.mkhldvdv.logiweb.controllers;
 
+import com.mkhldvdv.logiweb.entities.Order;
+import com.mkhldvdv.logiweb.entities.Truck;
 import com.mkhldvdv.logiweb.entities.User;
+import com.mkhldvdv.logiweb.services.AdminServices;
 import com.mkhldvdv.logiweb.services.UserServices;
 import com.mkhldvdv.logiweb.services.impl.UserServicesImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,9 @@ public class LogiwebController {
 
     @Autowired
     private UserServices userServices;
+
+    @Autowired
+    private AdminServices adminServices;
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String viewLoginPage() {
@@ -68,7 +74,11 @@ public class LogiwebController {
     }
 
     @RequestMapping(value = {"/userProfile"}, method = RequestMethod.GET)
-    public String viewUserProfile() {
+    public String viewUserProfile(HttpServletRequest request, Model model) {
+        // get users profile info
+        String login = request.getUserPrincipal().getName();
+        User user = userServices.getUserByLogin(login);
+        model.addAttribute("myUser", user);
         return "userProfile";
     }
 
@@ -143,7 +153,10 @@ public class LogiwebController {
     }
 
     @RequestMapping(value = {"/listDrivers"}, method = RequestMethod.GET)
-    public String viewListDrivers() {
+    public String viewListDrivers(Model model) {
+        // get all drivers
+        List<User> drivers = adminServices.getDrivers();
+        model.addAttribute("driversList", drivers);
         return "listDrivers";
     }
 
@@ -153,12 +166,18 @@ public class LogiwebController {
     }
 
     @RequestMapping(value = {"/listOrders"}, method = RequestMethod.GET)
-    public String viewListOrders() {
+    public String viewListOrders(Model model) {
+        // get list of all orders
+        List<Order> orders = adminServices.getOrders();
+        model.addAttribute("ordersList", orders);
         return "listOrders";
     }
 
     @RequestMapping(value = {"/listTrucks"}, method = RequestMethod.GET)
-    public String viewListTrucks() {
+    public String viewListTrucks(Model model) {
+        // get list of all trucks
+        List<Truck> trucks = adminServices.getTrucks();
+        model.addAttribute("trucksList", trucks);
         return "listTrucks";
     }
 
@@ -180,10 +199,10 @@ public class LogiwebController {
 
 //        long driverId = driver.getId();
 
-        List<Long> coDrivers = userServices.getCoDriversIds(driverId);
+        Set<Long> coDrivers = userServices.getCoDriversIds(driverId);
         String regNum = userServices.getRegNum(driverId);
         Set<Long> orders = userServices.getDriversOrders(driverId);
-        Set<Byte> cities = userServices.getDriversCities(driverId);
+        Set<String> cities = userServices.getDriversCities(driverId);
 
         model.addAttribute("driver", driverId);
         model.addAttribute("coDrivers", coDrivers);

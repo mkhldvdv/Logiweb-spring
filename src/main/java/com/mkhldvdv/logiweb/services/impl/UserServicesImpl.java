@@ -65,12 +65,12 @@ public class UserServicesImpl implements UserServices {
      * @return list of co-drivers
      */
     @Override
-    public List<Long> getCoDriversIds(long driverId) {
+    public Set<Long> getCoDriversIds(long driverId) {
         LOG.info("get co-drivers");
         User user = userDao.getById(driverId);
 
         // fill in the list of co-drivers
-        List<Long> coDriversList = new ArrayList<Long>();
+        Set<Long> coDriversList = new HashSet<Long>();
         for (User driver : user.getTruck().getDrivers()) {
             coDriversList.add(driver.getId());
         }
@@ -121,18 +121,18 @@ public class UserServicesImpl implements UserServices {
      * @return set of cities ids
      */
     @Override
-    public Set<Byte> getDriversCities(long driverId) {
+    public Set<String> getDriversCities(long driverId) {
         LOG.info("get drivers cities");
         User user = userDao.getById(driverId);
-        Set<Byte> citiesIds = new HashSet<Byte>();
+        Set<String> cities = new HashSet<String>();
         // get the list of waypoint for the driver through the list of orders
         for (Order order : user.getOrders()) {
             for (Waypoint waypoint : order.getWaypoints()) {
-                citiesIds.add(waypoint.getCity());
+                cities.add(waypoint.getCity());
             }
         }
 
         // return the list of cities ids
-        return citiesIds;
+        return cities;
     }
 }

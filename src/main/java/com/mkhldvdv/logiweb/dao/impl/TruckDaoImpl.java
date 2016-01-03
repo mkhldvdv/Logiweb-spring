@@ -30,8 +30,8 @@ public class TruckDaoImpl extends GenericDaoImpl<Truck> {
      */
     public List<Truck> getAllNotDeletedTrucks() {
         return em.createQuery("select t from Truck t " +
-                "where t.deleted = :deleted")
-                .setParameter("deleted", false)
+                "where t.deleted = :deleted", Truck.class)
+                .setParameter("deleted", (byte) 1)
                 .getResultList();
     }
 

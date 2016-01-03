@@ -3,7 +3,6 @@ package com.mkhldvdv.logiweb.dao.impl;
 import com.mkhldvdv.logiweb.dao.GenericDaoImpl;
 import com.mkhldvdv.logiweb.entities.Truck;
 import com.mkhldvdv.logiweb.entities.User;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.io.UnsupportedEncodingException;
@@ -18,7 +17,7 @@ import java.util.List;
 @Repository
 public class UserDaoImpl extends GenericDaoImpl<User> {
 
-    public static final byte DRIVER_ROLE = 3;
+    public static final String DRIVER_ROLE = "ROLE_DRIVER";
 
     /**
      * hash any string to not keep it in plain text

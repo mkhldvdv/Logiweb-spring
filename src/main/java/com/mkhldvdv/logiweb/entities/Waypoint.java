@@ -1,5 +1,7 @@
 package com.mkhldvdv.logiweb.entities;
 
+import org.hibernate.annotations.Formula;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -20,8 +22,11 @@ public class Waypoint implements Serializable, Comparable<Waypoint> {
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
-    @Column(name = "CITY_ID")
-    private byte city;
+//    @Column(name = "CITY_ID")
+//    private byte city;
+
+    @Formula("(select r.CITY_NAME from CITIES r where r.CITY_ID = CITY_ID)")
+    private String city;
 
     @ManyToOne
     @JoinColumn(name = "CARGO_ID")
@@ -49,11 +54,20 @@ public class Waypoint implements Serializable, Comparable<Waypoint> {
         this.order = order;
     }
 
-    public byte getCity() {
+//    public byte getCity() {
+//        return city;
+//    }
+//
+//    public void setCity(byte city) {
+//        this.city = city;
+//    }
+
+
+    public String getCity() {
         return city;
     }
 
-    public void setCity(byte city) {
+    public void setCity(String city) {
         this.city = city;
     }
 

@@ -24,7 +24,7 @@ public interface UserServices {
      * @param driverId  specified driver
      * @return          list of co-drivers
      */
-    public List<Long> getCoDriversIds(long driverId);
+    public Set<Long> getCoDriversIds(long driverId);
 
     /**
      * gets the registration number of the truck
@@ -45,7 +45,7 @@ public interface UserServices {
      * @param driverId  specified driver
      * @return          set of cities ids
      */
-    public Set<Byte> getDriversCities(long driverId);
+    public Set<String> getDriversCities(long driverId);
 
     /**
      * get user by login name

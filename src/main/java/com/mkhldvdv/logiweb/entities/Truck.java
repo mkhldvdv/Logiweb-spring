@@ -1,6 +1,7 @@
 package com.mkhldvdv.logiweb.entities;
 
 import com.sun.istack.internal.Nullable;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -28,11 +29,15 @@ public class Truck implements Serializable {
     @Column(name = "CAPACITY")
     private byte capacity;
 
-    @Column(name = "TRUCK_STATUS_ID")
-    private byte truckStatus;
+//    @Column(name = "TRUCK_STATUS_ID")
+    @Formula("(select r.TRUCK_STATUS_NAME from TRUCK_STATUSES r where r.TRUCK_STATUS_ID = TRUCK_STATUS_ID)")
+    private String truckStatus;
 
-    @Column(name = "CITY_ID")
-    private long city;
+//    @Column(name = "CITY_ID")
+//    private long city;
+
+    @Formula("(select r.CITY_NAME from CITIES r where r.CITY_ID = CITY_ID)")
+    private String city;
 
     @OneToMany(mappedBy = "truck", fetch = FetchType.EAGER)
     private List<User> drivers;
@@ -46,14 +51,14 @@ public class Truck implements Serializable {
     public Truck() {
     }
 
-    public Truck(String regNum, byte driverCount, byte capacity,
-                 byte truckStatus, long city) {
-        this.regNum = regNum;
-        this.driverCount = driverCount;
-        this.capacity = capacity;
-        this.truckStatus = truckStatus;
-        this.city = city;
-    }
+//    public Truck(String regNum, byte driverCount, byte capacity,
+//                 byte truckStatus, long city) {
+//        this.regNum = regNum;
+//        this.driverCount = driverCount;
+//        this.capacity = capacity;
+//        this.truckStatus = truckStatus;
+//        this.city = city;
+//    }
 
     public long getId() {
         return id;
@@ -87,19 +92,19 @@ public class Truck implements Serializable {
         this.capacity = capacity;
     }
 
-    public byte getTruckStatus() {
+    public String getTruckStatus() {
         return truckStatus;
     }
 
-    public void setTruckStatus(byte truckStatus) {
+    public void setTruckStatus(String truckStatus) {
         this.truckStatus = truckStatus;
     }
 
-    public long getCity() {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(long city) {
+    public void setCity(String city) {
         this.city = city;
     }
 

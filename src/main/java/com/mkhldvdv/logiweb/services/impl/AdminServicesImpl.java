@@ -6,12 +6,15 @@ import com.mkhldvdv.logiweb.services.AdminServices;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 /**
  * Created by mkhldvdv on 25.11.2015.
  */
+
+@Service
 public class AdminServicesImpl implements AdminServices {
 
     private static final Logger LOG = LogManager.getLogger(AdminServicesImpl.class);
@@ -41,6 +44,7 @@ public class AdminServicesImpl implements AdminServices {
     public List<Truck> getTrucks() {
         LOG.info("getTrucks");
         List<Truck> truckList = truckDao.getAll();
+//        List<Truck> truckList = truckDao.getAllNotDeletedTrucks();
         return truckList;
     }
 
@@ -223,7 +227,7 @@ public class AdminServicesImpl implements AdminServices {
 
 
         // creating map of cargos weight balance for the city
-        Map<Byte, Integer> waypointWeightMap = new HashMap<Byte, Integer>();
+        Map<String, Integer> waypointWeightMap = new HashMap<String, Integer>();
         for (Long cargoId : cargosIds) {
             // find cargo
             Cargo cargo = cargoDao.getById(cargoId);
@@ -237,10 +241,10 @@ public class AdminServicesImpl implements AdminServices {
             waypointWeightMap = fillMapCityWeight(waypointWeightMap, cargoWeight, waypoints);
         }
 
-        Map<Byte, Integer> tmpMap = new HashMap<Byte, Integer>();
+        Map<String, Integer> tmpMap = new HashMap<String, Integer>();
         tmpMap.putAll(waypointWeightMap);
         int commonweight = 0;
-        for (Map.Entry<Byte, Integer> entry : waypointWeightMap.entrySet()) {
+        for (Map.Entry<String, Integer> entry : waypointWeightMap.entrySet()) {
             commonweight += entry.getValue();
             tmpMap.put(entry.getKey(), commonweight);
         }
@@ -276,13 +280,13 @@ public class AdminServicesImpl implements AdminServices {
     /**
      * fill the map with cities and weight balance
      */
-    private Map<Byte, Integer> fillMapCityWeight(Map<Byte, Integer> waypointWeightMap, int cargoWeight, List<Waypoint> waypoints) {
+    private Map<String, Integer> fillMapCityWeight(Map<String, Integer> waypointWeightMap, int cargoWeight, List<Waypoint> waypoints) {
         LOG.info("get all available trucks: fill the map");
         for (Waypoint waypoint : waypoints) {
             //
             LOG.error(waypoint.getId());
             //
-            byte city = waypoint.getCity();
+            String city = waypoint.getCity();
             // if load then add it to the map with plus
             if (waypoint.getCargoType() == 1) {
                 waypointWeightMap.put(city, waypointWeightMap.get(city) == null ? cargoWeight : waypointWeightMap.get(city) + cargoWeight);
