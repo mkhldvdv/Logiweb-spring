@@ -23,26 +23,35 @@ public class User implements Serializable {
     private long id;
 
     @Column(name = "FIRST_NAME")
+    @NotEmpty(message = "Please enter the first name.")
+    @Size(min = 5, max = 30, message = "First name should be between 5 and 30 characters")
+    @Pattern(regexp="[\\w -]+", message = "First name should contain letters, \" \"(space) or \"-\"")
     private String firstName;
 
     @Column(name = "LAST_NAME")
+    @NotEmpty(message = "Please enter the last name.")
+    @Size(min = 5, max = 30, message = "Last name should be between 5 and 30 characters")
+    @Pattern(regexp="[\\w -]+", message = "Last name should contain letters, \" \"(space) or \"-\"")
     private String lastName;
 
     @Column(name = "LOGIN")
-    @NotEmpty(message = "Please enter your login name.")
+    @NotEmpty(message = "Please enter the login name.")
     @Size(min = 5, max = 10, message = "Login name should be between 5 and 10 characters")
     @Pattern(regexp="[\\w.]+", message = "Login should contain letters, \".\"(dot) or \"_\"")
     private String login;
 
     @Column(name = "PASSWORD")
-    @NotEmpty(message = "Please enter your password.")
-    @Size(min = 5, max = 30, message = "Password should be between 5 and 30 characters")
+    @NotEmpty(message = "Please enter the password.")
+    @Size(min = 5, max = 60, message = "Password should be between 5 and 60 characters")
     private String password;
 
     @Formula("(select r.ROLE_NAME from ROLES r where r.ROLE_ID = ROLE_ID)")
     private String role;
 
     @Column(name = "HOURS")
+//    @NotEmpty(message = "Please enter hours.")
+//    @Size(min = 1, max = 3, message = "Hours field should be between 1 and 3 characters")
+//    @Pattern(regexp="[0-9]+", message = "Hours should contain only digits")
     private short hours;
 
     @Formula("(select r.USER_STATUS_NAME from USER_STATUSES r where r.USER_STATUS_ID = USER_STATUS_ID)")

@@ -3,7 +3,9 @@ package com.mkhldvdv.logiweb.dao.impl;
 import com.mkhldvdv.logiweb.dao.GenericDaoImpl;
 import com.mkhldvdv.logiweb.entities.Truck;
 import com.mkhldvdv.logiweb.entities.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -70,17 +72,13 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
 
     @Override
     public User create(User user) {
-        try {
-            String hashedPass = SHAHashing(user.getPassword());
-            user.setPassword(hashedPass);
-            return super.create(user);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return null;
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
-        }
+//        String hashedPass = SHAHashing(user.getPassword());
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(user.getPassword());
+
+        user.setPassword(hashedPassword);
+        return super.create(user);
     }
 
 

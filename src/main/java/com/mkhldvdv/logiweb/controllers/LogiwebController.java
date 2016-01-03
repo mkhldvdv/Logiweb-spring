@@ -2,13 +2,11 @@ package com.mkhldvdv.logiweb.controllers;
 
 import com.mkhldvdv.logiweb.dto.CargoDTO;
 import com.mkhldvdv.logiweb.dto.OrderDTO;
-import com.mkhldvdv.logiweb.entities.Order;
 import com.mkhldvdv.logiweb.entities.Truck;
 import com.mkhldvdv.logiweb.entities.User;
 import com.mkhldvdv.logiweb.exceptions.WrongIdException;
 import com.mkhldvdv.logiweb.services.AdminServices;
 import com.mkhldvdv.logiweb.services.UserServices;
-import com.mkhldvdv.logiweb.services.impl.UserServicesImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,8 +23,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
+import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -61,7 +61,6 @@ public class LogiwebController {
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-//        return "redirect:/welcome";
         return "redirect:/welcome?logout";
     }
 
@@ -93,8 +92,29 @@ public class LogiwebController {
     }
 
     @RequestMapping(value = {"/addDriver"}, method = RequestMethod.GET)
-    public String viewAddDriver() {
+    public String viewAddDriver(Model model) {
+        User user = new User();
+        Map<String,String> roles = new HashMap<String,String>();
+        roles.put("ROLE_DRIVER", "driver");
+        roles.put("ROLE_OPERATOR", "operator");
+        model.addAttribute("roles", roles);
+        model.addAttribute("user", user);
         return "addDriver";
+    }
+
+    @RequestMapping(value = "/addEditUser", method = RequestMethod.POST)
+    public String addEditUser(@ModelAttribute("user") @Valid User user,
+                          BindingResult result, Model model) {
+        String urlString = "success";
+
+        if (result.hasErrors()) {
+            return "addDriver";
+        }
+
+        User newUser = adminServices.addUser(user);
+        model.addAttribute("object", newUser);
+
+        return urlString;
     }
 
     @RequestMapping(value = {"/addOrder"}, method = RequestMethod.GET)
@@ -174,10 +194,7 @@ public class LogiwebController {
     }
 
     @RequestMapping(value = {"/listOneOrder"}, method = RequestMethod.GET)
-    public String viewListOneOrder() {
-
-        return "listOneOrder";
-    }
+    public String viewListOneOrder() { return "listOneOrder"; }
 
     @RequestMapping(value = {"/listOrders"}, method = RequestMethod.GET)
     public String viewListOrders(Model model) {

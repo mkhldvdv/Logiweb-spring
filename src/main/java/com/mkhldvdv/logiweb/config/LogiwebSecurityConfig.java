@@ -50,6 +50,7 @@ public class LogiwebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // operator pages
                 .antMatchers("/addCargo").access("hasRole('OPERATOR')")
                 .antMatchers("/addDriver").access("hasRole('OPERATOR')")
+                .antMatchers("/addEditUser").access("hasRole('OPERATOR')")
                 .antMatchers("/addOrder").access("hasRole('OPERATOR')")
                 .antMatchers("/addOrderDrivers").access("hasRole('OPERATOR')")
                 .antMatchers("/addOrderTruck").access("hasRole('OPERATOR')")

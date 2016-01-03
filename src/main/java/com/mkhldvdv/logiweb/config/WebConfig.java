@@ -18,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 /**
@@ -72,6 +73,13 @@ public class WebConfig extends WebMvcConfigurerAdapter {
         adapter.setGenerateDdl(false);
         adapter.setDatabasePlatform("org.hibernate.dialect.Oracle12cDialect");
         return adapter;
+    }
+
+
+    // checking if this right
+    @Bean
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
+        return new JpaTransactionManager(entityManagerFactory);
     }
 
 }

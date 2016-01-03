@@ -148,8 +148,7 @@
                     <h3 class="page-header"> Success!</h3>
                 </div>
                 <!-- /.col-lg-12 -->
-                <c:set var="object" value="${object}" />
-                <c:out value="${object}" />
+                ${object.id}
             </div>
         </div>
         <!-- /#page-wrapper -->

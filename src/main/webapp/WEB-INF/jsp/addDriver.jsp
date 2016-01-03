@@ -1,5 +1,6 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html lang="en">
 
 <head>
@@ -151,83 +152,86 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="/addEditUser" onsubmit="return checkForm(this);">
+                        <form:form role="form" method="post" action="addEditUser" commandName="user" onsubmit="return checkForm(this);">
                             <fieldset>
-                                <c:set var="user" value="${userObject}" />
+                                <c:if test="${user.id > 0}">
+                                    <div class="form-group">
+                                        <label>User ID:</label>
+                                        ${user.id}
+                                        <form:input path="id" class="form-control" value="${user.id}" name="userId" type="hidden" />
+                                    </div>
+                                </c:if>
+                                <%--<div class="form-group">--%>
+                                    <%--<input class="form-control" value="${user.password}" name="pass" type="hidden">--%>
+                                <%--</div>--%>
                                 <div class="form-group">
                                     <label>First Name</label>
-                                    <input class="form-control" placeholder="Enter first name" name="firstName" value="${user.firstName}" autofocus>
+                                    <form:input path="firstName" class="form-control" placeholder="Enter first name" name="firstName" value="${user.firstName}" autofocus="true" />
+                                    <form:errors path="firstName" cssClass="error"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Last Name</label>
-                                    <input class="form-control" placeholder="Enter last name" name="lastName" value="${user.lastName}" autofocus>
+                                    <form:input path="lastName" class="form-control" placeholder="Enter last name" name="lastName" value="${user.lastName}" autofocus="true" />
+                                    <form:errors path="lastName" cssClass="error"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Login name</label>
-                                    <input class="form-control" placeholder="Enter login name" name="loginName" value="${user.login}" autofocus>
+                                    <form:input path="login" class="form-control" placeholder="Enter login name" name="login" value="${user.login}" autofocus="true" />
+                                    <form:errors path="login" cssClass="error"/>
                                 </div>
                                 <div class="form-group">
                                     <label>password</label>
-                                    <input class="form-control" placeholder="Enter password" name="password" type="password" value="${user.password}" autofocus>
+                                    <form:input path="password" class="form-control" placeholder="Enter password" name="password" type="password" value="${user.password}" autofocus="true" />
+                                    <form:errors path="password" cssClass="error"/>
                                 </div>
                                 <div class="form-group">
                                     <label>Role</label>
-                                    <select class="form-control" id="role" name="role">
-                                        <option value="3">driver</option>
-                                        <option value="2">operator</option>
-                                    </select>
+                                    <form:select path="role" class="form-control" id="role" name="role">
+                                        <%--<form:option value="ROLE_DRIVER">driver</form:option>--%>
+                                        <%--<form:option value="ROLE_OPERATOR">operator</form:option>--%>
+                                        <form:options items="${roles}" />
+                                    </form:select>
                                 </div>
                                 <div class="form-group">
                                     <label>Working hours</label>
                                     <%--<input class="form-control" placeholder="" name="hours" value="${user.hours}" autofocus>--%>
-                                    <input class="form-control" placeholder="" id="hours" name="hours" value="0" autofocus>
+                                    <%--<form:input path="hours" class="form-control" placeholder="" id="hours" name="hours" value="0" autofocus="true" />--%>
+                                    <form:input path="hours" class="form-control" placeholder="0" id="hours" name="hours" value="${user.hours}" autofocus="true" />
                                 </div>
                                 <div class="form-group">
                                     <label>Status</label>
-                                    <select class="form-control" id="status" name="status">
-                                        <option value="1">vacant</option>
-                                        <option value="2">in shift</option>
-                                        <option value="3">driving</option>
-                                        <option value="4">n/a</option>
-                                    </select>
+                                    <form:select path="userStatus" class="form-control" id="status" name="status">
+                                        <form:option value="vacant">vacant</form:option>
+                                        <form:option value="in shift">in shift</form:option>
+                                        <form:option value="driving">driving</form:option>
+                                        <form:option value="n/a">n/a</form:option>
+                                    </form:select>
                                 </div>
                                 <div class="form-group">
                                     <label>Current city</label>
-                                    <select class="form-control" id="city" name="city">
-                                        <option value="1">st petersburg</option>
-                                        <option value="2">moskow</option>
-                                        <option value="3">kyiv</option>
-                                        <option value="4">minsk</option>
-                                        <option value="5">copenhagen</option>
-                                        <option value="6">helsinki</option>
-                                        <option value="7">prague</option>
-                                        <option value="8">berlin</option>
-                                        <option value="9">paris</option>
-                                        <option value="10">london</option>
-                                    </select>
+                                    <form:select path="city" class="form-control" id="city" name="city">
+                                        <form:option value="st petersburg">st petersburg</form:option>
+                                        <form:option value="moskow">moskow</form:option>
+                                        <form:option value="kyiv">kyiv</form:option>
+                                        <form:option value="minsk">minsk</form:option>
+                                        <form:option value="copenhagen">copenhagen</form:option>
+                                        <form:option value="helsinki">helsinki</form:option>
+                                        <form:option value="prague">prague</form:option>
+                                        <form:option value="berlin">berlin</form:option>
+                                        <form:option value="paris">paris</form:option>
+                                        <form:option value="london">london</form:option>
+                                    </form:select>
                                 </div>
-                                <%--<c:set var="driverId" value="${driverId}" />--%>
-                                <div class="form-group">
-                                    <label>User ID</label>
-                                    <input class="form-control" value="${driverId}" name="driverId" readonly="readonly">
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" value="${user.password}" name="pass" type="hidden">
-                                </div>
-                                <c:remove var="userObject" />
-                                <c:remove var="driverId" />
-                                <!-- Change this to a button or input when using this as a form -->
-                                <!-- a href="<c:url value="/info" />" class="btn btn-md btn-success btn-block">Login</a-->
                                 <button type="submit" class="btn btn-default">Submit</button>
                                 <button type="reset" class="btn btn-default">Reset</button>
                             </fieldset>
-                        </form>
+                        </form:form>
                         <script>
 
                             function checkForm(form)
                             {
                                 // regular expression to match only alphanumeric characters and spaces
-                                var re = /^[\w]{5,10}$/;
+                                var re = /^[\w -]{5,30}$/;
 
                                 // validation fails if the input is blank
                                 if(form.firstName.value == "" || form.firstName.value == null) {
@@ -238,8 +242,8 @@
 
                                 // validation fails if the input doesn't match our regular expression
                                 if(!re.test(form.firstName.value)) {
-                                    alert("Error: First Name should be between 5 and 10 symbols " +
-                                            "and alphanumeric");
+                                    alert("Error: First Name should be between 5 and 30 symbols " +
+                                            "and alphanumeric (space and minus acceptable)");
                                     form.firstName.focus();
                                     return false;
                                 }
@@ -253,8 +257,8 @@
 
                                 // validation fails if the input doesn't match our regular expression
                                 if(!re.test(form.lastName.value)) {
-                                    alert("Error: Last Name should be between 5 and 10 symbols " +
-                                            "and alphanumeric");
+                                    alert("Error: Last Name should be between 5 and 30 symbols " +
+                                            "and alphanumeric (space and minus acceptable)");
                                     form.lastName.focus();
                                     return false;
                                 }
@@ -277,7 +281,7 @@
                                 }
 
                                 // regular expression to match only alphanumeric characters and spaces
-                                re = /^.{5,256}$/;
+                                re = /^.{5,60}$/;
 
                                 // validation fails if the input is blank
                                 if(form.password.value == "" || form.password.value == null) {
@@ -288,7 +292,7 @@
 
                                 // validation fails if the input doesn't match our regular expression
                                 if(!re.test(form.password.value)) {
-                                    alert("Error: Password should be between 5 and 10 symbols");
+                                    alert("Error: Password should be between 5 and 60 symbols");
                                     form.password.focus();
                                     return false;
                                 }

@@ -9,7 +9,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.*;
 
 /**
@@ -149,6 +152,7 @@ public class AdminServicesImpl implements AdminServices {
      * @return id number of added user
      */
     @Override
+    @Transactional
     public User addUser(User user) {
         LOG.info("getUser");
         User newUser = userDao.create(user);
