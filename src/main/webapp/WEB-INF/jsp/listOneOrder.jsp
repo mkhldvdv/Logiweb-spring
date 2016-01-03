@@ -169,7 +169,7 @@
                                 <tr>
                                     <th>Order ID</th>
                                     <th>Status</th>
-                                    <th>Way Points</th>
+                                    <th>Cities</th>
                                     <th>Truck ID</th>
                                     <th>Drivers</th>
                                 </tr>

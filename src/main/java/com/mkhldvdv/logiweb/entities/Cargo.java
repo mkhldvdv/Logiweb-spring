@@ -1,5 +1,7 @@
 package com.mkhldvdv.logiweb.entities;
 
+import org.hibernate.annotations.Formula;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -23,10 +25,11 @@ public class Cargo implements Serializable {
     @Column(name = "WEIGHT")
     private int weight;
 
-    @Column(name = "CARGO_STATUS_ID")
-    private byte cargoStatus;
+//    @Column(name = "CARGO_STATUS_ID")
+    @Formula("(select r.CARGO_STATUS_NAME from CARGO_STATUSES r where r.CARGO_STATUS_ID = CARGO_STATUS_ID)")
+    private String cargoStatus;
 
-    @OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Waypoint> waypoints;
 
     @Column(name = "DELETED")
@@ -35,7 +38,7 @@ public class Cargo implements Serializable {
     public Cargo() {
     }
 
-    public Cargo(String cargoName, int weight, byte cargoStatus, List<Waypoint> waypoints, byte deleted) {
+    public Cargo(String cargoName, int weight, String cargoStatus, List<Waypoint> waypoints, byte deleted) {
         this.cargoName = cargoName;
         this.weight = weight;
         this.cargoStatus = cargoStatus;
@@ -67,11 +70,11 @@ public class Cargo implements Serializable {
         this.weight = weight;
     }
 
-    public byte getCargoStatus() {
+    public String getCargoStatus() {
         return cargoStatus;
     }
 
-    public void setCargoStatus(byte cargoStatus) {
+    public void setCargoStatus(String cargoStatus) {
         this.cargoStatus = cargoStatus;
     }
 

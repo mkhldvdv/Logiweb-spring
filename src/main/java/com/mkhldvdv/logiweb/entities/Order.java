@@ -1,6 +1,7 @@
 package com.mkhldvdv.logiweb.entities;
 
 import com.sun.istack.internal.Nullable;
+import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,8 +20,9 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id;
 
-    @Column(name = "ORDER_STATUS_ID")
-    private byte orderStatus;
+//    @Column(name = "ORDER_STATUS_ID")
+    @Formula("(select r.ORDER_STATUS_NAME from ORDER_STATUSES r where r.ORDER_STATUS_ID = ORDER_STATUS_ID)")
+    private String orderStatus;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<Waypoint> waypoints;
@@ -31,7 +33,7 @@ public class Order implements Serializable {
     private Truck truck;
 
     @Nullable
-    @ManyToMany(mappedBy = "orders")
+    @ManyToMany(mappedBy = "orders", fetch = FetchType.EAGER)
     private List<User> drivers;
 
     @Column(name = "DELETED")
@@ -40,7 +42,7 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(byte orderStatus, List<Waypoint> waypoints, Truck truck, List<User> drivers, byte deleted) {
+    public Order(String orderStatus, List<Waypoint> waypoints, Truck truck, List<User> drivers, byte deleted) {
         this.orderStatus = orderStatus;
         this.waypoints = waypoints;
         this.truck = truck;
@@ -52,11 +54,15 @@ public class Order implements Serializable {
         return id;
     }
 
-    public byte getOrderStatus() {
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(byte orderStatus) {
+    public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
     }
 

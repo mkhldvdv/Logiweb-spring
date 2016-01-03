@@ -1,8 +1,11 @@
 package com.mkhldvdv.logiweb.controllers;
 
+import com.mkhldvdv.logiweb.dto.CargoDTO;
+import com.mkhldvdv.logiweb.dto.OrderDTO;
 import com.mkhldvdv.logiweb.entities.Order;
 import com.mkhldvdv.logiweb.entities.Truck;
 import com.mkhldvdv.logiweb.entities.User;
+import com.mkhldvdv.logiweb.exceptions.WrongIdException;
 import com.mkhldvdv.logiweb.services.AdminServices;
 import com.mkhldvdv.logiweb.services.UserServices;
 import com.mkhldvdv.logiweb.services.impl.UserServicesImpl;
@@ -18,9 +21,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -147,9 +152,17 @@ public class LogiwebController {
         return "findOrder";
     }
 
-    @RequestMapping(value = {"/listCargo"}, method = RequestMethod.GET)
-    public String viewListCargo() {
-        return "listCargo";
+    @RequestMapping(value = {"/listCargo"}, method = RequestMethod.POST)
+    public String viewListCargo(@RequestParam("cargoId") long cargoId, Model model) {
+
+        try {
+            CargoDTO cargoDTO = adminServices.getCargo(cargoId);
+            model.addAttribute("cargo", cargoDTO);
+        } catch (WrongIdException e) {
+            e.printStackTrace();
+        } finally {
+            return "listCargo";
+        }
     }
 
     @RequestMapping(value = {"/listDrivers"}, method = RequestMethod.GET)
@@ -162,15 +175,29 @@ public class LogiwebController {
 
     @RequestMapping(value = {"/listOneOrder"}, method = RequestMethod.GET)
     public String viewListOneOrder() {
+
         return "listOneOrder";
     }
 
     @RequestMapping(value = {"/listOrders"}, method = RequestMethod.GET)
     public String viewListOrders(Model model) {
         // get list of all orders
-        List<Order> orders = adminServices.getOrders();
+        List<OrderDTO> orders = adminServices.getOrders();
         model.addAttribute("ordersList", orders);
         return "listOrders";
+    }
+
+    @RequestMapping(value = {"/listOrders"}, method = RequestMethod.POST)
+    public String viewOrder(@RequestParam("orderId") long orderId, RedirectAttributes redir) {
+        try {
+            // get list of all orders
+            OrderDTO orderDTO = adminServices.getOrder(orderId);
+            redir.addFlashAttribute("ordersList", orderDTO);
+        } catch (WrongIdException e) {
+            e.printStackTrace();
+        } finally {
+            return "redirect:/listOneOrder";
+        }
     }
 
     @RequestMapping(value = {"/listTrucks"}, method = RequestMethod.GET)

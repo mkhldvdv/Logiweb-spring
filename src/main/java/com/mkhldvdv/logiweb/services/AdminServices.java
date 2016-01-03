@@ -1,5 +1,7 @@
 package com.mkhldvdv.logiweb.services;
 
+import com.mkhldvdv.logiweb.dto.CargoDTO;
+import com.mkhldvdv.logiweb.dto.OrderDTO;
 import com.mkhldvdv.logiweb.entities.Cargo;
 import com.mkhldvdv.logiweb.entities.Order;
 import com.mkhldvdv.logiweb.entities.Truck;
@@ -29,21 +31,21 @@ public interface AdminServices {
      * get the list of all orders
      * @return  orders
      */
-    public List<Order> getOrders();
+    public List<OrderDTO> getOrders();
 
     /**
      * get the full info of order
      * @param orderId   order id
      * @return  specified order
      */
-    public Order getOrder(long orderId) throws WrongIdException;
+    public OrderDTO getOrder(long orderId) throws WrongIdException;
 
     /**
      * get the full info about the cargo
      * @param cargoId   cargo id
      * @return  specified cargo
      */
-    public Cargo getCargo(long cargoId) throws WrongIdException;
+    public CargoDTO getCargo(long cargoId) throws WrongIdException;
 
     /**
      * adds new user/driver

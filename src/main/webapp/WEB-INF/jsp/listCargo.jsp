@@ -175,7 +175,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="cargo" items="${cargoList}">
+                                <%--<c:forEach var="cargo" items="${cargoList}">--%>
                                     <tr class="odd gradeA">
                                         <td>${cargo.id}</td>
                                         <td>${cargo.cargoName}</td>
@@ -183,7 +183,7 @@
                                         <td>${cargo.cargoStatus}</td>
                                         <td>${cargo.waypoints}</td>
                                     </tr>
-                                </c:forEach>
+                                <%--</c:forEach>--%>
                                 </tbody>
                             </table>
                         </div>

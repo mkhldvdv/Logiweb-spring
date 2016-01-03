@@ -1,6 +1,8 @@
 package com.mkhldvdv.logiweb.services.impl;
 
 import com.mkhldvdv.logiweb.dao.impl.*;
+import com.mkhldvdv.logiweb.dto.CargoDTO;
+import com.mkhldvdv.logiweb.dto.OrderDTO;
 import com.mkhldvdv.logiweb.entities.*;
 import com.mkhldvdv.logiweb.services.AdminServices;
 import org.apache.logging.log4j.LogManager;
@@ -66,11 +68,28 @@ public class AdminServicesImpl implements AdminServices {
      * @return orders
      */
     @Override
-    public List<Order> getOrders() {
+    public List<OrderDTO> getOrders() {
         LOG.info("getOrders");
         List<Order> orderList = orderDao.getAll();
-        //toDo: logic for orderList gathering
-        return orderList;
+        List<OrderDTO> orderDTOs = new ArrayList<OrderDTO>();
+        // transfer info to dto object
+        for (Order order : orderList) {
+            OrderDTO orderDTO = new OrderDTO();
+            orderDTO.setId(order.getId());
+            orderDTO.setTruck(order.getTruck());
+            orderDTO.setOrderStatus(order.getOrderStatus());
+            orderDTO.setDrivers(new HashSet<Long>());
+            for (User driver : order.getDrivers()) {
+                orderDTO.getDrivers().add(driver.getId());
+            }
+            orderDTO.setWaypoints(new HashSet<String>());
+            for (Waypoint waypoint : order.getWaypoints()) {
+                orderDTO.getWaypoints().add(waypoint.getCity());
+            }
+            orderDTOs.add(orderDTO);
+        }
+
+        return orderDTOs;
     }
 
     /**
@@ -80,11 +99,24 @@ public class AdminServicesImpl implements AdminServices {
      * @return specified order
      */
     @Override
-    public Order getOrder(long orderId) {
+    public OrderDTO getOrder(long orderId) {
         LOG.info("getOrder");
         Order order = orderDao.getById(orderId);
-        //toDo: logic for order gathering
-        return order;
+        OrderDTO orderDTO = new OrderDTO();
+        // transfer data to DTO object
+        orderDTO.setId(order.getId());
+        orderDTO.setOrderStatus(order.getOrderStatus());
+        orderDTO.setTruck(order.getTruck());
+        orderDTO.setDrivers(new HashSet<Long>());
+        for (User driver : order.getDrivers()) {
+            orderDTO.getDrivers().add(driver.getId());
+        }
+        orderDTO.setWaypoints(new HashSet<String>());
+        for (Waypoint waypoint : order.getWaypoints()) {
+            orderDTO.getWaypoints().add(waypoint.getCity());
+        }
+
+        return orderDTO;
     }
 
     /**
@@ -94,11 +126,20 @@ public class AdminServicesImpl implements AdminServices {
      * @return specified cargo
      */
     @Override
-    public Cargo getCargo(long cargoId) {
+    public CargoDTO getCargo(long cargoId) {
         LOG.info("getCargo");
         Cargo cargo = cargoDao.getById(cargoId);
-        //toDo: logic for cargo gathering
-        return cargo;
+        // transfer data to DTO object for the view
+        CargoDTO cargoDTO = new CargoDTO();
+        cargoDTO.setId(cargo.getId());
+        cargoDTO.setCargoName(cargo.getCargoName());
+        cargoDTO.setWeight(cargo.getWeight());
+        cargoDTO.setCargoStatus(cargo.getCargoStatus());
+        cargoDTO.setWaypoints(new ArrayList<String>());
+        for (Waypoint waypoint : cargo.getWaypoints()) {
+            cargoDTO.getWaypoints().add(waypoint.getCity());
+        }
+        return cargoDTO;
     }
 
     /**
@@ -317,7 +358,7 @@ public class AdminServicesImpl implements AdminServices {
             boolean flag = true;
             for (Order order : driver.getOrders()) {
                 // not completed orders not included
-                if (order != null && order.getOrderStatus() == 2) {
+                if (order != null && "not complete".equals(order.getOrderStatus())) {
                     flag = true;
                 }
             }
@@ -391,7 +432,7 @@ public class AdminServicesImpl implements AdminServices {
 
             // create order
             Order order = new Order();
-            order.setOrderStatus((byte) 2);
+            order.setOrderStatus("not complete");
             order.setWaypoints(waypointList);
             order.setTruck(truck);
             order.setDrivers(userList);

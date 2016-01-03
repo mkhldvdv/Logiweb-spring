@@ -1,5 +1,6 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html lang="en">
 
 <head>
@@ -151,7 +152,7 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="/listCargo" onsubmit="return checkForm(this);">
+                        <form:form role="form" method="post" action="listCargo" onsubmit="return checkForm(this);">
                             <fieldset>
                                 <div class="form-group">
                                     <div class="form-group">
@@ -164,7 +165,7 @@
                                 <button type="submit" class="btn btn-default">Submit</button>
                                 <button type="reset" class="btn btn-default">Reset</button>
                             </fieldset>
-                        </form>
+                        </form:form>
                         <script>
 
                             function checkForm(form)

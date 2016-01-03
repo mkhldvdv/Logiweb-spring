@@ -178,9 +178,9 @@
                                     <tr class="odd gradeA">
                                         <td>${orders.id}</td>
                                         <td>${orders.orderStatus}</td>
-                                        <td>${orders.waypoints.city}</td>
+                                        <td>${orders.waypoints}</td>
                                         <td>${orders.truck.regNum}</td>
-                                        <td>${orders.drivers.id}</td>
+                                        <td>${orders.drivers}</td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
