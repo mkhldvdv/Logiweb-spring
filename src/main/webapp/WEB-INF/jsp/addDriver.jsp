@@ -164,6 +164,11 @@
                                         <input class="form-control" value="${user.password}" name="pass" type="hidden">
                                     </div>
                                 </c:if>
+                                <c:if test="${user.id == 0}">
+                                    <div class="form-group">
+                                        <input class="form-control" value="" name="pass" type="hidden">
+                                    </div>
+                                </c:if>
                                 <div class="form-group">
                                     <label>First Name</label>
                                     <form:input path="firstName" class="form-control" placeholder="Enter first name" name="firstName" value="${user.firstName}" autofocus="true" />

@@ -2,10 +2,7 @@ package com.mkhldvdv.logiweb.controllers;
 
 import com.mkhldvdv.logiweb.dto.CargoDTO;
 import com.mkhldvdv.logiweb.dto.OrderDTO;
-import com.mkhldvdv.logiweb.entities.Cargo;
-import com.mkhldvdv.logiweb.entities.Truck;
-import com.mkhldvdv.logiweb.entities.User;
-import com.mkhldvdv.logiweb.entities.Waypoint;
+import com.mkhldvdv.logiweb.entities.*;
 import com.mkhldvdv.logiweb.exceptions.WrongIdException;
 import com.mkhldvdv.logiweb.services.AdminServices;
 import com.mkhldvdv.logiweb.services.UserServices;
@@ -155,17 +152,81 @@ public class LogiwebController {
     }
 
     @RequestMapping(value = {"/addOrder"}, method = RequestMethod.GET)
-    public String viewAddOrder() {
+    public String viewAddOrder(Model model) {
+
+        List<Cargo> cargos = adminServices.getAllUnassignedCargos();
+        model.addAttribute("cargos", cargos);
+
         return "addOrder";
     }
 
-    @RequestMapping(value = {"/addOrderDrivers"}, method = RequestMethod.GET)
-    public String viewAddOrderDrivers() {
+    @RequestMapping(value = {"/addOrder"}, method = RequestMethod.POST)
+    public String addOrder(@RequestParam("drivers") List<Long> driverIds,
+                           @RequestParam("truck") String truckString,
+                           @RequestParam("cargos") String cargoString,
+                           Model model) {
+
+        // transfer truckId from string to long
+        Long truckId = Long.parseLong(truckString);
+        // get the truck
+        Truck truck = adminServices.getTruck(truckId);
+
+        // transfer cargos from string to longs
+        List<Long> cargoIds = getCargoIdsFromString(cargoString);
+
+        // finally add new order
+        Order newOrder = adminServices.addOrder(cargoIds, truck, driverIds);
+        model.addAttribute("object", newOrder.getId());
+
+        return "success";
+    }
+
+    private List<Long> getCargoIdsFromString(String cargoString) {
+        cargoString = cargoString.substring(1, cargoString.length() - 1);
+        String[] cargoStringSplitted = cargoString.split(", ");
+        List<Long> cargoIds = new ArrayList<Long>();
+        for (String s : cargoStringSplitted) {
+            cargoIds.add(Long.parseLong(s));
+        }
+        return cargoIds;
+    }
+
+    @RequestMapping(value = {"/addOrderDrivers"}, method = RequestMethod.POST)
+    public String addOrderDrivers(@RequestParam("truck") long truckId,
+                                  @RequestParam("cargos") String cargoString,
+                                  Model model) {
+
+        // transfer cargos from string to longs
+        List<Long> cargoIds = getCargoIdsFromString(cargoString);
+
+        List<User> drivers = adminServices.getAllAvailableDrivers(truckId, cargoIds);
+        Truck truck = adminServices.getTruck(truckId);
+        model.addAttribute("cargos", cargoIds);
+        model.addAttribute("truck", truck);
+        model.addAttribute("drivers", drivers);
+
         return "addOrderDrivers";
     }
 
-    @RequestMapping(value = {"/addOrderTruck"}, method = RequestMethod.GET)
-    public String viewAddOrderTruck() {
+//    @RequestMapping(value = {"/addOrderTruck"}, method = RequestMethod.GET)
+//    public String addTruckToOrder(@ModelAttribute("cargoIds") ArrayList<Long> cargoIds,
+//                                  @ModelAttribute("trucks") ArrayList<Truck> trucks,
+//                                  Model model) {
+//
+//        model.addAttribute("trucks", trucks);
+//        model.addAttribute("cargoIds", cargoIds);
+//
+//        return "addOrderTruck";
+//    }
+
+    @RequestMapping(value = {"/addOrderTruck"}, method = RequestMethod.POST)
+    public String viewAddOrderTruck(@RequestParam("cargos") List<Long> cargoIds,
+                                    Model model) {
+
+        List<Truck> trucks = adminServices.getAllAvailableTrucks(cargoIds);
+        model.addAttribute("trucks", trucks);
+        model.addAttribute("cargos", cargoIds);
+
         return "addOrderTruck";
     }
 

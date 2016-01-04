@@ -28,21 +28,21 @@ public class TruckDaoImpl extends GenericDaoImpl<Truck> {
      * get all not deleted trucks
      * @return list of trucks
      */
-    public List<Truck> getAllNotDeletedTrucks() {
-        return em.createQuery("select t from Truck t " +
-                "where t.deleted = :deleted", Truck.class)
-                .setParameter("deleted", (byte) 1)
-                .getResultList();
-    }
+//    public List<Truck> getAllNotDeletedTrucks() {
+//        return em.createQuery("select t from Truck t " +
+//                "where t.deleted = :deleted", Truck.class)
+//                .setParameter("deleted", (byte) 1)
+//                .getResultList();
+//    }
 
     /**
      * get the list of trucks, not broken and with no current active orders
      * @return  list of trucks
      */
     public List<Truck> getAllAvailableTrucks() {
-        return em.createQuery("select t from Truck t where t.truckStatus = 1 " +
+        return em.createQuery("select t from Truck t where t.truckStatusId = 1 " +
                 "and not exists (select 1 from Order o " +
-                "where o.orderStatus = 2 and o.truck = t) order by t.id desc", Truck.class)
+                "where o.orderStatusId = 2 and o.truck = t) order by t.id desc", Truck.class)
                 .getResultList();
     }
 }

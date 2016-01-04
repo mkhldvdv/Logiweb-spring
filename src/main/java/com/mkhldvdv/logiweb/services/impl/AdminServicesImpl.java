@@ -24,6 +24,7 @@ public class AdminServicesImpl implements AdminServices {
 
     public static final String VALID = "valid";
     public static final String NOT_DONE = "not done";
+    public static final byte NOT_COMPLETE = (byte) 2;
 
     @Autowired
     private TruckDaoImpl truckDao;
@@ -282,7 +283,6 @@ public class AdminServicesImpl implements AdminServices {
     public List<Truck> getAllAvailableTrucks(List<Long> cargosIds) {
         LOG.info("get all available trucks");
 
-
         // creating map of cargos weight balance for the city
         Map<String, Integer> waypointWeightMap = new HashMap<String, Integer>();
         for (Long cargoId : cargosIds) {
@@ -416,6 +416,7 @@ public class AdminServicesImpl implements AdminServices {
     }
 
     @Override
+    @Transactional
     public Order addOrder(List<Long> cargoIds, Truck truck, List<Long> userIds) {
         LOG.info("add order");
         // get list of users by its id
@@ -442,64 +443,51 @@ public class AdminServicesImpl implements AdminServices {
         // creating drivers list if it's still empty for any reason
         if (truck.getDrivers() == null || truck.getDrivers().isEmpty()) {
             truck.setDrivers(userList);
-        } else {
-            truck.getDrivers().addAll(userList);
-            // end of truck creating
-
-            // create order
-            Order order = new Order();
-            order.setOrderStatus("not complete");
-            order.setWaypoints(waypointList);
-            order.setTruck(truck);
-            order.setDrivers(userList);
-
-            // 1. creating order in db
-            Order orderNew = orderDao.create(order);
-
-            // 2. update all waypoints
-            for (Waypoint waypoint : orderNew.getWaypoints()) {
-                // create link
-                waypoint.setOrder(orderNew);
-                // and update in db
-                Waypoint tmpWay = waypointDao.update(waypoint);
-            }
-
-            // 3. update truck
-            // creating orders list if it's still empty for any reason
-            if (truck.getOrders() == null) {
-                truck.setOrders(new ArrayList<Order>());
-            }
-            // links to new order
-            truck.getOrders().add(orderNew);
-            Truck tmpTruck = truckDao.update(truck);
-
-            // 4. update drivers
-            for (User user : userList) {
-                if (user.getOrders() == null) {
-                    user.setOrders(new ArrayList<Order>());
-                }
-                // set order
-                user.getOrders().add(orderNew);
-                // set truck
-                user.setTruck(tmpTruck);
-                // update on database
-                User tmpUser = userDao.update(user);
-            }
-
-            // list of users ids long for dto object
-            Set<Long> userLongs = new HashSet<Long>();
-            for (User user : orderNew.getDrivers()) {
-                userLongs.add(user.getId());
-            }
-
-            // list of waypoints for user
-            Set<Long> wayslong = new HashSet<Long>();
-            for (Waypoint waypoint : order.getWaypoints()) {
-                wayslong.add(waypoint.getId());
-            }
-
         }
-        //toDo: something's wrong here, need to check
-        return null;
+
+//        truck.getDrivers().addAll(userList);
+        // end of truck creating
+
+        // create order
+        Order order = new Order();
+        order.setOrderStatusId(NOT_COMPLETE);
+        order.setWaypoints(waypointList);
+        order.setTruck(truck);
+        order.setDrivers(userList);
+
+        // 1. creating order in db
+        Order orderNew = orderDao.create(order);
+
+        // 2. update all waypoints
+        for (Waypoint waypoint : orderNew.getWaypoints()) {
+            // create link
+            waypoint.setOrder(orderNew);
+            // and update in db
+            Waypoint tmpWay = waypointDao.update(waypoint);
+        }
+
+        // 3. update truck
+        // creating orders list if it's still empty for any reason
+        if (truck.getOrders() == null) {
+            truck.setOrders(new ArrayList<Order>());
+        }
+        // links to new order
+        truck.getOrders().add(orderNew);
+        Truck tmpTruck = truckDao.update(truck);
+
+        // 4. update drivers
+        for (User user : userList) {
+            if (user.getOrders() == null) {
+                user.setOrders(new ArrayList<Order>());
+            }
+            // set order
+            user.getOrders().add(orderNew);
+            // set truck
+            user.setTruck(tmpTruck);
+            // update on database
+            User tmpUser = userDao.update(user);
+        }
+
+        return orderNew;
     }
 }

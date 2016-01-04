@@ -162,8 +162,6 @@
                                         <input class="form-control" placeholder="Enter ID" name="driverId" autofocus>
                                     </div>
                                 </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <!-- a href="<c:url value="/info" />" class="btn btn-md btn-success btn-block">Login</a-->
                                 <button type="submit" class="btn btn-default">Submit</button>
                                 <button type="reset" class="btn btn-default">Reset</button>
                             </fieldset>

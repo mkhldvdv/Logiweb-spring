@@ -1,5 +1,6 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html lang="en">
 
 <head>
@@ -156,28 +157,31 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="/addOrder" onsubmit="return checkForm(this);">
+                        <form:form role="form" method="post" action="addOrder" onsubmit="return checkForm(this);">
                             <fieldset>
                                 <div class="form-group">
                                     <label>Select Drivers</label>
                                     <select name="drivers" id="drivers" multiple class="form-control">
                                         <!-- get the list of cargos -->
-                                        <c:forEach var="driver" items="${driverList}">
+                                        <c:forEach var="driver" items="${drivers}">
                                             <option value="${driver.id}">
-                                                ${driver.id}&nbsp;&nbsp;&nbsp;${driver.firstName} ${driver.lastName} ${driver.login}
+                                                ${driver.id}
+                                                ${driver.firstName}
+                                                ${driver.lastName}
                                             </option>
                                         </c:forEach>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" name="step" value="3" type="hidden">
+                                    <input class="form-control" name="cargos" value="${cargos}" type="hidden">
                                 </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <!-- a href="<c:url value="/info" />" class="btn btn-md btn-success btn-block">Login</a-->
+                                <div class="form-group">
+                                    <input class="form-control" name="truck" value="${truck.id}" type="hidden">
+                                </div>
                                 <button type="submit" class="btn btn-default">Submit</button>
                                 <button type="reset" class="btn btn-default">Reset</button>
                             </fieldset>
-                        </form>
+                        </form:form>
                         <script>
                             // check the form input
                             function checkForm(form) {
@@ -191,8 +195,8 @@
                                 var count = $('#drivers option:selected').length;
 
                                 // check exaclty necessary drivers number was chosen
-                                if (count != ${truckObj.driverCount}) {
-                                    alert("Number of drivers should be exactly ${truckObj.driverCount}");
+                                if (count != ${truck.driverCount}) {
+                                    alert("Number of drivers should be exactly ${truck.driverCount}");
                                     form.drivers.focus();
                                     return false;
                                 }

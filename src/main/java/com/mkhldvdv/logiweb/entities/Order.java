@@ -20,7 +20,9 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id;
 
-//    @Column(name = "ORDER_STATUS_ID")
+    @Column(name = "ORDER_STATUS_ID")
+    private byte orderStatusId;
+
     @Formula("(select r.ORDER_STATUS_NAME from ORDER_STATUSES r where r.ORDER_STATUS_ID = ORDER_STATUS_ID)")
     private String orderStatus;
 
@@ -56,6 +58,14 @@ public class Order implements Serializable {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public byte getOrderStatusId() {
+        return orderStatusId;
+    }
+
+    public void setOrderStatusId(byte orderStatusId) {
+        this.orderStatusId = orderStatusId;
     }
 
     public String getOrderStatus() {

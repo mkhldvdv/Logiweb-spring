@@ -20,7 +20,7 @@ public class CargoDaoImpl extends GenericDaoImpl<Cargo> {
     public List<Cargo> getAllUnassigned() {
         return em.createQuery("select w.cargo from Waypoint w " +
                 "where w.order is null and w.cargoType = :load", Cargo.class)
-                .setParameter("load",(byte) 1)
+                .setParameter("load", "load")
                 .getResultList();
     }
 }

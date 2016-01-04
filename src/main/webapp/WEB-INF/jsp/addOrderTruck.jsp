@@ -1,5 +1,6 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html lang="en">
 
 <head>
@@ -156,31 +157,29 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="/addOrder" onsubmit="return checkForm(this);">
+                        <form:form role="form" method="post" action="addOrderDrivers" onsubmit="return checkForm(this);">
                             <fieldset>
                                 <div class="form-group">
                                     <label>Select Truck</label>
                                     <select name="truck" class="form-control">
                                         <!-- get the list of cargos -->
-                                        <c:forEach var="truck" items="${truckList}">
+                                        <c:forEach var="truck" items="${trucks}">
                                             <option value="${truck.id}">
-                                                ${truck.id}&nbsp;&nbsp;&nbsp;regnum: ${truck.regNum}&nbsp;&nbsp;capacity: ${truck.capacity}&nbsp;&nbsp;shift: ${truck.driverCount}
+                                                ${truck.id}
+                                                regnum: ${truck.regNum}
+                                                capacity: ${truck.capacity}
+                                                shift: ${truck.driverCount}
                                             </option>
                                         </c:forEach>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" name="step" value="2" type="hidden">
-                                </div>
-                                <div class="form-group">
                                     <input class="form-control" name="cargos" value="${cargos}" type="hidden">
                                 </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <!-- a href="<c:url value="/info" />" class="btn btn-md btn-success btn-block">Login</a-->
                                 <button type="submit" class="btn btn-default">Submit</button>
                                 <button type="reset" class="btn btn-default">Reset</button>
                             </fieldset>
-                        </form>
+                        </form:form>
                         <script>
                             // check the form input
                             function checkForm(form) {
