@@ -94,10 +94,6 @@ public class LogiwebController {
     @RequestMapping(value = {"/addDriver"}, method = RequestMethod.GET)
     public String viewAddDriver(Model model) {
         User user = new User();
-        Map<String,String> roles = new HashMap<String,String>();
-        roles.put("ROLE_DRIVER", "driver");
-        roles.put("ROLE_OPERATOR", "operator");
-        model.addAttribute("roles", roles);
         model.addAttribute("user", user);
         return "addDriver";
     }
@@ -112,7 +108,7 @@ public class LogiwebController {
         }
 
         User newUser = adminServices.addUser(user);
-        model.addAttribute("object", newUser);
+        model.addAttribute("object", newUser.getId());
 
         return urlString;
     }
@@ -133,8 +129,25 @@ public class LogiwebController {
     }
 
     @RequestMapping(value = {"/addTruck"}, method = RequestMethod.GET)
-    public String viewAddTruck() {
+    public String viewAddTruck(Model model) {
+        Truck truck = new Truck();
+        model.addAttribute("truck", truck);
         return "addTruck";
+    }
+
+    @RequestMapping(value = "/addEditTruck", method = RequestMethod.POST)
+    public String addEditTruck(@ModelAttribute("user") @Valid Truck truck,
+                              BindingResult result, Model model) {
+        String urlString = "success";
+
+        if (result.hasErrors()) {
+            return "addTruck";
+        }
+
+        Truck newTruck = adminServices.addTruck(truck);
+        model.addAttribute("object", newTruck.getId());
+
+        return urlString;
     }
 
     @RequestMapping(value = {"/deleteDriver"}, method = RequestMethod.GET)
@@ -142,9 +155,32 @@ public class LogiwebController {
         return "deleteDriver";
     }
 
+    @RequestMapping(value = {"/deleteDriver"}, method = RequestMethod.POST)
+    public String deleteUser(HttpServletRequest request, Model model) {
+
+        long userId = Long.parseLong(request.getParameter("driverId"));
+        adminServices.deleteUser(userId);
+        model.addAttribute("object", userId);
+        return "success";
+    }
+
     @RequestMapping(value = {"/deleteTruck"}, method = RequestMethod.GET)
     public String viewDeleteTruck() {
         return "deleteTruck";
+    }
+
+    @RequestMapping(value = {"/deleteTruck"}, method = RequestMethod.POST)
+    public String deleteTruck(HttpServletRequest request, Model model) {
+
+        try {
+            long truckId = Long.parseLong(request.getParameter("truckId"));
+            adminServices.deleteTruck(truckId);
+            model.addAttribute("object", truckId);
+            return "success";
+        } catch (WrongIdException e) {
+            e.printStackTrace();
+            return "error";
+        }
     }
 
     @RequestMapping(value = {"/editDriver"}, method = RequestMethod.GET)
