@@ -92,22 +92,34 @@ public class LogiwebController {
     }
 
     @RequestMapping(value = {"/addDriver"}, method = RequestMethod.GET)
-    public String viewAddDriver(Model model) {
-        User user = new User();
+    public String viewAddDriver(@ModelAttribute("user") User user, Model model) {
+        if (user == null) {
+            user = new User();
+        }
         model.addAttribute("user", user);
         return "addDriver";
     }
 
     @RequestMapping(value = "/addEditUser", method = RequestMethod.POST)
     public String addEditUser(@ModelAttribute("user") @Valid User user,
-                          BindingResult result, Model model) {
+                          BindingResult result, Model model, @RequestParam("pass") String pass) {
         String urlString = "success";
 
         if (result.hasErrors()) {
             return "addDriver";
         }
 
-        User newUser = adminServices.addUser(user);
+        User newUser;
+        if (user.getId() == 0) {
+            newUser = adminServices.addUser(user);
+        } else {
+            // check if password was changed or nor
+            if (pass.equals(user.getPassword())) {
+                newUser = adminServices.updateUser(user, true);
+            } else {
+                newUser = adminServices.updateUser(user, false);
+            }
+        }
         model.addAttribute("object", newUser.getId());
 
         return urlString;
@@ -129,14 +141,16 @@ public class LogiwebController {
     }
 
     @RequestMapping(value = {"/addTruck"}, method = RequestMethod.GET)
-    public String viewAddTruck(Model model) {
-        Truck truck = new Truck();
+    public String viewAddTruck(@ModelAttribute("truck") Truck truck, Model model) {
+        if (truck == null) {
+            truck = new Truck();
+        }
         model.addAttribute("truck", truck);
         return "addTruck";
     }
 
     @RequestMapping(value = "/addEditTruck", method = RequestMethod.POST)
-    public String addEditTruck(@ModelAttribute("user") @Valid Truck truck,
+    public String addEditTruck(@ModelAttribute("truck") @Valid Truck truck,
                               BindingResult result, Model model) {
         String urlString = "success";
 
@@ -144,7 +158,12 @@ public class LogiwebController {
             return "addTruck";
         }
 
-        Truck newTruck = adminServices.addTruck(truck);
+        Truck newTruck;
+        if (truck.getId() == 0) {
+            newTruck = adminServices.addTruck(truck);
+        } else {
+            newTruck = adminServices.updateTruck(truck);
+        }
         model.addAttribute("object", newTruck.getId());
 
         return urlString;
@@ -156,9 +175,8 @@ public class LogiwebController {
     }
 
     @RequestMapping(value = {"/deleteDriver"}, method = RequestMethod.POST)
-    public String deleteUser(HttpServletRequest request, Model model) {
+    public String deleteUser(@RequestParam("driverId") long userId, Model model) {
 
-        long userId = Long.parseLong(request.getParameter("driverId"));
         adminServices.deleteUser(userId);
         model.addAttribute("object", userId);
         return "success";
@@ -170,10 +188,9 @@ public class LogiwebController {
     }
 
     @RequestMapping(value = {"/deleteTruck"}, method = RequestMethod.POST)
-    public String deleteTruck(HttpServletRequest request, Model model) {
+    public String deleteTruck(@RequestParam("truckId") long truckId, Model model) {
 
         try {
-            long truckId = Long.parseLong(request.getParameter("truckId"));
             adminServices.deleteTruck(truckId);
             model.addAttribute("object", truckId);
             return "success";
@@ -188,9 +205,27 @@ public class LogiwebController {
         return "editDriver";
     }
 
+    @RequestMapping(value = {"/editDriver"}, method = RequestMethod.POST)
+    public String editDriver(@RequestParam("driverId") long driverId, Model model) {
+
+        User user = userServices.getUser(driverId);
+        model.addAttribute("user", user);
+
+        return "addDriver";
+    }
+
     @RequestMapping(value = {"/editTruck"}, method = RequestMethod.GET)
     public String viewEditTruck() {
         return "editTruck";
+    }
+
+    @RequestMapping(value = {"/editTruck"}, method = RequestMethod.POST)
+    public String editTruck(@RequestParam("truckId") long truckId, Model model) {
+
+        Truck truck = adminServices.getTruck(truckId);
+        model.addAttribute("truck", truck);
+
+        return "addTruck";
     }
 
     @RequestMapping(value = {"/error"}, method = RequestMethod.GET)

@@ -166,6 +166,7 @@ public class AdminServicesImpl implements AdminServices {
      * @return updated user
      */
     @Override
+    @Transactional
     public User updateUser(User user, boolean hashed) {
         LOG.info("updateUser");
         User newUser = userDao.update(user, hashed);
@@ -232,6 +233,7 @@ public class AdminServicesImpl implements AdminServices {
      * @return specified truck int DTO object
      */
     @Override
+    @Transactional
     public Truck updateTruck(Truck truck) {
         LOG.info("update truck");
         Truck newTruck = truckDao.update(truck);

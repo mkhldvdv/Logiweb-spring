@@ -89,19 +89,15 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
      * @return          updated user
      */
     public User update(User user, boolean hashed) {
-        try {
-            if (!hashed) {
-                String hashedPass = SHAHashing(user.getPassword());
-                user.setPassword(hashedPass);
-            }
-            return super.update(user);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return null;
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
+
+        if (!hashed) {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String hashedPassword = passwordEncoder.encode(user.getPassword());
+
+            user.setPassword(hashedPassword);
         }
+
+        return super.update(user);
     }
 
     /**
