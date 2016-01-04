@@ -1,5 +1,6 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -152,23 +153,23 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="/addCargo" onsubmit="return checkForm(this);">
+                        <form:form role="form" method="post" action="addCargo" commandName="cargo" onsubmit="return checkForm(this);">
                             <fieldset>
                                 <div class="form-group">
                                     <label>Cargo Name</label>
-                                    <input class="form-control" placeholder="Enter cargo name" name="cargoName" autofocus>
+                                    <form:input path="cargoName" class="form-control" placeholder="Enter cargo name" name="cargoName" autofocus="true" />
                                 </div>
                                 <div class="form-group">
                                     <label>Weight</label>
-                                    <input class="form-control" placeholder="Enter weight" name="weight" autofocus>
+                                    <form:input path="weight" class="form-control" placeholder="Enter weight" name="weight" autofocus="true" />
                                 </div>
                                 <div class="form-group">
                                     <label>Status</label>
-                                    <select class="form-control" name="cargoStatus">
-                                        <option value="1">prepared</option>
-                                        <option value="2">delivered</option>
-                                        <option value="3">unloaded</option>
-                                    </select>
+                                    <form:select path="cargoStatusId" class="form-control" name="cargoStatus">
+                                        <form:option value="1">prepared</form:option>
+                                        <form:option value="2">delivered</form:option>
+                                        <form:option value="3">unloaded</form:option>
+                                    </form:select>
                                 </div>
                                 <div class="form-group">
                                     <label>City to load</label>
@@ -200,12 +201,10 @@
                                     <option value="10">london</option>
                                     </select>
                                 </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <!-- a href="<c:url value="/info" />" class="btn btn-md btn-success btn-block">Login</a-->
                                 <button type="submit" class="btn btn-default">Submit</button>
                                 <button type="reset" class="btn btn-default">Reset</button>
                             </fieldset>
-                        </form>
+                        </form:form>
                         <script>
 
                             function checkForm(form)

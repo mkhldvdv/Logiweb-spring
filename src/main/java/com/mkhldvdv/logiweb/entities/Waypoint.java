@@ -22,8 +22,8 @@ public class Waypoint implements Serializable, Comparable<Waypoint> {
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
-//    @Column(name = "CITY_ID")
-//    private byte city;
+    @Column(name = "CITY_ID")
+    private long cityId;
 
     @Formula("(select r.CITY_NAME from CITIES r where r.CITY_ID = CITY_ID)")
     private String city;
@@ -33,7 +33,10 @@ public class Waypoint implements Serializable, Comparable<Waypoint> {
     private Cargo cargo;
 
     @Column(name = "CARGO_TYPE_ID")
-    private byte cargoType;
+    private byte cargoTypeId;
+
+    @Formula("(select r.CARGO_TYPE_NAME from CARGO_TYPES r where r.CARGO_TYPE_ID = CARGO_TYPE_ID)")
+    private String cargoType;
 
     public Waypoint() {
     }
@@ -54,14 +57,13 @@ public class Waypoint implements Serializable, Comparable<Waypoint> {
         this.order = order;
     }
 
-//    public byte getCity() {
-//        return city;
-//    }
-//
-//    public void setCity(byte city) {
-//        this.city = city;
-//    }
+    public long getCityId() {
+        return cityId;
+    }
 
+    public void setCityId(long cityId) {
+        this.cityId = cityId;
+    }
 
     public String getCity() {
         return city;
@@ -79,11 +81,19 @@ public class Waypoint implements Serializable, Comparable<Waypoint> {
         this.cargo = cargo;
     }
 
-    public byte getCargoType() {
+    public byte getCargoTypeId() {
+        return cargoTypeId;
+    }
+
+    public void setCargoTypeId(byte cargoTypeId) {
+        this.cargoTypeId = cargoTypeId;
+    }
+
+    public String getCargoType() {
         return cargoType;
     }
 
-    public void setCargoType(byte cargoType) {
+    public void setCargoType(String cargoType) {
         this.cargoType = cargoType;
     }
 

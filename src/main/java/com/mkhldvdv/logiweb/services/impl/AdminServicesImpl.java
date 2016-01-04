@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.*;
 
 /**
@@ -247,10 +245,19 @@ public class AdminServicesImpl implements AdminServices {
      * @return added cargo
      */
     @Override
+    @Transactional
     public Cargo addCargo(Cargo cargo) {
         LOG.info("add cargo");
-        //toDo: logic for adding cargo
-        return cargo;
+
+        // add cargo
+        Cargo newCargo = cargoDao.create(cargo);
+        // update waypoints with created cargo.id
+        for (Waypoint waypoint : newCargo.getWaypoints()) {
+            waypoint.setCargo(newCargo);
+            waypointDao.update(waypoint);
+        }
+
+        return newCargo;
     }
 
     /**
@@ -338,7 +345,7 @@ public class AdminServicesImpl implements AdminServices {
             //
             String city = waypoint.getCity();
             // if load then add it to the map with plus
-            if (waypoint.getCargoType() == 1) {
+            if (waypoint.getCargoTypeId() == 1) {
                 waypointWeightMap.put(city, waypointWeightMap.get(city) == null ? cargoWeight : waypointWeightMap.get(city) + cargoWeight);
             } else {
                 waypointWeightMap.put(city, waypointWeightMap.get(city) == null ? -cargoWeight : waypointWeightMap.get(city) - cargoWeight);

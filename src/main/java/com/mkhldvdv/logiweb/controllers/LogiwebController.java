@@ -2,8 +2,10 @@ package com.mkhldvdv.logiweb.controllers;
 
 import com.mkhldvdv.logiweb.dto.CargoDTO;
 import com.mkhldvdv.logiweb.dto.OrderDTO;
+import com.mkhldvdv.logiweb.entities.Cargo;
 import com.mkhldvdv.logiweb.entities.Truck;
 import com.mkhldvdv.logiweb.entities.User;
+import com.mkhldvdv.logiweb.entities.Waypoint;
 import com.mkhldvdv.logiweb.exceptions.WrongIdException;
 import com.mkhldvdv.logiweb.services.AdminServices;
 import com.mkhldvdv.logiweb.services.UserServices;
@@ -24,10 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by mkhldvdv on 25.12.2015.
@@ -87,8 +86,38 @@ public class LogiwebController {
     }
 
     @RequestMapping(value = {"/addCargo"}, method = RequestMethod.GET)
-    public String viewAddCargo() {
+    public String viewAddCargo(Model model) {
+
+        Cargo cargo = new Cargo();
+        model.addAttribute("cargo", cargo);
+
         return "addCargo";
+    }
+
+    @RequestMapping(value = {"/addCargo"}, method = RequestMethod.POST)
+    public String addCargo(@ModelAttribute("cargo") Cargo cargo, Model model,
+                               @RequestParam("cityLoad") long cityLoad, @RequestParam("cityUnload") long cityUnload) {
+
+        cargo.setWaypoints(new ArrayList<Waypoint>());
+        // where to load waypoint
+        Waypoint load = new Waypoint();
+        load.setCargoTypeId((byte) 1);
+        load.setCityId(cityLoad);
+        // where to unload waypoint
+        Waypoint unLoad = new Waypoint();
+        unLoad.setCargoTypeId((byte) 2);
+        unLoad.setCityId(cityUnload);
+
+        // add waypoints to cargo
+        cargo.getWaypoints().add(load);
+        cargo.getWaypoints().add(unLoad);
+
+        // add new cargo
+        Cargo newCargo = adminServices.addCargo(cargo);
+
+        model.addAttribute("object", newCargo.getId());
+
+        return "success";
     }
 
     @RequestMapping(value = {"/addDriver"}, method = RequestMethod.GET)
