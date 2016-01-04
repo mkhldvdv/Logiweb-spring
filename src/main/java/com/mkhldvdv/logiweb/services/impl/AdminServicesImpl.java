@@ -178,6 +178,7 @@ public class AdminServicesImpl implements AdminServices {
      * @param userId user to delete
      */
     @Override
+    @Transactional
     public void deleteUser(long userId) {
         LOG.info("deleteUser");
         User user = userDao.getById(userId);
@@ -191,6 +192,7 @@ public class AdminServicesImpl implements AdminServices {
      * @return added truck
      */
     @Override
+    @Transactional
     public Truck addTruck(Truck truck) {
         LOG.info("addTruck");
         Truck newTruck = truckDao.create(truck);
@@ -203,6 +205,7 @@ public class AdminServicesImpl implements AdminServices {
      * @param truckId truck to delete
      */
     @Override
+    @Transactional
     public void deleteTruck(long truckId) {
         LOG.info("deleteTruck");
         Truck truck = truckDao.getById(truckId);

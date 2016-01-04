@@ -25,7 +25,9 @@ public class Cargo implements Serializable {
     @Column(name = "WEIGHT")
     private int weight;
 
-//    @Column(name = "CARGO_STATUS_ID")
+    @Column(name = "CARGO_STATUS_ID")
+    private byte cargoStatusId;
+
     @Formula("(select r.CARGO_STATUS_NAME from CARGO_STATUSES r where r.CARGO_STATUS_ID = CARGO_STATUS_ID)")
     private String cargoStatus;
 
@@ -68,6 +70,14 @@ public class Cargo implements Serializable {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    public byte getCargoStatusId() {
+        return cargoStatusId;
+    }
+
+    public void setCargoStatusId(byte cargoStatusId) {
+        this.cargoStatusId = cargoStatusId;
     }
 
     public String getCargoStatus() {

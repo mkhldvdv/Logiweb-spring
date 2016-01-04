@@ -45,6 +45,9 @@ public class User implements Serializable {
     @Size(min = 5, max = 60, message = "Password should be between 5 and 60 characters")
     private String password;
 
+    @Column(name = "ROLE_ID")
+    private byte roleId;
+
     @Formula("(select r.ROLE_NAME from ROLES r where r.ROLE_ID = ROLE_ID)")
     private String role;
 
@@ -54,8 +57,14 @@ public class User implements Serializable {
 //    @Pattern(regexp="[0-9]+", message = "Hours should contain only digits")
     private short hours;
 
+    @Column(name = "USER_STATUS_ID")
+    private byte userStatusId;
+
     @Formula("(select r.USER_STATUS_NAME from USER_STATUSES r where r.USER_STATUS_ID = USER_STATUS_ID)")
     private String userStatus;
+
+    @Column(name = "CITY_ID")
+    private byte cityId;
 
     @Formula("(select r.CITY_NAME from CITIES r where r.CITY_ID = CITY_ID)")
     private String city;
@@ -137,6 +146,14 @@ public class User implements Serializable {
         this.role = role;
     }
 
+    public byte getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(byte roleId) {
+        this.roleId = roleId;
+    }
+
     public short getHours() {
         return hours;
     }
@@ -159,6 +176,22 @@ public class User implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public byte getUserStatusId() {
+        return userStatusId;
+    }
+
+    public void setUserStatusId(byte userStatusId) {
+        this.userStatusId = userStatusId;
+    }
+
+    public byte getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(byte cityId) {
+        this.cityId = cityId;
     }
 
     public Truck getTruck() {
@@ -205,16 +238,20 @@ public class User implements Serializable {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", fisrtName='" + firstName + '\'' +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", role=" + role +
+                ", roleId=" + roleId +
+                ", role='" + role + '\'' +
                 ", hours=" + hours +
+                ", userStatusId=" + userStatusId +
                 ", userStatus='" + userStatus + '\'' +
-                ", city=" + city +
+                ", cityId=" + cityId +
+                ", city='" + city + '\'' +
                 ", truck=" + truck +
                 ", orders=" + orders +
+                ", deleted=" + deleted +
                 '}';
     }
 }

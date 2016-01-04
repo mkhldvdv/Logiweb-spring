@@ -1,5 +1,6 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html lang="en">
 
 <head>
@@ -151,23 +152,16 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="/addEditTruck" onsubmit="return checkForm(this);">
+                        <form:form role="form" method="post" action="deleteTruck" onsubmit="return checkForm(this);">
                             <fieldset>
                                 <div class="form-group">
-                                    <div class="form-group">
-                                        <label>Truck ID</label>
-                                        <input class="form-control" placeholder="Enter truck ID" name="truckId" autofocus>
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="form-control" value="delete" name="action" type="hidden">
-                                    </div>
+                                    <label>Truck ID</label>
+                                    <input class="form-control" placeholder="Enter truck ID" name="truckId" autofocus>
                                 </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <!-- a href="<c:url value="/info" />" class="btn btn-md btn-success btn-block">Login</a-->
                                 <button type="submit" class="btn btn-default">Submit</button>
                                 <button type="reset" class="btn btn-default">Reset</button>
                             </fieldset>
-                        </form>
+                        </form:form>
                         <script>
 
                             function checkForm(form)
@@ -184,7 +178,7 @@
 
                                 // validation fails if the input doesn't match our regular expression
                                 if(!re.test(form.truckId.value)) {
-                                    alert("Error: truckId should be numeric and at least character");
+                                    alert("Error: truckId should be numeric and at least 1 character");
                                     form.truckId.focus();
                                     return false;
                                 }

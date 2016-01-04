@@ -186,10 +186,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Role</label>
-                                    <form:select path="role" class="form-control" id="role" name="role">
-                                        <%--<form:option value="ROLE_DRIVER">driver</form:option>--%>
-                                        <%--<form:option value="ROLE_OPERATOR">operator</form:option>--%>
-                                        <form:options items="${roles}" />
+                                    <form:select path="roleId" class="form-control" id="role" name="role">
+                                        <form:option value="3">driver</form:option>
+                                        <form:option value="2">operator</form:option>
+                                        <%--<form:options items="${roles}" />--%>
                                     </form:select>
                                 </div>
                                 <div class="form-group">
@@ -200,26 +200,27 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Status</label>
-                                    <form:select path="userStatus" class="form-control" id="status" name="status">
-                                        <form:option value="vacant">vacant</form:option>
-                                        <form:option value="in shift">in shift</form:option>
-                                        <form:option value="driving">driving</form:option>
-                                        <form:option value="n/a">n/a</form:option>
+                                    <form:select path="userStatusId" class="form-control" id="status" name="status">
+                                        <form:option value="1">vacant</form:option>
+                                        <form:option value="2">in shift</form:option>
+                                        <form:option value="3">driving</form:option>
+                                        <form:option value="4">n/a</form:option>
                                     </form:select>
                                 </div>
                                 <div class="form-group">
                                     <label>Current city</label>
-                                    <form:select path="city" class="form-control" id="city" name="city">
-                                        <form:option value="st petersburg">st petersburg</form:option>
-                                        <form:option value="moskow">moskow</form:option>
-                                        <form:option value="kyiv">kyiv</form:option>
-                                        <form:option value="minsk">minsk</form:option>
-                                        <form:option value="copenhagen">copenhagen</form:option>
-                                        <form:option value="helsinki">helsinki</form:option>
-                                        <form:option value="prague">prague</form:option>
-                                        <form:option value="berlin">berlin</form:option>
-                                        <form:option value="paris">paris</form:option>
-                                        <form:option value="london">london</form:option>
+                                    <form:select path="cityId" class="form-control" id="city" name="city">
+                                        <form:option value="1">st petersburg</form:option>
+                                        <form:option value="2">moskow</form:option>
+                                        <form:option value="3">kyiv</form:option>
+                                        <form:option value="4">minsk</form:option>
+                                        <form:option value="5">copenhagen</form:option>
+                                        <form:option value="6">helsinki</form:option>
+                                        <form:option value="7">prague</form:option>
+                                        <form:option value="8">berlin</form:option>
+                                        <form:option value="9">paris</form:option>
+                                        <form:option value="10">london</form:option>
+                                        <%--<form:option value="0">n/a</form:option>--%>
                                     </form:select>
                                 </div>
                                 <button type="submit" class="btn btn-default">Submit</button>

@@ -148,7 +148,7 @@
                     <h3 class="page-header"> Success!</h3>
                 </div>
                 <!-- /.col-lg-12 -->
-                ${object.id}
+                ${object}
             </div>
         </div>
         <!-- /#page-wrapper -->

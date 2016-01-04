@@ -2,8 +2,11 @@ package com.mkhldvdv.logiweb.entities;
 
 import com.sun.istack.internal.Nullable;
 import org.hibernate.annotations.Formula;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
@@ -21,6 +24,9 @@ public class Truck implements Serializable {
     private long id;
 
     @Column(name = "REG_NUM")
+    @NotEmpty(message = "Please enter registration number.")
+    @Size(min = 7, max = 7, message = "Registration number should be exactly 7 characters")
+    @Pattern(regexp="[a-zA-Z]{2}[0-9]{5}", message = "Registration number should contain 2 letters and 5 digits")
     private String regNum;
 
     @Column(name = "DRIVER_COUNT")
@@ -29,12 +35,14 @@ public class Truck implements Serializable {
     @Column(name = "CAPACITY")
     private byte capacity;
 
-//    @Column(name = "TRUCK_STATUS_ID")
+    @Column(name = "TRUCK_STATUS_ID")
+    private byte truckStatusId;
+
     @Formula("(select r.TRUCK_STATUS_NAME from TRUCK_STATUSES r where r.TRUCK_STATUS_ID = TRUCK_STATUS_ID)")
     private String truckStatus;
 
-//    @Column(name = "CITY_ID")
-//    private long city;
+    @Column(name = "CITY_ID")
+    private long cityId;
 
     @Formula("(select r.CITY_NAME from CITIES r where r.CITY_ID = CITY_ID)")
     private String city;
@@ -106,6 +114,22 @@ public class Truck implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public byte getTruckStatusId() {
+        return truckStatusId;
+    }
+
+    public void setTruckStatusId(byte truckStatusId) {
+        this.truckStatusId = truckStatusId;
+    }
+
+    public long getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(long cityId) {
+        this.cityId = cityId;
     }
 
     public List<User> getDrivers() {

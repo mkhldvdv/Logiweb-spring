@@ -1,5 +1,6 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html lang="en">
 
 <head>
@@ -150,25 +151,16 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="/addEditUser" onsubmit="return checkForm(this);">
+                        <form:form role="form" method="post" action="deleteDriver" onsubmit="return checkForm(this);">
                             <fieldset>
                                 <div class="form-group">
-                                    <div class="form-group">
-                                        <label>User/Driver ID</label>
-                                        <input class="form-control" placeholder="Enter ID" name="driverId" autofocus>
-                                    </div>
+                                    <label>User/Driver ID</label>
+                                    <input class="form-control" placeholder="Enter ID" name="driverId" autofocus>
                                 </div>
-                                <div class="form-group">
-                                    <div class="form-group">
-                                        <input class="form-control" name="delete" type="hidden" value="1">
-                                    </div>
-                                </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <!-- a href="<c:url value="/info" />" class="btn btn-md btn-success btn-block">Login</a-->
                                 <button type="submit" class="btn btn-default">Submit</button>
                                 <button type="reset" class="btn btn-default">Reset</button>
                             </fieldset>
-                        </form>
+                        </form:form>
                         <script>
 
                             function checkForm(form)

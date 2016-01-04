@@ -1,5 +1,6 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html lang="en">
 
 <head>
@@ -153,73 +154,72 @@
             <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <form role="form" method="post" action="/addEditTruck" onsubmit="return checkForm(this);">
+                        <form:form role="form" method="post" action="addEditTruck" commandName="truck" onsubmit="return checkForm(this);">
                             <fieldset>
-                                <c:set var="user" value="${userObject}" />
+                                <c:if test="${truck.id > 0}">
+                                    <div class="form-group">
+                                        <label>Truck ID:</label>
+                                        ${truck.id}
+                                        <form:input path="id" class="form-control" value="${truck.id}" name="userId" type="hidden" />
+                                    </div>
+                                </c:if>
+                                <%--<div class="form-group">--%>
+                                    <%--<input class="form-control" value="add" name="action" type="hidden">--%>
+                                <%--</div>--%>
                                 <div class="form-group">
                                     <label>Regional Number</label>
-                                    <input class="form-control" placeholder="Enter regional number" name="regNum" value="${user.regNum}" autofocus>
+                                    <form:input path="regNum" class="form-control" placeholder="Enter regional number" name="regNum" value="${truck.regNum}" autofocus="true" />
                                 </div>
                                 <div class="form-group">
                                     <label>Shift count</label>
-                                    <select class="form-control" id="shift" name="shift">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                    </select>
+                                    <form:select path="driverCount" class="form-control" id="shift" name="shift">
+                                        <form:option value="1">1</form:option>
+                                        <form:option value="2">2</form:option>
+                                        <form:option value="3">3</form:option>
+                                    </form:select>
                                     <script>
                                         function setSelectedIndex(s, i)
                                         {
                                             s.options[i-1].selected = true;
                                             return;
                                         }
-                                        setSelectedIndex(document.getElementById("shift"),${user.driverCount});
-                                        setSelectedIndex(document.getElementById("status"),${user.truckStatus});
-                                        setSelectedIndex(document.getElementById("city"),${user.city});
+                                        setSelectedIndex(document.getElementById("shift"),${truck.driverCount});
+                                        setSelectedIndex(document.getElementById("status"),${truck.truckStatus});
+                                        setSelectedIndex(document.getElementById("city"),${truck.city});
                                     </script>
                                 </div>
                                 <div class="form-group">
                                     <label>Capacity</label>
-                                    <input class="form-control" placeholder="Enter capacity" name="capacity" value="${user.capacity}" autofocus>
+                                    <form:input path="capacity" class="form-control" placeholder="Enter capacity" name="capacity" value="${truck.capacity}" autofocus="true" />
                                 </div>
                                 <div class="form-group">
                                     <label>Status</label>
-                                    <select class="form-control" id="status" name="status">
-                                        <option value="1">valid</option>
-                                        <option value="2">not valid</option>
-                                    </select>
+                                    <form:select path="truckStatusId" class="form-control" id="status" name="status">
+                                        <form:option value="1">valid</form:option>
+                                        <form:option value="2">not valid</form:option>
+                                    </form:select>
                                 </div>
                                 <div class="form-group">
                                     <label>Current city</label>
-                                    <select class="form-control" id="city" name="city">
-                                        <option value="1">st petersburg</option>
-                                        <option value="2">moskow</option>
-                                        <option value="3">kyiv</option>
-                                        <option value="4">minsk</option>
-                                        <option value="5">copenhagen</option>
-                                        <option value="6">helsinki</option>
-                                        <option value="7">prague</option>
-                                        <option value="8">berlin</option>
-                                        <option value="9">paris</option>
-                                        <option value="10">london</option>
-                                    </select>
+                                    <form:select path="cityId" class="form-control" id="city" name="city">
+                                        <form:option value="1">st petersburg</form:option>
+                                        <form:option value="2">moskow</form:option>
+                                        <form:option value="3">kyiv</form:option>
+                                        <form:option value="4">minsk</form:option>
+                                        <form:option value="5">copenhagen</form:option>
+                                        <form:option value="6">helsinki</form:option>
+                                        <form:option value="7">prague</form:option>
+                                        <form:option value="8">berlin</form:option>
+                                        <form:option value="9">paris</form:option>
+                                        <form:option value="10">london</form:option>
+                                    </form:select>
                                 </div>
-                                <%--<c:set var="truckId" value="${truckId}" />--%>
-                                <div class="form-group">
-                                    <label>Truck ID</label>
-                                    <input class="form-control" value="${truckId}" name="truckId" readonly="readonly">
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" value="add" name="action" type="hidden">
-                                </div>
-                                <c:remove var="userObject" />
-                                <c:remove var="truckId" />
                                 <!-- Change this to a button or input when using this as a form -->
                                 <!-- a href="<c:url value="/info" />" class="btn btn-md btn-success btn-block">Login</a-->
                                 <button type="submit" class="btn btn-default">Submit</button>
                                 <button type="reset" class="btn btn-default">Reset</button>
                             </fieldset>
-                        </form>
+                        </form:form>
                         <script>
 
                             function checkForm(form)
@@ -271,9 +271,9 @@
                                 s.options[i-1].selected = true;
                                 return;
                             }
-                            setSelectedIndex(document.getElementById("shift"),${user.driverCount});
-                            setSelectedIndex(document.getElementById("status"),${user.truckStatus});
-                            setSelectedIndex(document.getElementById("city"),${user.city});
+                            setSelectedIndex(document.getElementById("shift"),${truck.driverCount});
+                            setSelectedIndex(document.getElementById("status"),${truck.truckStatus});
+                            setSelectedIndex(document.getElementById("city"),${truck.city});
 
                         </script>
                     </div>
