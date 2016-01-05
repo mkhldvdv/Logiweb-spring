@@ -57,7 +57,7 @@
                         <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="<c:url value="/userProfile" />"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <li><a href="<c:url value="/driverProfile" />"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="<c:url value="/logout" />"><i class="fa fa-sign-out fa-fw"></i> Sign out</a>
@@ -77,9 +77,7 @@
                 </div>
                 <!-- /.col-lg-12 -->
                 Operation cannot be peformed because of the error:<br>
-                <c:set var="error" value="${error}" />
-                <c:out value="${error}" />
-                <%--<c:forEach var="errorString" items="${error}">${errorString}</c:forEach>--%>
+                ${error}
             </div>
         </div>
         <!-- /#page-wrapper -->

@@ -71,12 +71,14 @@ public class UserServicesImpl implements UserServices {
 
         // fill in the list of co-drivers
         Set<Long> coDriversList = new HashSet<Long>();
-        for (User driver : user.getTruck().getDrivers()) {
-            coDriversList.add(driver.getId());
+        // driver could be not assigned to truck yet
+        if (user.getTruck() != null) {
+            for (User driver : user.getTruck().getDrivers()) {
+                coDriversList.add(driver.getId());
+            }
+            // remove specified user to have only co-drivers ids in the list
+            coDriversList.remove(driverId);
         }
-
-        // remove specified user to have only co-drivers ids in the list
-        coDriversList.remove(driverId);
 
         return coDriversList;
     }
@@ -91,8 +93,14 @@ public class UserServicesImpl implements UserServices {
     public String getRegNum(long driverId) {
         LOG.info("get reg num");
         User user = userDao.getById(driverId);
-        // get registration number and return it
-        return user.getTruck().getRegNum();
+        // get registration number and return it, if its not null
+        // else return empty string
+        String regNum = "";
+        if (user.getTruck() != null) {
+            regNum = user.getTruck().getRegNum();
+        }
+
+        return regNum;
     }
 
     /**

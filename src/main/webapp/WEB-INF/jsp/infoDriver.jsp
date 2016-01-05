@@ -89,7 +89,6 @@
                 <div class="col-lg-6">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <%--<form role="form" method="post" action="/infoForDriver" onsubmit="return checkForm(this)">--%>
                             <form:form role="form" method="post" action="infoForDriver" onsubmit="return checkForm(this)">
                                 <fieldset>
                                     <div class="form-group">

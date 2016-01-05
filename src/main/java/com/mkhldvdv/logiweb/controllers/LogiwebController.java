@@ -400,9 +400,16 @@ public class LogiwebController {
     }
 
     @RequestMapping(value = "/infoForDriver", method = RequestMethod.POST)
-    public String viewInfoForDriver(@RequestParam("driverId") long driverId, Model model) {
+    public String viewInfoForDriver(HttpServletRequest request,
+                                    @RequestParam("driverId") long driverId,
+                                    Model model) {
 
-//        long driverId = driver.getId();
+        User driver = userServices.getUser(driverId);
+        // if this is not current driver, then fail
+        if (!driver.getLogin().equals(request.getUserPrincipal().getName())) {
+            model.addAttribute("error", "You are not allowed to get the info about other users");
+            return "errorDriver";
+        }
 
         Set<Long> coDrivers = userServices.getCoDriversIds(driverId);
         String regNum = userServices.getRegNum(driverId);
