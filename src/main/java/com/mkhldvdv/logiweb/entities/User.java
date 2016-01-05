@@ -241,7 +241,6 @@ public class User implements Serializable {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
                 ", roleId=" + roleId +
                 ", role='" + role + '\'' +
                 ", hours=" + hours +
@@ -251,7 +250,6 @@ public class User implements Serializable {
                 ", city='" + city + '\'' +
                 ", truck=" + truck +
                 ", orders=" + orders +
-                ", deleted=" + deleted +
                 '}';
     }
 }

@@ -40,9 +40,6 @@ public class LogiwebController {
 
     @RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
     public String viewLoginPage() {
-//    public String viewLoginPage(Model model) {
-//        User user = new User();
-//        model.addAttribute("loginForm", user);
         return "welcome";
     }
 

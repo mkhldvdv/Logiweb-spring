@@ -128,7 +128,6 @@ public class Cargo implements Serializable {
                 ", weight=" + weight +
                 ", cargoStatus=" + cargoStatus +
                 ", waypoints=" + waypoints +
-                ", deleted=" + deleted +
                 '}';
     }
 }
