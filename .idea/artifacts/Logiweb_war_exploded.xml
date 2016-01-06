@@ -47,6 +47,12 @@
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-taglibs:4.0.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-acl:4.0.3.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-orm:4.2.4.RELEASE" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.7.0-rc2" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.jaxrs:jackson-jaxrs-base:2.7.0-rc2" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.7.0-rc2" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.7.0-rc2" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.7.0-rc2" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.7.0-rc2" />
         </element>
       </element>
       <element id="directory" name="META-INF">

@@ -13,7 +13,7 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping("/drivers")
+@RequestMapping("/drivers/{id}/status")
 public class DriverStatusController {
 
     Map<String, Byte> statusMap = new HashMap<String, Byte>();
@@ -26,18 +26,26 @@ public class DriverStatusController {
     @Autowired
     UserDaoImpl userDao;
 
-    @RequestMapping(value = "/{id}",
-                    method = RequestMethod.POST,
-                    consumes = "application/json",
-                    params = "status")
+    @RequestMapping(method = RequestMethod.POST,
+                    consumes = "application/json")
     public @ResponseBody
-    User setDriverStatus(@PathVariable long driverId,
-                         @RequestParam(value = "status") String status) {
+    String setDriverStatus(@PathVariable long id,
+                           @RequestBody String status) {
 
-        User driver = userDao.getById(driverId);
+        User driver = userDao.getById(id);
         driver.setUserStatusId(statusMap.get(status));
         User savedDriver = userDao.update(driver);
 
-        return savedDriver;
+        return savedDriver.getId() + " " + savedDriver.getUserStatus();
+    }
+
+    @RequestMapping(method = RequestMethod.GET,
+                    consumes = "application/json")
+    public @ResponseBody
+    String getDriverStatus(@PathVariable long id) {
+
+        User driver = userDao.getById(id);
+
+        return driver.getId() + " " + driver.getUserStatus();
     }
 }

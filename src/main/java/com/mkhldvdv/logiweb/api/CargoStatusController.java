@@ -13,7 +13,7 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping("/cargos")
+@RequestMapping("/cargos/{id}/status")
 public class CargoStatusController {
 
     Map<String, Byte> statusMap = new HashMap<String, Byte>();
@@ -26,18 +26,26 @@ public class CargoStatusController {
     @Autowired
     CargoDaoImpl cargoDao;
 
-    @RequestMapping(value = "/{id}",
-                    method = RequestMethod.POST,
-                    consumes = "application/json",
-                    params = "status")
+    @RequestMapping(method = RequestMethod.POST,
+                    consumes = "application/json")
     public @ResponseBody
-    Cargo setCargoStatus(@PathVariable long cargoId,
-                         @RequestParam(value = "status") String status) {
+    String setCargoStatus(@PathVariable long id,
+                          @RequestBody String status) {
 
-        Cargo cargo = cargoDao.getById(cargoId);
+        Cargo cargo = cargoDao.getById(id);
         cargo.setCargoStatusId(statusMap.get(status));
         Cargo savedCargo = cargoDao.update(cargo);
 
-        return savedCargo;
+        return savedCargo.getId() + " " + savedCargo.getCargoStatus();
+    }
+
+    @RequestMapping(method = RequestMethod.GET,
+                    consumes = "application/json")
+    public @ResponseBody
+    String getCargoStatus(@PathVariable long id) {
+
+        Cargo cargo = cargoDao.getById(id);
+
+        return cargo.getId() + " " + cargo.getCargoStatus();
     }
 }
