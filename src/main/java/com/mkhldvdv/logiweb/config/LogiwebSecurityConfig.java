@@ -80,7 +80,8 @@ public class LogiwebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // login form
                 .formLogin().loginPage("/login")
                 .usernameParameter("j_username").passwordParameter("j_password")
-                .and().exceptionHandling().accessDeniedPage("/AccessDenied");
+                .and().exceptionHandling().accessDeniedPage("/AccessDenied")
+                .and().csrf().disable();
 //                .loginProcessingUrl("/info")
 //                .defaultSuccessUrl("/info")
 //                .and().csrf()

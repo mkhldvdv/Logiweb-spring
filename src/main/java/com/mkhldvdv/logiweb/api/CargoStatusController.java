@@ -1,7 +1,5 @@
 package com.mkhldvdv.logiweb.api;
 
-import com.mkhldvdv.logiweb.dao.impl.CargoDaoImpl;
-import com.mkhldvdv.logiweb.dto.CargoDTO;
 import com.mkhldvdv.logiweb.entities.Cargo;
 import com.mkhldvdv.logiweb.services.AdminServices;
 import org.springframework.beans.factory.annotation.Autowired;

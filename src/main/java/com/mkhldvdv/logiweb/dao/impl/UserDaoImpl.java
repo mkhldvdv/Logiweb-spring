@@ -22,24 +22,6 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
     public static final String DRIVER_ROLE = "ROLE_DRIVER";
 
     /**
-     * hash any string to not keep it in plain text
-     *
-     * @param textToHash what to hash
-     * @return hashed string
-     * @throws UnsupportedEncodingException
-     * @throws NoSuchAlgorithmException
-     */
-    public String SHAHashing(String textToHash) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        String text = textToHash;
-
-        md.update(text.getBytes("UTF-8")); // Change this to "UTF-16" if needed
-        byte[] digest = md.digest();
-
-        return String.format("%064x", new java.math.BigInteger(1, digest));
-    }
-
-    /**
      * returns list of drivers, i.e. users with the role "driver"
      *
      * @return list of drivers
@@ -72,7 +54,6 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
 
     @Override
     public User create(User user) {
-//        String hashedPass = SHAHashing(user.getPassword());
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode(user.getPassword());

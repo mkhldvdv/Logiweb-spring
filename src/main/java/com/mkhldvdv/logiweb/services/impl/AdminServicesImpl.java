@@ -122,6 +122,29 @@ public class AdminServicesImpl implements AdminServices {
     }
 
     /**
+     * get specified cargo by its id
+     *
+     * @param cargoId cargo id
+     * @return cargo object
+     */
+    @Override
+    public Cargo getCargoById(long cargoId) {
+        return cargoDao.getById(cargoId);
+    }
+
+    /**
+     * update cargo object
+     *
+     * @param cargo cargo object
+     * @return updated cargo object
+     */
+    @Override
+    @Transactional
+    public Cargo updateCargo(Cargo cargo) {
+        return cargoDao.update(cargo);
+    }
+
+    /**
      * get the full info about the cargo
      *
      * @param cargoId cargo id
@@ -142,6 +165,17 @@ public class AdminServicesImpl implements AdminServices {
             cargoDTO.getWaypoints().add(waypoint.getCity());
         }
         return cargoDTO;
+    }
+
+    /**
+     * get specified user by its id
+     *
+     * @param userId id of the user
+     * @return user object
+     */
+    @Override
+    public User getUser(long userId) {
+        return userDao.getById(userId);
     }
 
     /**

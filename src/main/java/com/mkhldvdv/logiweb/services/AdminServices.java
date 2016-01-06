@@ -41,11 +41,32 @@ public interface AdminServices {
     public OrderDTO getOrder(long orderId) throws WrongIdException;
 
     /**
+     * get specified cargo by its id
+     * @param cargoId   cargo id
+     * @return          cargo object
+     */
+    public Cargo getCargoById(long cargoId);
+
+    /**
      * get the full info about the cargo
      * @param cargoId   cargo id
      * @return  specified cargo
      */
     public CargoDTO getCargo(long cargoId) throws WrongIdException;
+
+    /**
+     * update cargo object
+     * @param cargo cargo object
+     * @return      updated cargo object
+     */
+    public Cargo updateCargo(Cargo cargo);
+
+    /**
+     * get specified user by its id
+     * @param userId    id of the user
+     * @return          user object
+     */
+    User getUser(long userId);
 
     /**
      * adds new user/driver

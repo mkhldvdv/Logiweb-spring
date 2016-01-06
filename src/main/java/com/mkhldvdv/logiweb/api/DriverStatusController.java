@@ -1,13 +1,8 @@
 package com.mkhldvdv.logiweb.api;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.mkhldvdv.logiweb.dao.impl.UserDaoImpl;
 import com.mkhldvdv.logiweb.entities.User;
 import com.mkhldvdv.logiweb.services.AdminServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;

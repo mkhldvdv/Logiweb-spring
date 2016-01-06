@@ -1,5 +1,6 @@
 package com.mkhldvdv.logiweb.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
@@ -25,15 +26,18 @@ public class Cargo implements Serializable {
     @Column(name = "WEIGHT")
     private int weight;
 
+    @JsonIgnore
     @Column(name = "CARGO_STATUS_ID")
     private byte cargoStatusId;
 
     @Formula("(select r.CARGO_STATUS_NAME from CARGO_STATUSES r where r.CARGO_STATUS_ID = CARGO_STATUS_ID)")
     private String cargoStatus;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Waypoint> waypoints;
 
+    @JsonIgnore
     @Column(name = "DELETED")
     private byte deleted;
 
