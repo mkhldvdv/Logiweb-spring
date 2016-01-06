@@ -1,5 +1,6 @@
 package com.mkhldvdv.logiweb.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Formula;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -40,11 +41,13 @@ public class User implements Serializable {
     @Pattern(regexp="[\\w.]+", message = "Login should contain letters, \".\"(dot) or \"_\"")
     private String login;
 
+    @JsonIgnore
     @Column(name = "PASSWORD")
     @NotEmpty(message = "Please enter the password.")
     @Size(min = 5, max = 60, message = "Password should be between 5 and 60 characters")
     private String password;
 
+    @JsonIgnore
     @Column(name = "ROLE_ID")
     private byte roleId;
 
@@ -57,27 +60,32 @@ public class User implements Serializable {
 //    @Pattern(regexp="[0-9]+", message = "Hours should contain only digits")
     private short hours;
 
+    @JsonIgnore
     @Column(name = "USER_STATUS_ID")
     private byte userStatusId;
 
     @Formula("(select r.USER_STATUS_NAME from USER_STATUSES r where r.USER_STATUS_ID = USER_STATUS_ID)")
     private String userStatus;
 
+    @JsonIgnore
     @Column(name = "CITY_ID")
     private byte cityId;
 
     @Formula("(select r.CITY_NAME from CITIES r where r.CITY_ID = CITY_ID)")
     private String city;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "TRUCK_ID")
     private Truck truck;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "ORDER_DRIVER", joinColumns = {@JoinColumn(name = "USER_ID")},
             inverseJoinColumns = {@JoinColumn(name = "ORDER_ID")})
     private List<Order> orders;
 
+    @JsonIgnore
     @Column(name = "DELETED")
     private short deleted;
 

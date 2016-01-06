@@ -1,7 +1,9 @@
 package com.mkhldvdv.logiweb.api;
 
 import com.mkhldvdv.logiweb.dao.impl.CargoDaoImpl;
+import com.mkhldvdv.logiweb.dto.CargoDTO;
 import com.mkhldvdv.logiweb.entities.Cargo;
+import com.mkhldvdv.logiweb.services.AdminServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +15,7 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping("/cargos/{id}/status")
+@RequestMapping("/cargos/status/{id}")
 public class CargoStatusController {
 
     Map<String, Byte> statusMap = new HashMap<String, Byte>();
@@ -24,28 +26,26 @@ public class CargoStatusController {
     }
 
     @Autowired
-    CargoDaoImpl cargoDao;
+    AdminServices adminServices;
 
     @RequestMapping(method = RequestMethod.POST,
                     consumes = "application/json")
-    public @ResponseBody
-    String setCargoStatus(@PathVariable long id,
-                          @RequestBody String status) {
+    public @ResponseBody Cargo setCargoStatus(@PathVariable long id,
+                                                 @RequestParam(value = "status") String status) {
 
-        Cargo cargo = cargoDao.getById(id);
+        Cargo cargo = adminServices.getCargoById(id);
         cargo.setCargoStatusId(statusMap.get(status));
-        Cargo savedCargo = cargoDao.update(cargo);
+        Cargo savedCargo = adminServices.updateCargo(cargo);
 
-        return savedCargo.getId() + " " + savedCargo.getCargoStatus();
+        return adminServices.getCargoById(id);
     }
 
     @RequestMapping(method = RequestMethod.GET,
                     consumes = "application/json")
-    public @ResponseBody
-    String getCargoStatus(@PathVariable long id) {
+    public @ResponseBody Cargo getCargoStatus(@PathVariable long id) {
 
-        Cargo cargo = cargoDao.getById(id);
+        Cargo cargo = adminServices.getCargoById(id);
 
-        return cargo.getId() + " " + cargo.getCargoStatus();
+        return cargo;
     }
 }

@@ -1,8 +1,13 @@
 package com.mkhldvdv.logiweb.api;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.mkhldvdv.logiweb.dao.impl.UserDaoImpl;
 import com.mkhldvdv.logiweb.entities.User;
+import com.mkhldvdv.logiweb.services.AdminServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -13,7 +18,7 @@ import java.util.Map;
  */
 
 @RestController
-@RequestMapping("/drivers/{id}/status")
+@RequestMapping("/drivers/status/{id}")
 public class DriverStatusController {
 
     Map<String, Byte> statusMap = new HashMap<String, Byte>();
@@ -24,28 +29,26 @@ public class DriverStatusController {
     }
 
     @Autowired
-    UserDaoImpl userDao;
+    AdminServices adminServices;
 
     @RequestMapping(method = RequestMethod.POST,
                     consumes = "application/json")
-    public @ResponseBody
-    String setDriverStatus(@PathVariable long id,
-                           @RequestBody String status) {
+    public @ResponseBody User setDriverStatus(@PathVariable long id,
+                                              @RequestParam(value = "status") String status) {
 
-        User driver = userDao.getById(id);
+        User driver = adminServices.getUser(id);
         driver.setUserStatusId(statusMap.get(status));
-        User savedDriver = userDao.update(driver);
+        User savedDriver = adminServices.updateUser(driver, true);
 
-        return savedDriver.getId() + " " + savedDriver.getUserStatus();
+        return adminServices.getUser(id);
     }
 
     @RequestMapping(method = RequestMethod.GET,
                     consumes = "application/json")
-    public @ResponseBody
-    String getDriverStatus(@PathVariable long id) {
+    public @ResponseBody User getDriverStatus(@PathVariable long id) {
 
-        User driver = userDao.getById(id);
+        User driver = adminServices.getUser(id);
 
-        return driver.getId() + " " + driver.getUserStatus();
+        return driver;
     }
 }
