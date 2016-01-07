@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
 
@@ -81,17 +82,17 @@ public class LogiwebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().loginPage("/login")
                 .usernameParameter("j_username").passwordParameter("j_password")
                 .and().exceptionHandling().accessDeniedPage("/AccessDenied")
-                .and().csrf().disable();
+                .and().csrf().disable()
 //                .loginProcessingUrl("/info")
 //                .defaultSuccessUrl("/info")
 //                .and().csrf()
 //                .and()
 //
-//                // logout
-//                .logout()
-//                .logoutRequestMatcher( new AntPathRequestMatcher("/logout") )
-//                .logoutSuccessUrl("/login")
-//                .deleteCookies("JSESSIONID")
-//                .invalidateHttpSession( true );
+                // logout
+                .logout()
+                .logoutRequestMatcher( new AntPathRequestMatcher("/logout") )
+                .logoutSuccessUrl("/welcome?logout")
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession( true );
     }
 }
