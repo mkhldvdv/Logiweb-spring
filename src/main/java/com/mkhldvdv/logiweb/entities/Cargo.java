@@ -20,9 +20,11 @@ public class Cargo implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id;
 
+    @JsonIgnore
     @Column(name = "CARGO_NAME")
     private String cargoName;
 
+    @JsonIgnore
     @Column(name = "WEIGHT")
     private int weight;
 

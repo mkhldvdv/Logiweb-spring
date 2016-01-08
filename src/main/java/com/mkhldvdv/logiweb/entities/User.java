@@ -23,18 +23,21 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "TABLE_GEN")
     private long id;
 
+    @JsonIgnore
     @Column(name = "FIRST_NAME")
     @NotEmpty(message = "Please enter the first name.")
     @Size(min = 5, max = 30, message = "First name should be between 5 and 30 characters")
     @Pattern(regexp="[\\w -]+", message = "First name should contain letters, \" \"(space) or \"-\"")
     private String firstName;
 
+    @JsonIgnore
     @Column(name = "LAST_NAME")
     @NotEmpty(message = "Please enter the last name.")
     @Size(min = 5, max = 30, message = "Last name should be between 5 and 30 characters")
     @Pattern(regexp="[\\w -]+", message = "Last name should contain letters, \" \"(space) or \"-\"")
     private String lastName;
 
+    @JsonIgnore
     @Column(name = "LOGIN")
     @NotEmpty(message = "Please enter the login name.")
     @Size(min = 5, max = 10, message = "Login name should be between 5 and 10 characters")
@@ -51,9 +54,11 @@ public class User implements Serializable {
     @Column(name = "ROLE_ID")
     private byte roleId;
 
+    @JsonIgnore
     @Formula("(select r.ROLE_NAME from ROLES r where r.ROLE_ID = ROLE_ID)")
     private String role;
 
+    @JsonIgnore
     @Column(name = "HOURS")
 //    @NotEmpty(message = "Please enter hours.")
 //    @Size(min = 1, max = 3, message = "Hours field should be between 1 and 3 characters")
@@ -71,6 +76,7 @@ public class User implements Serializable {
     @Column(name = "CITY_ID")
     private byte cityId;
 
+    @JsonIgnore
     @Formula("(select r.CITY_NAME from CITIES r where r.CITY_ID = CITY_ID)")
     private String city;
 
