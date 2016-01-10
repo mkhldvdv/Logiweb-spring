@@ -6,6 +6,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -22,6 +24,8 @@ import java.util.List;
 @ManagedBean
 @RequestScoped
 public class CargoStatusBean {
+
+    private static final Logger LOG = LogManager.getLogger(CargoStatusBean.class);
 
     @EJB
     CargoDao cargoDao;
@@ -51,7 +55,8 @@ public class CargoStatusBean {
     }
 
     public List<Cargo> getCargos() {
-        System.out.println("CargoStatusBean: User ID passed from login page: " + loginBean.getUserId());
+        LOG.info("CargoStatusBean: getCargos()");
+        LOG.info("CargoStatusBean: User ID passed from login page: " + loginBean.getUserId());
         cargos = cargoDao.getCargoList(loginBean.getUserId());
         return cargos;
     }
@@ -65,28 +70,37 @@ public class CargoStatusBean {
      * @param status
      * @return
      */
-    public String changeStatus(String status) throws IOException {
-        System.out.println("CargoStatusBean: cargoId, status: " + cargoId + " " + status);
+    public String changeStatus(String status) {
 
-        String url = "http://localhost:8080/Logiweb/cargos/status/" + cargoId + "?status=" + status;
+        LOG.info("CargoStatusBean: changeStatus(" + status + ")");
+        LOG.info("CargoStatusBean: cargoId, status: " + cargoId + " " + status);
 
-        HttpClient client = new DefaultHttpClient();
-        HttpPost post = new HttpPost(url);
+        try {
+            String url = "http://localhost:8080/Logiweb/cargos/status/" + cargoId + "?status=" + status;
 
-        // add header
-        post.setHeader("Content-type", "application/json");
+            HttpClient client = new DefaultHttpClient();
+            HttpPost post = new HttpPost(url);
 
-        HttpResponse response = client.execute(post);
-        int statusCode = Integer.parseInt(String.valueOf(response.getStatusLine().getStatusCode()));
-        System.out.println("\nSending 'POST' request to URL : " + url);
-        System.out.println("Response Code : " +
-                response.getStatusLine().getStatusCode());
+            // add header
+            post.setHeader("Content-type", "application/json");
 
-        if (statusCode == 200) {
-            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-            return "/success.xhtml?faces-redirect=true";
-        } else {
-            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+            HttpResponse response = client.execute(post);
+            int statusCode = Integer.parseInt(String.valueOf(response.getStatusLine().getStatusCode()));
+            LOG.info("Sending 'POST' request to URL : " + url);
+            LOG.info("Response Code : " +
+                    response.getStatusLine().getStatusCode());
+
+            if (statusCode == 200) {
+                LOG.info("DriverStatusBean: status code 200");
+                FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+                return "/success.xhtml?faces-redirect=true";
+            } else {
+                LOG.info("DriverStatusBean: status code not 200");
+                FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+                return "/failure.xhtml?faces-redirect=true";
+            }
+        } catch (IOException e) {
+            LOG.error("CargoStatusBean: " + e.getMessage());
             return "/failure.xhtml?faces-redirect=true";
         }
     }
@@ -96,6 +110,7 @@ public class CargoStatusBean {
      * @return  login page
      */
     public String doLogout() {
+        LOG.info("CargoStatusBean: doLogout()");
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/login.xhtml?faces-redirect=true";
     }

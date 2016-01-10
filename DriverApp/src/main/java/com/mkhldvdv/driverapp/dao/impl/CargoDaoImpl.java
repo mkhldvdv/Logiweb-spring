@@ -2,6 +2,8 @@ package com.mkhldvdv.driverapp.dao.impl;
 
 import com.mkhldvdv.driverapp.dao.CargoDao;
 import com.mkhldvdv.driverapp.entities.Cargo;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.*;
@@ -15,6 +17,8 @@ import java.util.List;
 @Stateless
 public class CargoDaoImpl implements CargoDao {
 
+    private static final Logger LOG = LogManager.getLogger(CargoDaoImpl.class);
+
     @PersistenceContext
     private EntityManager em;
 
@@ -25,7 +29,8 @@ public class CargoDaoImpl implements CargoDao {
      */
     @Override
     public List<Cargo> getCargoList(long userId) {
-        try {
+        LOG.info("CargoDao: getCargoList(" + userId + ")");
+        try{
             String sqlQuery = "select c.cargo_id, c.cargo_name, c.cargo_status_id" +
                     "  from cargos c, waypoints w, orders o, trucks t, users u" +
                     " where c.cargo_id = w.cargo_id" +
@@ -42,7 +47,8 @@ public class CargoDaoImpl implements CargoDao {
                 .getResultList();
 
         } catch (Exception e) {
-            System.out.println("No cargos returned");
+            LOG.error("CargoDao: No cargos returned");
+            LOG.error("CargoDao: " + e.getMessage());
             e.printStackTrace();
             return new ArrayList<Cargo>();
         }

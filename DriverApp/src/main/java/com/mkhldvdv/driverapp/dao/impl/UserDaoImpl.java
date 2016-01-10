@@ -2,6 +2,8 @@ package com.mkhldvdv.driverapp.dao.impl;
 
 import com.mkhldvdv.driverapp.dao.UserDao;
 import com.mkhldvdv.driverapp.entities.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,6 +17,8 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class UserDaoImpl implements UserDao {
 
+    private static final Logger LOG = LogManager.getLogger(UserDaoImpl.class);
+
     public static final String DRIVER_ROLE = "ROLE_DRIVER";
     @PersistenceContext
     private EntityManager em;
@@ -26,15 +30,11 @@ public class UserDaoImpl implements UserDao {
      * @return user object
      */
     @Override
-    public User getUserByLogin(String login) {
-        try {
+    public User getUserByLogin(String login) throws NoResultException {
+        LOG.info("UserDao: getUserByLogin(" + login + ")");
             return em.createQuery("select u from User u where u.login = :login and u.role = :role", User.class)
                     .setParameter("login", login)
                     .setParameter("role", DRIVER_ROLE)
                     .getSingleResult();
-        } catch (NoResultException e) {
-            System.out.println("No user with appropriate role");
-            return null;
-        }
     }
 }

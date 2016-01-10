@@ -40,7 +40,7 @@ public class UserServicesImpl implements UserServices {
      */
     @Override
     public User getUser(long userId) {
-        LOG.info("get user by ID");
+        LOG.info("UserServices: getUser(" + userId + ")");
         User user = userDao.getById(userId);
         return user;
     }
@@ -53,7 +53,7 @@ public class UserServicesImpl implements UserServices {
      */
     @Override
     public User getUserByLogin(String login) {
-        LOG.info("get user by login name");
+        LOG.info("UserServices: getUserByLogin(" + login + ")");
         User user = userDao.getUserByLogin(login);
         return user;
     }
@@ -66,7 +66,7 @@ public class UserServicesImpl implements UserServices {
      */
     @Override
     public Set<Long> getCoDriversIds(long driverId) {
-        LOG.info("get co-drivers");
+        LOG.info("UserServices: getCoDriversIds(" + driverId + ")");
         User user = userDao.getById(driverId);
 
         // fill in the list of co-drivers
@@ -91,7 +91,7 @@ public class UserServicesImpl implements UserServices {
      */
     @Override
     public String getRegNum(long driverId) {
-        LOG.info("get reg num");
+        LOG.info("UserServices: getRegNum(" + driverId + ")");
         User user = userDao.getById(driverId);
         // get registration number and return it, if its not null
         // else return empty string
@@ -111,7 +111,7 @@ public class UserServicesImpl implements UserServices {
      */
     @Override
     public Set<Long> getDriversOrders(long driverId) {
-        LOG.info("get drivers orders");
+        LOG.info("UserServices: getDriversOrders(" + driverId + ")");
         User user = userDao.getById(driverId);
         Set<Long> ordersIds = new HashSet<Long>();
         // get the list of orders ids for the driver
@@ -130,7 +130,7 @@ public class UserServicesImpl implements UserServices {
      */
     @Override
     public Set<String> getDriversCities(long driverId) {
-        LOG.info("get drivers cities");
+        LOG.info("UserServices: getDriversCities(" + driverId + ")");
         User user = userDao.getById(driverId);
         Set<String> cities = new HashSet<String>();
         // get the list of waypoint for the driver through the list of orders

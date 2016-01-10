@@ -2,14 +2,16 @@ package com.mkhldvdv.driverapp.jsf;
 
 import com.mkhldvdv.driverapp.dao.UserDao;
 import com.mkhldvdv.driverapp.entities.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.ejb.EJB;
-import javax.ejb.SessionBean;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.persistence.NoResultException;
 import javax.servlet.http.HttpSession;
+
 
 /**
  * Created by mkhldvdv on 09.01.2016.
@@ -18,6 +20,8 @@ import javax.servlet.http.HttpSession;
 @ManagedBean
 @SessionScoped
 public class LoginBean {
+
+    private static final Logger LOG = LogManager.getLogger(LoginBean.class);
 
     @EJB
     UserDao userDao;
@@ -58,27 +62,36 @@ public class LoginBean {
      * @return      user object
      */
     public User findUser(String login) {
-        return userDao.getUserByLogin(login);
+        LOG.info("LoginBean: findUser(" + login + ")");
+        try {
+            return userDao.getUserByLogin(login);
+        } catch (NoResultException e) {
+            LOG.error("LoginBean: No such user found");
+            LOG.error("LoginBean: " + e.getMessage());
+            return null;
+        }
     }
 
     /**
      * do login, transfer login from UI to findUser and check the result
      * @return  the page with success/fail result
      */
-    public String doLogin()
-    {
+    public String doLogin() {
+
+        LOG.info("LoginBean: doLogin()");
+
         User user = findUser(login);
 
         if (user != null) {
             userId = user.getId();
-            System.out.println("LoginBean: User ID passed from login page: " + getUserId());
+            LOG.info("LoginBean: User ID passed from login page: " + getUserId());
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
                     .getExternalContext().getSession(false);
             session.setAttribute("username", user);
             return "choice";
         }
         else {
-            setError("No such user found");
+            LOG.error("LoginBean: No such user found");
             return "login";
         }
     }
@@ -88,6 +101,7 @@ public class LoginBean {
      *
      */
     public void reset() {
+        LOG.info("LoginBean: reset()");
         login = "";
         error = "";
     }

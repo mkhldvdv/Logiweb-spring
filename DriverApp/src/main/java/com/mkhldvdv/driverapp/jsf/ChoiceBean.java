@@ -1,5 +1,8 @@
 package com.mkhldvdv.driverapp.jsf;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -12,6 +15,8 @@ import javax.faces.context.FacesContext;
 @ManagedBean
 @RequestScoped
 public class ChoiceBean {
+
+    private static final Logger LOG = LogManager.getLogger(ChoiceBean.class);
 
     @ManagedProperty("#{loginBean}")
     private LoginBean loginBean;
@@ -29,7 +34,8 @@ public class ChoiceBean {
      * @return
      */
     public String changeDriverStatus() {
-        System.out.println("ChoiceBean: User ID passed from login page: " + loginBean.getUserId());
+        LOG.info("ChoiceBean: changeDriverStatus()");
+        LOG.info("ChoiceBean: User ID passed from login page: " + loginBean.getUserId());
         return "driverStatus";
     }
 
@@ -38,6 +44,7 @@ public class ChoiceBean {
      * @return
      */
     public String changeCargoStatus() {
+        LOG.info("ChoiceBean: changeCargoStatus()");
         return "cargoStatus";
     }
 
@@ -46,6 +53,7 @@ public class ChoiceBean {
      * @return  login page
      */
     public String doLogout() {
+        LOG.info("ChoiceBean: doLogout()");
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/login.xhtml?faces-redirect=true";
     }

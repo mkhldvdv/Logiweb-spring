@@ -38,7 +38,7 @@ public interface AdminServices {
      * @param orderId   order id
      * @return  specified order
      */
-    public OrderDTO getOrder(long orderId) throws WrongIdException;
+    public OrderDTO getOrder(long orderId);
 
     /**
      * get specified cargo by its id
@@ -52,7 +52,7 @@ public interface AdminServices {
      * @param cargoId   cargo id
      * @return  specified cargo
      */
-    public CargoDTO getCargo(long cargoId) throws WrongIdException;
+    public CargoDTO getCargo(long cargoId);
 
     /**
      * update cargo object
@@ -100,7 +100,7 @@ public interface AdminServices {
      * deletes specified truck
      * @param truckId    truck to delete
      */
-    void deleteTruck(long truckId) throws WrongIdException;
+    void deleteTruck(long truckId);
 
     /**
      * gets the specified truck

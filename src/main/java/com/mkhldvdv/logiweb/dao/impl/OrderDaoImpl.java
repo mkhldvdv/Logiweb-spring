@@ -12,4 +12,7 @@ import java.util.List;
 
 @Component
 public class OrderDaoImpl extends GenericDaoImpl<Order> {
+    /**
+     * all taken from generic dao
+     */
 }

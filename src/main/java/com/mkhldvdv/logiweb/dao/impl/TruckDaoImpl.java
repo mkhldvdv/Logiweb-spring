@@ -2,6 +2,8 @@ package com.mkhldvdv.logiweb.dao.impl;
 
 import com.mkhldvdv.logiweb.dao.GenericDaoImpl;
 import com.mkhldvdv.logiweb.entities.Truck;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,16 +15,19 @@ import java.util.List;
 @Component
 public class TruckDaoImpl extends GenericDaoImpl<Truck> {
 
+    private static final Logger LOG = LogManager.getLogger(TruckDaoImpl.class);
+
     /**
      * returns truck specified by registration number
      * @param regNum    registration number
      * @return          truck
      */
-    public Truck getTruckByRegNum(String regNum) {
-        return em.createQuery("select t from Truck t where t.regNum = :regNum", Truck.class)
-                .setParameter("regNum", regNum)
-                .getSingleResult();
-    }
+//    public Truck getTruckByRegNum(String regNum) {
+//        LOG.info("TruckDao: getTruckByRegNum(" + regNum + ")");
+//        return em.createQuery("select t from Truck t where t.regNum = :regNum", Truck.class)
+//                .setParameter("regNum", regNum)
+//                .getSingleResult();
+//    }
 
     /**
      * get all not deleted trucks
@@ -40,6 +45,7 @@ public class TruckDaoImpl extends GenericDaoImpl<Truck> {
      * @return  list of trucks
      */
     public List<Truck> getAllAvailableTrucks() {
+        LOG.info("TruckDao: getAllAvailableTrucks()");
         return em.createQuery("select t from Truck t where t.truckStatusId = 1 " +
                 "and not exists (select 1 from Order o " +
                 "where o.orderStatusId = 2 and o.truck = t) order by t.id desc", Truck.class)

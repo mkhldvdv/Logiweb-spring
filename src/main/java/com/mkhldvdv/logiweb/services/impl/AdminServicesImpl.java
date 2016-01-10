@@ -22,8 +22,6 @@ public class AdminServicesImpl implements AdminServices {
 
     private static final Logger LOG = LogManager.getLogger(AdminServicesImpl.class);
 
-    public static final String VALID = "valid";
-    public static final String NOT_DONE = "not done";
     public static final byte NOT_COMPLETE = (byte) 2;
 
     @Autowired
@@ -46,9 +44,8 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public List<Truck> getTrucks() {
-        LOG.info("getTrucks");
+        LOG.info("AdminServices: getTrucks()");
         List<Truck> truckList = truckDao.getAll();
-//        List<Truck> truckList = truckDao.getAllNotDeletedTrucks();
         return truckList;
     }
 
@@ -59,7 +56,7 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public List<User> getDrivers() {
-        LOG.info("getDrivers");
+        LOG.info("AdminServices: getDrivers()");
         List<User> userList = userDao.getAllDrivers();
         return userList;
     }
@@ -71,7 +68,7 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public List<OrderDTO> getOrders() {
-        LOG.info("getOrders");
+        LOG.info("AdminServices: getOrders()");
         List<Order> orderList = orderDao.getAll();
         List<OrderDTO> orderDTOs = new ArrayList<OrderDTO>();
         // transfer info to dto object
@@ -102,7 +99,7 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public OrderDTO getOrder(long orderId) {
-        LOG.info("getOrder");
+        LOG.info("AdminServices: getOrder(" + orderId + ")");
         Order order = orderDao.getById(orderId);
         OrderDTO orderDTO = new OrderDTO();
         // transfer data to DTO object
@@ -129,6 +126,7 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public Cargo getCargoById(long cargoId) {
+        LOG.info("AdminServices: getCargoById(" + cargoId + ")");
         return cargoDao.getById(cargoId);
     }
 
@@ -141,6 +139,7 @@ public class AdminServicesImpl implements AdminServices {
     @Override
     @Transactional
     public Cargo updateCargo(Cargo cargo) {
+        LOG.info("AdminServices: updateCargo(" + cargo.getId() + ")");
         return cargoDao.update(cargo);
     }
 
@@ -152,7 +151,7 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public CargoDTO getCargo(long cargoId) {
-        LOG.info("getCargo");
+        LOG.info("AdminServices: getCargo(" + cargoId + ")");
         Cargo cargo = cargoDao.getById(cargoId);
         // transfer data to DTO object for the view
         CargoDTO cargoDTO = new CargoDTO();
@@ -175,6 +174,7 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public User getUser(long userId) {
+        LOG.info("AdminServices: getUser(" + userId + ")");
         return userDao.getById(userId);
     }
 
@@ -187,7 +187,7 @@ public class AdminServicesImpl implements AdminServices {
     @Override
     @Transactional
     public User addUser(User user) {
-        LOG.info("getUser");
+        LOG.info("AdminServices: addUser(" + user.getId() + ")");
         User newUser = userDao.create(user);
         return newUser;
     }
@@ -201,7 +201,7 @@ public class AdminServicesImpl implements AdminServices {
     @Override
     @Transactional
     public User updateUser(User user, boolean hashed) {
-        LOG.info("updateUser");
+        LOG.info("AdminServices: updateUser(" + user.getId() + ")");
         User newUser = userDao.update(user, hashed);
         return newUser;
     }
@@ -214,7 +214,7 @@ public class AdminServicesImpl implements AdminServices {
     @Override
     @Transactional
     public void deleteUser(long userId) {
-        LOG.info("deleteUser");
+        LOG.info("AdminServices: deleteUser(" + userId + ")");
         User user = userDao.getById(userId);
         userDao.remove(user);
     }
@@ -228,7 +228,7 @@ public class AdminServicesImpl implements AdminServices {
     @Override
     @Transactional
     public Truck addTruck(Truck truck) {
-        LOG.info("addTruck");
+        LOG.info("AdminServices: addTruck(" + truck.getId() + ")");
         Truck newTruck = truckDao.create(truck);
         return newTruck;
     }
@@ -241,7 +241,7 @@ public class AdminServicesImpl implements AdminServices {
     @Override
     @Transactional
     public void deleteTruck(long truckId) {
-        LOG.info("deleteTruck");
+        LOG.info("AdminServices: deleteTruck(" + truckId + ")");
         Truck truck = truckDao.getById(truckId);
         truckDao.remove(truck);
     }
@@ -254,7 +254,7 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public Truck getTruck(long truckId) {
-        LOG.info("getTruck");
+        LOG.info("AdminServices: getTruck(" + truckId + ")");
         Truck truck = truckDao.getById(truckId);
         return truck;
     }
@@ -268,7 +268,7 @@ public class AdminServicesImpl implements AdminServices {
     @Override
     @Transactional
     public Truck updateTruck(Truck truck) {
-        LOG.info("update truck");
+        LOG.info("AdminServices: updateTruck(" + truck.getId() + ")");
         Truck newTruck = truckDao.update(truck);
         return newTruck;
     }
@@ -282,7 +282,7 @@ public class AdminServicesImpl implements AdminServices {
     @Override
     @Transactional
     public Cargo addCargo(Cargo cargo) {
-        LOG.info("add cargo");
+        LOG.info("AdminServices: addCargo(" + cargo.getId() + ")");
 
         // add cargo
         Cargo newCargo = cargoDao.create(cargo);
@@ -302,7 +302,7 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public List<Cargo> getAllUnassignedCargos() {
-        LOG.info("get all unassigned cargos");
+        LOG.info("AdminServices: getAllUnassignedCargos()");
         List<Cargo> cargos = cargoDao.getAllUnassigned();
         return cargos;
     }
@@ -315,7 +315,7 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public List<Truck> getAllAvailableTrucks(List<Long> cargosIds) {
-        LOG.info("get all available trucks");
+        LOG.info("AdminServices: getAllAvailableTrucks(" + cargosIds + ")");
 
         // creating map of cargos weight balance for the city
         Map<String, Integer> waypointWeightMap = new HashMap<String, Integer>();
@@ -327,7 +327,6 @@ public class AdminServicesImpl implements AdminServices {
             List<Waypoint> waypoints = waypointDao.getByCargoId(cargoId);
             // sorting it
             Collections.sort(waypoints);
-            LOG.error("size of waypoints for cargo: " + waypoints.size());
             // adding info for cargo to map
             waypointWeightMap = fillMapCityWeight(waypointWeightMap, cargoWeight, waypoints);
         }
@@ -340,8 +339,7 @@ public class AdminServicesImpl implements AdminServices {
             tmpMap.put(entry.getKey(), commonweight);
         }
         // check the map
-//        LOG.error("waypointWeightMap: " + waypointWeightMap);
-        LOG.error("tmpMap: " + tmpMap);
+        LOG.info("AdminServices: tmpMap: " + tmpMap);
         waypointWeightMap = tmpMap;
 
         List<Truck> availableTrucksForOrder = new ArrayList<Truck>();
@@ -372,11 +370,8 @@ public class AdminServicesImpl implements AdminServices {
      * fill the map with cities and weight balance
      */
     private Map<String, Integer> fillMapCityWeight(Map<String, Integer> waypointWeightMap, int cargoWeight, List<Waypoint> waypoints) {
-        LOG.info("get all available trucks: fill the map");
+        LOG.info("AdminServices: fillMapCityWeight()");
         for (Waypoint waypoint : waypoints) {
-            //
-            LOG.error(waypoint.getId());
-            //
             String city = waypoint.getCity();
             // if load then add it to the map with plus
             if (waypoint.getCargoTypeId() == 1) {
@@ -397,7 +392,7 @@ public class AdminServicesImpl implements AdminServices {
      */
     @Override
     public List<User> getAllAvailableDrivers(long truckId, List<Long> cargosIds) {
-        LOG.info("get all available drivers for order and truck");
+        LOG.info("AdminServices: getAllAvailableDrivers()");
         // find truck
         Truck truck = truckDao.getById(truckId);
         // list of drivers without active orders
@@ -444,7 +439,7 @@ public class AdminServicesImpl implements AdminServices {
         for (User driver : driversWithoutOrder) {
             driLongList.add(driver.getId());
         }
-        LOG.error("get all available drivers for order and truck:\n" + driLongList);
+        LOG.info("AdminServices: get all available drivers for order and truck:\n" + driLongList);
         // check done
         return driversWithoutOrder;
     }
@@ -452,7 +447,7 @@ public class AdminServicesImpl implements AdminServices {
     @Override
     @Transactional
     public Order addOrder(List<Long> cargoIds, Truck truck, List<Long> userIds) {
-        LOG.info("add order");
+        LOG.info("AdminServices: addOrder()");
         // get list of users by its id
         List<User> userList = new ArrayList<User>();
         for (Long user : userIds) {

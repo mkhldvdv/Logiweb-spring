@@ -4,6 +4,8 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -18,6 +20,8 @@ import java.io.IOException;
 @ManagedBean
 @RequestScoped
 public class DriverStatusBean {
+
+    private static final Logger LOG = LogManager.getLogger(DriverStatusBean.class);
 
     @ManagedProperty("#{loginBean}")
     private LoginBean loginBean;
@@ -36,29 +40,37 @@ public class DriverStatusBean {
      * @return          success of fail
      * @throws IOException
      */
-    public String changeStatus(String status) throws IOException {
+    public String changeStatus(String status) {
 
-        System.out.println("DriverStatusBean: User ID passed from login page: " + loginBean.getUserId());
+        LOG.info("DriverStatusBean: changeStatus(" + status + ")");
+        LOG.info("DriverStatusBean: User ID passed from login page: " + loginBean.getUserId());
 
-        String url = "http://localhost:8080/Logiweb/drivers/status/" + loginBean.getUserId() + "?status=" + status;
+        try {
+            String url = "http://localhost:8080/Logiweb/drivers/status/" + loginBean.getUserId() + "?status=" + status;
 
-        HttpClient client = new DefaultHttpClient();
-        HttpPost post = new HttpPost(url);
+            HttpClient client = new DefaultHttpClient();
+            HttpPost post = new HttpPost(url);
 
-        // add header
-        post.setHeader("Content-type", "application/json");
+            // add header
+            post.setHeader("Content-type", "application/json");
 
-        HttpResponse response = client.execute(post);
-        int statusCode = Integer.parseInt(String.valueOf(response.getStatusLine().getStatusCode()));
-        System.out.println("\nSending 'POST' request to URL : " + url);
-        System.out.println("Response Code : " +
-                response.getStatusLine().getStatusCode());
+            HttpResponse response = client.execute(post);
+            int statusCode = Integer.parseInt(String.valueOf(response.getStatusLine().getStatusCode()));
+            LOG.info("Sending 'POST' request to URL : " + url);
+            LOG.info("Response Code : " +
+                    response.getStatusLine().getStatusCode());
 
-        if (statusCode == 200) {
-            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-            return "/success.xhtml?faces-redirect=true";
-        } else {
-            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+            if (statusCode == 200) {
+                LOG.info("DriverStatusBean: status code 200");
+                FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+                return "/success.xhtml?faces-redirect=true";
+            } else {
+                LOG.info("DriverStatusBean: status code not 200");
+                FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+                return "/failure.xhtml?faces-redirect=true";
+            }
+        } catch (IOException e) {
+            LOG.error("DriverStatusBean: " + e.getMessage());
             return "/failure.xhtml?faces-redirect=true";
         }
     }
@@ -68,6 +80,7 @@ public class DriverStatusBean {
      * @return  login page
      */
     public String doLogout() {
+        LOG.info("DriverStatusBean: doLogout()");
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "/login.xhtml?faces-redirect=true";
     }

@@ -3,6 +3,8 @@ package com.mkhldvdv.logiweb.dao.impl;
 import com.mkhldvdv.logiweb.dao.GenericDaoImpl;
 import com.mkhldvdv.logiweb.entities.Truck;
 import com.mkhldvdv.logiweb.entities.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,8 @@ import java.util.List;
 @Repository
 public class UserDaoImpl extends GenericDaoImpl<User> {
 
+    private static final Logger LOG = LogManager.getLogger(TruckDaoImpl.class);
+
     public static final String DRIVER_ROLE = "ROLE_DRIVER";
 
     /**
@@ -27,17 +31,12 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
      * @return list of drivers
      */
     public List<User> getAllDrivers() {
-        try {
-            List<User> userList = em.createQuery("select u from User u " +
-                    "where u.role = :driver", User.class)
-                    .setParameter("driver", DRIVER_ROLE)
-                    .getResultList();
-            return userList;
-        } catch (Exception e) {
-            System.out.printf("INFO: drivers list is empty\n");
-            e.printStackTrace();
-            return null;
-        }
+        LOG.info("UserDao: getAllDrivers()");
+        List<User> userList = em.createQuery("select u from User u " +
+                "where u.role = :driver", User.class)
+                .setParameter("driver", DRIVER_ROLE)
+                .getResultList();
+        return userList;
     }
 
     /**
@@ -45,15 +44,21 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
      *
      * @return
      */
-    public List<User> getAllNotDeletedDrivers() {
-        return em.createQuery("select u from User u " +
-                "where u.role = :driver", User.class)
-                .setParameter("driver", DRIVER_ROLE)
-                .getResultList();
-    }
+//    public List<User> getAllNotDeletedDrivers() {
+//        return em.createQuery("select u from User u " +
+//                "where u.role = :driver", User.class)
+//                .setParameter("driver", DRIVER_ROLE)
+//                .getResultList();
+//    }
 
+    /**
+     * create new user with hashed password
+     * @param user  user object
+     * @return      added user object
+     */
     @Override
     public User create(User user) {
+        LOG.info("UserDao: create()");
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedPassword = passwordEncoder.encode(user.getPassword());
@@ -70,6 +75,7 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
      * @return          updated user
      */
     public User update(User user, boolean hashed) {
+        LOG.info("UserDao: update(" + user.getId() + ")");
 
         if (!hashed) {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -87,6 +93,7 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
      * @return      list of drivers
      */
     public List<User> getAllAvailableDrivers(Truck truck) {
+        LOG.info("UserDao: getAllAvailableDrivers(" + truck.getId() + ")");
         // order status "not completed", driver.city == truck.city
         return em.createQuery("select u from User u where u.city = :city and u.role = :driver " +
                 "order by u.id desc", User.class)
@@ -102,6 +109,7 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
      * @return      user
      */
     public User getUserByLogin(String login) {
+        LOG.info("UserDao: getUserByLogin(" + login + ")");
         return em.createQuery("select u from User u where u.login = :login", User.class)
                 .setParameter("login", login)
                 .getSingleResult();
