@@ -8,6 +8,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import java.io.IOException;
 
 /**
@@ -54,9 +55,20 @@ public class DriverStatusBean {
                 response.getStatusLine().getStatusCode());
 
         if (statusCode == 200) {
-            return "success";
+            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+            return "/success.xhtml?faces-redirect=true";
         } else {
-            return "failure";
+            FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+            return "/failure.xhtml?faces-redirect=true";
         }
+    }
+
+    /**
+     * logout
+     * @return  login page
+     */
+    public String doLogout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "/login.xhtml?faces-redirect=true";
     }
 }

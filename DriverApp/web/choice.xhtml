@@ -13,8 +13,14 @@
 
 <h:body>
    <f:view>
-      <!--<h:outputText value="#{loginBean.error}" />-->
       <h:form>
+         <table>
+            <tr>
+               <td>
+                  <h:commandButton value="Sign Out" action="#{choiceBean.doLogout}" />
+               </td>
+            </tr>
+         </table>
          <table>
             <tr>
                <td>
@@ -22,11 +28,6 @@
                </td>
                <td>
                   <h:commandButton value="Change cargo status" action="#{choiceBean.changeCargoStatus}" />
-               </td>
-            </tr>
-            <tr>
-               <td>
-                  <h:commandButton value="Sign Out" action="#{choiceBean.signOut}" />
                </td>
             </tr>
          </table>

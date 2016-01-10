@@ -16,6 +16,13 @@
    <f:view>
       <h:form>
          <table>
+            <tr>
+               <td>
+                  <h:commandButton value="Sign Out" action="#{cargoStatusBean.doLogout}" />
+               </td>
+            </tr>
+         </table>
+         <table>
             <c:forEach var="cargo" items="#{cargoStatusBean.cargos}">
                <tr>
                   <td>

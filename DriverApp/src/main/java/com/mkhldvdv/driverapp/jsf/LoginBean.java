@@ -4,9 +4,12 @@ import com.mkhldvdv.driverapp.dao.UserDao;
 import com.mkhldvdv.driverapp.entities.User;
 
 import javax.ejb.EJB;
+import javax.ejb.SessionBean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by mkhldvdv on 09.01.2016.
@@ -67,9 +70,11 @@ public class LoginBean {
         User user = findUser(login);
 
         if (user != null) {
-            System.out.println(user);
             userId = user.getId();
-            System.out.println("LoginBean: User ID passed from login page: " + userId);
+            System.out.println("LoginBean: User ID passed from login page: " + getUserId());
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+                    .getExternalContext().getSession(false);
+            session.setAttribute("username", user);
             return "choice";
         }
         else {

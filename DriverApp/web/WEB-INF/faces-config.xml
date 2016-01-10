@@ -49,7 +49,7 @@
         </navigation-case>
     </navigation-rule>
 
-    <navigation-rule>
+<!--    <navigation-rule>
         <description>Cargo Status Page</description>
         <from-view-id>/cargoStatus.xhtml</from-view-id>
         <navigation-case>
@@ -62,6 +62,6 @@
             <from-outcome>failure</from-outcome>
             <to-view-id>/failure.xhtml</to-view-id>
         </navigation-case>
-    </navigation-rule>
+    </navigation-rule>-->
 
 </faces-config>

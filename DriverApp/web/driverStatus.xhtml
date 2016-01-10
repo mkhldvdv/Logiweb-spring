@@ -17,15 +17,18 @@
          <table>
             <tr>
                <td>
-                  <h:commandButton value="Vacant" action="#{driverStatusBean.changeStatus('vacant')}" />
+                  <h:commandButton value="Sign Out" action="#{driverStatusBean.doLogout}" />
                </td>
             </tr>
+         </table>
+         <table>
             <tr>
+               <td>
+                  <h:commandButton value="Vacant" action="#{driverStatusBean.changeStatus('vacant')}" />
+               </td>
                <td>
                   <h:commandButton value="In Shift" action="#{driverStatusBean.changeStatus('shift')}" />
                </td>
-            </tr>
-            <tr>
                <td>
                   <h:commandButton value="Driving" action="#{driverStatusBean.changeStatus('driving')}" />
                </td>
