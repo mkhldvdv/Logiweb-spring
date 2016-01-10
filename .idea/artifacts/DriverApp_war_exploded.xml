@@ -7,6 +7,11 @@
         <element id="directory" name="classes">
           <element id="module-output" name="DriverApp" />
         </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.oracle:ojdbc6:11.2.0" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.0.2" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.0.1" />
+        </element>
       </element>
     </root>
   </artifact>

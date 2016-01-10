@@ -15,7 +15,6 @@
             <property name="hibernate.connection.username" value="logiweb"/>
             <property name="hibernate.connection.password" value="logiweb"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle12cDialect"/>
-            <!-- property name="hibernate.hbm2ddl.auto" value="create-drop" /-->
         </properties>
     </persistence-unit>
 </persistence>

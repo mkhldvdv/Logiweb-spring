@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+   <title>Logiweb Driver</title>
+</h:head>
+
+<h:body>
+   <f:view>
+      <h:outputText value="#{loginBean.error}" />
+      <h:form>
+         <table>
+            <tr>
+               <td>
+                  <h:outputText value="Enter Login: " />
+               </td>
+            </tr>
+            <tr>
+               <td>
+                  <h:inputText id="userName" p:placeholder="Enter login here" value="#{loginBean.login}" p:autofocus="true" />
+               </td>
+            </tr>
+            <tr></tr>
+            <tr>
+               <td>
+                  <h:commandButton value="Login" action="#{loginBean.doLogin}">
+                  </h:commandButton>
+                  <h:commandButton value="Reset" action="#{loginBean.reset}" />
+               </td>
+            </tr>
+         </table>
+      </h:form>
+   </f:view>
+</h:body>
+</html>

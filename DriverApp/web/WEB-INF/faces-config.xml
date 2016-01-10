@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+    http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    <navigation-rule>
+        <description>Loging Page</description>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{loginBean.doLogin}</from-action>
+            <from-outcome>choice</from-outcome>
+            <to-view-id>/choice.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{loginBean.doLogin}</from-action>
+            <from-outcome>login</from-outcome>
+            <to-view-id>/login.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <description>Choice Page</description>
+        <from-view-id>/choice.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{choiceBean.changeDriverStatus}</from-action>
+            <from-outcome>driverStatus</from-outcome>
+            <to-view-id>/driverStatus.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{choiceBean.changeCargoStatus}</from-action>
+            <from-outcome>cargoStatus</from-outcome>
+            <to-view-id>/cargoStatus.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <description>Driver Status Page</description>
+        <from-view-id>/driverStatus.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{driverStatusBean.changeStatus}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/success.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{driverStatusBean.changeStatus}</from-action>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/failure.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <description>Cargo Status Page</description>
+        <from-view-id>/cargoStatus.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{cargoStatusBean.changeStatus}</from-action>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/success.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{cargoStatusBean.changeStatus}</from-action>
+            <from-outcome>failure</from-outcome>
+            <to-view-id>/failure.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+</faces-config>

@@ -19,7 +19,7 @@ public class DriverStatusController {
     Map<String, Byte> statusMap = new HashMap<String, Byte>();
     {
         statusMap.put("vacant", (byte) 1);
-        statusMap.put("in shift", (byte) 2);
+        statusMap.put("shift", (byte) 2);
         statusMap.put("driving", (byte) 3);
     }
 
