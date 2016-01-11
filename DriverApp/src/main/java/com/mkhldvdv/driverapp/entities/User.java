@@ -27,6 +27,10 @@ public class User implements Serializable {
     private String login;
 
     @JsonIgnore
+    @Column(name = "PASSWORD")
+    private String password;
+
+    @JsonIgnore
     @Column(name = "USER_STATUS_ID")
     private byte statusId;
 
@@ -62,6 +66,14 @@ public class User implements Serializable {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public byte getStatusId() {

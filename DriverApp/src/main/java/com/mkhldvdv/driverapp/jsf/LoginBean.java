@@ -2,8 +2,10 @@ package com.mkhldvdv.driverapp.jsf;
 
 import com.mkhldvdv.driverapp.dao.UserDao;
 import com.mkhldvdv.driverapp.entities.User;
+import com.mkhldvdv.driverapp.exceptions.WrongCredentials;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
@@ -28,6 +30,8 @@ public class LoginBean {
     UserDao userDao;
 
     private String login;
+
+    private String password;
 
     private String error;
 
@@ -57,6 +61,14 @@ public class LoginBean {
         this.userId = userId;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     /**
      * find user by login name
      * @param login login name
@@ -65,14 +77,24 @@ public class LoginBean {
     public User findUser(String login) {
         LOG.info("LoginBean: findUser(" + login + ")");
         try {
-            return userDao.getUserByLogin(login);
-        } catch (NoResultException e) {
-            LOG.error("LoginBean: No such user found");
+            User user = userDao.getUserByLogin(login);
+            // to check passwords
+            // if passwords do not match
+            if ( !BCrypt.checkpw(password, user.getPassword()) ) {
+                throw new WrongCredentials("Credentials are not valid");
+            }
+            return user;
+        } catch (WrongCredentials e) {
             LOG.error("LoginBean: " + e.getMessage());
+            error = "Credentials are not valid";
+            return null;
+        } catch (NoResultException e) {
+            LOG.error("LoginBean: " + e.getMessage());
+            error = "No such user found";
             return null;
         } catch (EJBException e) {
-            LOG.error("LoginBean: No such user found");
             LOG.error("LoginBean: " + e.getMessage());
+            error = "No such user found";
             return null;
         }
     }
@@ -97,7 +119,6 @@ public class LoginBean {
         }
         else {
             LOG.error("LoginBean: No such user found");
-            error = "No such user found";
             return "login";
         }
     }

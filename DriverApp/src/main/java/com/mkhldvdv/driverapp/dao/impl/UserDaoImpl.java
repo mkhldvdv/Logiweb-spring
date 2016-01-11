@@ -20,6 +20,7 @@ public class UserDaoImpl implements UserDao {
     private static final Logger LOG = LogManager.getLogger(UserDaoImpl.class);
 
     public static final String DRIVER_ROLE = "ROLE_DRIVER";
+    public static final byte NOT_DELETED = (byte) 0;
     @PersistenceContext
     private EntityManager em;
 
@@ -34,9 +35,10 @@ public class UserDaoImpl implements UserDao {
         LOG.info("UserDao: getUserByLogin(" + login + ")");
             return em.createQuery("select u from User u where u.login = :login " +
                     "and u.role = :role " +
-                    "and u.deleted = 0", User.class)
+                    "and u.deleted = :deleted", User.class)
                     .setParameter("login", login)
                     .setParameter("role", DRIVER_ROLE)
+                    .setParameter("deleted", NOT_DELETED)
                     .getSingleResult();
     }
 }
