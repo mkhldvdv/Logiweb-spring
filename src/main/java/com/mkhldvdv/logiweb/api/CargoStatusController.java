@@ -2,6 +2,8 @@ package com.mkhldvdv.logiweb.api;
 
 import com.mkhldvdv.logiweb.entities.Cargo;
 import com.mkhldvdv.logiweb.services.AdminServices;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +17,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/cargos/status/{id}")
 public class CargoStatusController {
+
+    private static final Logger LOG = LogManager.getLogger(CargoStatusController.class);
 
     Map<String, Byte> statusMap = new HashMap<String, Byte>();
     {
@@ -30,6 +34,7 @@ public class CargoStatusController {
                     consumes = "application/json")
     public @ResponseBody Cargo setCargoStatus(@PathVariable long id,
                                                  @RequestParam(value = "status") String status) {
+        LOG.info("LogiwebController: view deleteDriver POST");
 
         Cargo cargo = adminServices.getCargoById(id);
         cargo.setCargoStatusId(statusMap.get(status));
@@ -41,6 +46,7 @@ public class CargoStatusController {
     @RequestMapping(method = RequestMethod.GET,
                     consumes = "application/json")
     public @ResponseBody Cargo getCargoStatus(@PathVariable long id) {
+        LOG.info("LogiwebController: view deleteDriver POST");
 
         Cargo cargo = adminServices.getCargoById(id);
 

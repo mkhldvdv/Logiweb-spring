@@ -26,7 +26,7 @@ public class Order implements Serializable {
     @Formula("(select r.ORDER_STATUS_NAME from ORDER_STATUSES r where r.ORDER_STATUS_ID = ORDER_STATUS_ID)")
     private String orderStatus;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private List<Waypoint> waypoints;
 
     @Nullable

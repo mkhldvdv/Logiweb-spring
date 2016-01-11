@@ -4,6 +4,7 @@ import com.mkhldvdv.logiweb.dao.impl.*;
 import com.mkhldvdv.logiweb.dto.CargoDTO;
 import com.mkhldvdv.logiweb.dto.OrderDTO;
 import com.mkhldvdv.logiweb.entities.*;
+import com.mkhldvdv.logiweb.exceptions.WrongIdException;
 import com.mkhldvdv.logiweb.services.AdminServices;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
 import java.util.*;
 
 /**
@@ -98,9 +100,13 @@ public class AdminServicesImpl implements AdminServices {
      * @return specified order
      */
     @Override
-    public OrderDTO getOrder(long orderId) {
+    public OrderDTO getOrder(long orderId) throws WrongIdException {
         LOG.info("AdminServices: getOrder(" + orderId + ")");
         Order order = orderDao.getById(orderId);
+        // if null then throw exception
+        if (order == null) {
+            throw new WrongIdException("No order found with ID: " + orderId);
+        }
         OrderDTO orderDTO = new OrderDTO();
         // transfer data to DTO object
         orderDTO.setId(order.getId());
@@ -150,9 +156,13 @@ public class AdminServicesImpl implements AdminServices {
      * @return specified cargo
      */
     @Override
-    public CargoDTO getCargo(long cargoId) {
+    public CargoDTO getCargo(long cargoId) throws WrongIdException {
         LOG.info("AdminServices: getCargo(" + cargoId + ")");
         Cargo cargo = cargoDao.getById(cargoId);
+        // if null -- exception
+        if (cargo == null) {
+            throw new WrongIdException("No cargo found with ID: " + cargoId);
+        }
         // transfer data to DTO object for the view
         CargoDTO cargoDTO = new CargoDTO();
         cargoDTO.setId(cargo.getId());
@@ -173,9 +183,35 @@ public class AdminServicesImpl implements AdminServices {
      * @return user object
      */
     @Override
-    public User getUser(long userId) {
+    public User getUser(long userId) throws WrongIdException {
         LOG.info("AdminServices: getUser(" + userId + ")");
-        return userDao.getById(userId);
+        User user = userDao.getById(userId);
+        // if null then exception
+        if (user == null) {
+            throw new WrongIdException("No user found with ID: " + userId);
+        }
+
+        return user;
+    }
+
+    /**
+     * get not deleted specified user
+     *
+     * @param userId user id
+     * @return specified not deleted user
+     * @throws WrongIdException
+     */
+    @Override
+    public User getNotDeletedUser(long userId) throws WrongIdException {
+        LOG.info("AdminServices: getNotDeletedUser(" + userId + ")");
+        try {
+            User user = userDao.getNotDeletedUserById(userId);
+            return user;
+        } catch (NoResultException e) {
+            LOG.error("AdminServices: getNotDeletedUser " + e.getMessage());
+            // if no user found
+            throw new WrongIdException("No user found with ID: " + userId);
+        }
     }
 
     /**
@@ -253,10 +289,34 @@ public class AdminServicesImpl implements AdminServices {
      * @return specified truck
      */
     @Override
-    public Truck getTruck(long truckId) {
+    public Truck getTruck(long truckId) throws WrongIdException {
         LOG.info("AdminServices: getTruck(" + truckId + ")");
         Truck truck = truckDao.getById(truckId);
+        // if null then exception
+        if (truck == null) {
+            throw new WrongIdException("No truck found with ID: " + truckId);
+        }
         return truck;
+    }
+
+    /**
+     * get not deleted specified truck
+     *
+     * @param truckId truck id
+     * @return specified not deleted truck
+     * @throws WrongIdException
+     */
+    @Override
+    public Truck getNotDeletedTruck(long truckId) throws WrongIdException {
+        LOG.info("AdminServices: getNotDeletedUser(" + truckId + ")");
+        try {
+            Truck truck = truckDao.getNotDeletedTruckById(truckId);
+            return truck;
+        } catch (NoResultException e) {
+            LOG.error("AdminServices: getNotDeletedTruck " + e.getMessage());
+            // if no truck found
+            throw new WrongIdException("No truck found with ID: " + truckId);
+        }
     }
 
     /**

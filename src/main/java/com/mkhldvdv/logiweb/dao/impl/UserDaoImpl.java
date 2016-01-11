@@ -96,6 +96,7 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
         LOG.info("UserDao: getAllAvailableDrivers(" + truck.getId() + ")");
         // order status "not completed", driver.city == truck.city
         return em.createQuery("select u from User u where u.city = :city and u.role = :driver " +
+                "and u.deleted = 0 " +
                 "order by u.id desc", User.class)
                 .setParameter("city", truck.getCity())
                 .setParameter("driver", DRIVER_ROLE)
@@ -112,6 +113,19 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
         LOG.info("UserDao: getUserByLogin(" + login + ")");
         return em.createQuery("select u from User u where u.login = :login", User.class)
                 .setParameter("login", login)
+                .getSingleResult();
+    }
+
+    /**
+     * get not deleted user by its id
+     * @param userId   specified user
+     * @return          not deleted user
+     */
+    public User getNotDeletedUserById(long userId) {
+        LOG.info("UserDao: getNotDeletedUserById(" + userId + ")");
+        return em.createQuery("select u from User u where u.deleted = 0" +
+                "and u.id = :userID", User.class)
+                .setParameter("userID", userId)
                 .getSingleResult();
     }
 }

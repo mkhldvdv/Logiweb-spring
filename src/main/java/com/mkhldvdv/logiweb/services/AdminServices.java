@@ -38,7 +38,7 @@ public interface AdminServices {
      * @param orderId   order id
      * @return  specified order
      */
-    public OrderDTO getOrder(long orderId);
+    public OrderDTO getOrder(long orderId) throws WrongIdException;
 
     /**
      * get specified cargo by its id
@@ -52,7 +52,7 @@ public interface AdminServices {
      * @param cargoId   cargo id
      * @return  specified cargo
      */
-    public CargoDTO getCargo(long cargoId);
+    public CargoDTO getCargo(long cargoId) throws WrongIdException;
 
     /**
      * update cargo object
@@ -66,7 +66,15 @@ public interface AdminServices {
      * @param userId    id of the user
      * @return          user object
      */
-    User getUser(long userId);
+    User getUser(long userId) throws WrongIdException;
+
+    /**
+     * get not deleted specified user
+     * @param userId   user id
+     * @return          specified not deleted user
+     * @throws WrongIdException
+     */
+    User getNotDeletedUser(long userId) throws WrongIdException;
 
     /**
      * adds new user/driver
@@ -107,7 +115,15 @@ public interface AdminServices {
      * @param truckId   truck id
      * @return          specified truck
      */
-    Truck getTruck(long truckId);
+    Truck getTruck(long truckId) throws WrongIdException;
+
+    /**
+     * get not deleted specified truck
+     * @param truckId   truck id
+     * @return          specified not deleted truck
+     * @throws WrongIdException
+     */
+    Truck getNotDeletedTruck(long truckId) throws WrongIdException;
 
     /**
      * updates specified truck

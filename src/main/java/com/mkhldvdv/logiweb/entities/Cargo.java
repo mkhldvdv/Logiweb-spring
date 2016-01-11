@@ -36,7 +36,7 @@ public class Cargo implements Serializable {
     private String cargoStatus;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "cargo", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "cargo", fetch = FetchType.EAGER)
     private List<Waypoint> waypoints;
 
     @JsonIgnore
