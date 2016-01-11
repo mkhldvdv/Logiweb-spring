@@ -32,7 +32,7 @@ public class LogiwebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication().dataSource(dataSource)
                 .passwordEncoder(passwordEncoder())
                 .usersByUsernameQuery(
-                        "select login, password, enabled from users where login = ?")
+                        "select login, password, (enabled - deleted) from users where login = ?")
                 .authoritiesByUsernameQuery(
                         "select u.login, r.role_name from users u, roles r where r.role_id = u.role_id and u.login = ?");
     }

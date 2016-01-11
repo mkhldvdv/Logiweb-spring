@@ -1,6 +1,7 @@
 package com.mkhldvdv.logiweb.services;
 
 import com.mkhldvdv.logiweb.entities.User;
+import com.mkhldvdv.logiweb.exceptions.WrongIdException;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -17,7 +18,7 @@ public interface UserServices {
      * @param userId        specified userId, long
      * @return              specified user
      */
-    public User getUser(long userId);
+    public User getUser(long userId) throws WrongIdException;
 
     /**
      * gets all co-drivers for the driver with his id

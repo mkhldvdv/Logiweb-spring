@@ -41,6 +41,10 @@ public class User implements Serializable {
     @Formula("(select r.ROLE_NAME from ROLES r where r.ROLE_ID = ROLE_ID)")
     private String role;
 
+    @JsonIgnore
+    @Column(name = "DELETED")
+    private byte deleted;
+
     public User() {
     }
 
@@ -90,6 +94,14 @@ public class User implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public byte getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(byte deleted) {
+        this.deleted = deleted;
     }
 
     @Override

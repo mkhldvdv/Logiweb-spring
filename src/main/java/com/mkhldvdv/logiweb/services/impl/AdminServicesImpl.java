@@ -186,8 +186,8 @@ public class AdminServicesImpl implements AdminServices {
     public User getUser(long userId) throws WrongIdException {
         LOG.info("AdminServices: getUser(" + userId + ")");
         User user = userDao.getById(userId);
-        // if null then exception
-        if (user == null) {
+        // if null or deleted then exception
+        if (user == null || user.getDeleted() == 1) {
             throw new WrongIdException("No user found with ID: " + userId);
         }
 

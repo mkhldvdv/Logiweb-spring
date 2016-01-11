@@ -177,14 +177,14 @@ public class LogiwebController {
 
             return urlString;
         } catch (DataIntegrityViolationException e) {
-        LOG.error("LogiwebController: DataIntegrityViolationException " + e.getMessage());
-        model.addAttribute("error", "Not unique login name");
-        return "error";
-    } catch (WrongIdException e) {
-        LOG.error("LogiwebController: WrongIdException " + e.getMessage());
-        model.addAttribute("error", "No user found with ID: " + user.getId());
-        return "error";
-    }
+            LOG.error("LogiwebController: DataIntegrityViolationException " + e.getMessage());
+            model.addAttribute("error", "Not unique login name");
+            return "error";
+        } catch (WrongIdException e) {
+            LOG.error("LogiwebController: WrongIdException " + e.getMessage());
+            model.addAttribute("error", "No user found with ID: " + user.getId());
+            return "error";
+        }
     }
 
     @RequestMapping(value = {"/addOrder"}, method = RequestMethod.GET)
@@ -436,10 +436,16 @@ public class LogiwebController {
 
         LOG.info("LogiwebController: view editDriver POST");
 
-        User user = userServices.getUser(driverId);
-        model.addAttribute("user", user);
+        try {
+            User user = userServices.getUser(driverId);
+            model.addAttribute("user", user);
 
-        return "addDriver";
+            return "addDriver";
+        } catch (WrongIdException e) {
+            LOG.error("LogiwebController: WrongIdException " + e.getMessage());
+            model.addAttribute("error", "No user found with ID: " + driverId);
+            return "error";
+        }
     }
 
     @RequestMapping(value = {"/editTruck"}, method = RequestMethod.GET)

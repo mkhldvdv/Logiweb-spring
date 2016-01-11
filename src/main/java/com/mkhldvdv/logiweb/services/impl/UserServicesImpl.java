@@ -5,6 +5,7 @@ import com.mkhldvdv.logiweb.dao.impl.UserDaoImpl;
 import com.mkhldvdv.logiweb.entities.Order;
 import com.mkhldvdv.logiweb.entities.User;
 import com.mkhldvdv.logiweb.entities.Waypoint;
+import com.mkhldvdv.logiweb.exceptions.WrongIdException;
 import com.mkhldvdv.logiweb.services.UserServices;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,9 +40,13 @@ public class UserServicesImpl implements UserServices {
      * @return specified user
      */
     @Override
-    public User getUser(long userId) {
+    public User getUser(long userId) throws WrongIdException {
         LOG.info("UserServices: getUser(" + userId + ")");
         User user = userDao.getById(userId);
+        // if null or deleted then exception
+        if (user == null || user.getDeleted() == 1) {
+            throw new WrongIdException("No user found with ID: " + userId);
+        }
         return user;
     }
 

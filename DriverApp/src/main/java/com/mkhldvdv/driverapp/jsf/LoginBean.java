@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -69,6 +70,10 @@ public class LoginBean {
             LOG.error("LoginBean: No such user found");
             LOG.error("LoginBean: " + e.getMessage());
             return null;
+        } catch (EJBException e) {
+            LOG.error("LoginBean: No such user found");
+            LOG.error("LoginBean: " + e.getMessage());
+            return null;
         }
     }
 
@@ -92,6 +97,7 @@ public class LoginBean {
         }
         else {
             LOG.error("LoginBean: No such user found");
+            error = "No such user found";
             return "login";
         }
     }

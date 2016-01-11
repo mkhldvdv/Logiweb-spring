@@ -32,7 +32,9 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUserByLogin(String login) throws NoResultException {
         LOG.info("UserDao: getUserByLogin(" + login + ")");
-            return em.createQuery("select u from User u where u.login = :login and u.role = :role", User.class)
+            return em.createQuery("select u from User u where u.login = :login " +
+                    "and u.role = :role " +
+                    "and u.deleted = 0", User.class)
                     .setParameter("login", login)
                     .setParameter("role", DRIVER_ROLE)
                     .getSingleResult();

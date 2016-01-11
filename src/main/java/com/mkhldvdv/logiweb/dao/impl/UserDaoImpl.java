@@ -111,7 +111,8 @@ public class UserDaoImpl extends GenericDaoImpl<User> {
      */
     public User getUserByLogin(String login) {
         LOG.info("UserDao: getUserByLogin(" + login + ")");
-        return em.createQuery("select u from User u where u.login = :login", User.class)
+        return em.createQuery("select u from User u where u.login = :login " +
+                "and u.deleted = 0", User.class)
                 .setParameter("login", login)
                 .getSingleResult();
     }
