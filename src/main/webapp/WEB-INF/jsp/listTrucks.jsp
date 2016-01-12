@@ -176,14 +176,28 @@
                                 </thead>
                                 <tbody>
                                 <c:forEach var="trucks" items="${trucksList}">
-                                    <tr class="odd gradeA">
-                                        <td>${trucks.id}</td>
-                                        <td>${trucks.regNum}</td>
-                                        <td>${trucks.driverCount}</td>
-                                        <td>${trucks.capacity}</td>
-                                        <td>${trucks.truckStatus}</td>
-                                        <td>${trucks.city}</td>
-                                    </tr>
+                                    <c:choose>
+                                        <c:when test="${trucks.deleted == 1}">
+                                            <tr class="alert alert-danger odd gradeA">
+                                                <td>${trucks.id}</td>
+                                                <td>${trucks.regNum}</td>
+                                                <td>${trucks.driverCount}</td>
+                                                <td>${trucks.capacity}</td>
+                                                <td>${trucks.truckStatus}</td>
+                                                <td>${trucks.city}</td>
+                                            </tr>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <tr class="odd gradeA">
+                                                <td>${trucks.id}</td>
+                                                <td>${trucks.regNum}</td>
+                                                <td>${trucks.driverCount}</td>
+                                                <td>${trucks.capacity}</td>
+                                                <td>${trucks.truckStatus}</td>
+                                                <td>${trucks.city}</td>
+                                            </tr>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </c:forEach>
                                 </tbody>
                             </table>

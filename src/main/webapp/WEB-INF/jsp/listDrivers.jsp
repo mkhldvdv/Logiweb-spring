@@ -178,16 +178,32 @@
                                 </thead>
                                 <tbody>
                                 <c:forEach var="drivers" items="${driversList}">
-                                    <tr class="odd gradeA">
-                                        <td>${drivers.id}</td>
-                                        <td>${drivers.firstName}</td>
-                                        <td>${drivers.lastName}</td>
-                                        <td>${drivers.login}</td>
-                                        <td>${drivers.hours}</td>
-                                        <td>${drivers.userStatus}</td>
-                                        <td>${drivers.city}</td>
-                                        <td>${drivers.truck.regNum}</td>
-                                    </tr>
+                                    <c:choose>
+                                        <c:when test="${drivers.deleted == 1}">
+                                            <tr class="alert alert-danger odd gradeA">
+                                                <td>${drivers.id}</td>
+                                                <td>${drivers.firstName}</td>
+                                                <td>${drivers.lastName}</td>
+                                                <td>${drivers.login}</td>
+                                                <td>${drivers.hours}</td>
+                                                <td>${drivers.userStatus}</td>
+                                                <td>${drivers.city}</td>
+                                                <td>${drivers.truck.regNum}</td>
+                                            </tr>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <tr class="odd gradeA">
+                                                <td>${drivers.id}</td>
+                                                <td>${drivers.firstName}</td>
+                                                <td>${drivers.lastName}</td>
+                                                <td>${drivers.login}</td>
+                                                <td>${drivers.hours}</td>
+                                                <td>${drivers.userStatus}</td>
+                                                <td>${drivers.city}</td>
+                                                <td>${drivers.truck.regNum}</td>
+                                            </tr>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </c:forEach>
                                 </tbody>
                             </table>
