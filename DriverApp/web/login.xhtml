@@ -14,7 +14,7 @@
 <h:body>
    <f:view>
       <h:outputText value="#{loginBean.error}" />
-      <h:form>
+      <h:form id="form">
          <table>
             <tr>
                <td>
@@ -34,7 +34,7 @@
             <tr></tr>
             <tr>
                <td>
-                  <h:commandButton value="Sign in" action="#{loginBean.doLogin}">
+                  <h:commandButton value="Sign in" type="submit" action="#{loginBean.doLogin}">
                   </h:commandButton>
                   <h:commandButton value="Reset" action="#{loginBean.reset}" />
                </td>

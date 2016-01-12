@@ -107,6 +107,12 @@ public class LoginBean {
 
         LOG.info("LoginBean: doLogin()");
 
+        if (login == "" || password == "") {
+            LOG.error("LoginBean: Login and/or password values cannot be null or empty");
+            error = "Login and/or password values cannot be null or empty";
+            return "login";
+        }
+
         User user = findUser(login);
 
         if (user != null) {
